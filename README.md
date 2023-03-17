@@ -1,1 +1,1 @@
-# RestaurantManager
+Initial project Restaurant-App
