@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_navigation">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/serveFragment">
+    <fragment
+        android:id="@+id/serveFragment"
+        android:name="com.midterm.restaurant_app.view.ServeFragment"
+        android:label="fragment_serve"
+        tools:layout="@layout/fragment_serve" >
+        <action
+            android:id="@+id/action_serveFragment_to_detailsOrderFragment"
+            app:destination="@id/detailsOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsOrderFragment"
+        android:name="com.midterm.restaurant_app.view.detailsOrderFragment"
+        android:label="fragment_details_order"
+        tools:layout="@layout/fragment_details_order" >
+        <action
+            android:id="@+id/action_detailsOrderFragment_to_serveFragment"
+            app:destination="@id/serveFragment" />
+    </fragment>
 </navigation>
