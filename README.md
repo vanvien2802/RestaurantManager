@@ -1,1 +1,1 @@
-Initial project Restaurant-App
+Restaurant-App : Ui-page-NVV SNAPSHOT
