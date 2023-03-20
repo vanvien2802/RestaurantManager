@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/hisOrderFragment">
 
+    <fragment
+        android:id="@+id/hisOrderFragment"
+        android:name="com.midterm.restaurant_app.view.hisOrderFragment"
+        android:label="fragment_his_order"
+        tools:layout="@layout/fragment_his_order" >
+        <action
+            android:id="@+id/action_hisOrderFragment_to_detailHisOrderFragment"
+            app:destination="@id/detailHisOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailHisOrderFragment"
+        android:name="com.midterm.restaurant_app.view.detailHisOrderFragment"
+        android:label="fragment_detail_his_order"
+        tools:layout="@layout/fragment_detail_his_order" >
+        <action
+            android:id="@+id/action_detailHisOrderFragment_to_hisOrderFragment"
+            app:destination="@id/hisOrderFragment" />
+    </fragment>
 </navigation>
