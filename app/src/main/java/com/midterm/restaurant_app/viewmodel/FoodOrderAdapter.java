@@ -5,24 +5,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.FoodItem;
 
 import java.util.List;
 
-public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.ViewHolder> {
+public class FoodOrderAdapter extends RecyclerView.Adapter<FoodOrderAdapter.ViewHolder> {
 
     private Context context;
     List<FoodItem> foodItems;
 
-    public itemsFoodAdapter(Context context) {
+    public FoodOrderAdapter(Context context) {
         this.context = context;
     }
 
@@ -34,7 +31,7 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.foods_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.details_food_item,parent,false);
 
         return new ViewHolder(view);
     }
@@ -43,7 +40,14 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FoodItem foodItem = foodItems.get(position);
         holder.tvTitle.setText(foodItem.getTitle());
-        holder.tvCost.setText((String) foodItem.getCost());
+        holder.tvCostFood.setText((String) foodItem.getCost());
+        holder.tvDescrip.setText(foodItem.getCost());
+        if(foodItem.isStatus()){
+            holder.tvStatusServe.setText("Done");
+        }
+        else{
+            holder.tvStatusServe.setText("Not done");
+        }
     }
 
     @Override
@@ -57,13 +61,17 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tvTitle;
-        private TextView tvCost;
+        private TextView tvCostFood;
+        private TextView tvStatusServe;
+        private TextView tvDescrip;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvCost = itemView.findViewById(R.id.tv_cost);
+            tvTitle = itemView.findViewById(R.id.tv_nameFood);
+            tvCostFood = itemView.findViewById(R.id.tv_costfood);
+            tvStatusServe = itemView.findViewById(R.id.tv_statusserve);
+            tvDescrip = itemView.findViewById(R.id.tv_details);
         }
     }
 

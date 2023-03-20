@@ -10,60 +10,28 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home2_to_serve"
-            app:destination="@id/serve" />
-        <action
-            android:id="@+id/action_home2_to_hisOrder"
-            app:destination="@id/hisOrder" />
-        <action
-            android:id="@+id/action_home2_to_account"
-            app:destination="@id/account" />
+            android:id="@+id/action_homenav_to_serveFragment"
+            app:destination="@id/serveFragment" />
     </fragment>
     <fragment
-        android:id="@+id/serve"
-        android:name="com.example.orderapp.view.Serve"
+        android:id="@+id/serveFragment"
+        android:name="com.midterm.restaurant_app.view.ServeFragment"
         android:label="fragment_serve"
         tools:layout="@layout/fragment_serve" >
         <action
-            android:id="@+id/action_serve_to_home2"
-            app:destination="@id/homenav" />
+            android:id="@+id/action_serveFragment_to_detailsOrderFragment"
+            app:destination="@id/detailsOrderFragment" />
         <action
-            android:id="@+id/action_serve_to_detailsOrder2"
-            app:destination="@id/detailsOrder" />
-    </fragment>
-    <fragment
-        android:id="@+id/hisOrder"
-        android:name="com.example.orderapp.view.hisOrder"
-        android:label="fragment_his_order"
-        tools:layout="@layout/fragment_his_order" >
-        <action
-            android:id="@+id/action_hisOrder_to_home2"
-            app:destination="@id/homenav" />
-        <action
-            android:id="@+id/action_hisOrder_to_hisDetailOrdered"
-            app:destination="@id/hisDetailOrdered" />
-    </fragment>
-    <fragment
-        android:id="@+id/account"
-        android:name="com.example.orderapp.view.account"
-        android:label="fragment_account"
-        tools:layout="@layout/fragment_account" >
-        <action
-            android:id="@+id/action_account_to_home2"
+            android:id="@+id/action_serveFragment_to_homenav"
             app:destination="@id/homenav" />
     </fragment>
     <fragment
-        android:id="@+id/detailsOrder"
-        android:name="com.example.orderapp.view.detailsOrder"
+        android:id="@+id/detailsOrderFragment"
+        android:name="com.midterm.restaurant_app.view.DetailsOrderFragment"
         android:label="fragment_details_order"
         tools:layout="@layout/fragment_details_order" >
         <action
-            android:id="@+id/action_detailsOrder2_to_serve"
-            app:destination="@id/serve" />
+            android:id="@+id/action_detailsOrderFragment_to_serveFragment"
+            app:destination="@id/serveFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/hisDetailOrdered"
-        android:name="com.example.orderapp.view.HisDetailOrdered"
-        android:label="fragment_his_detail_ordered"
-        tools:layout="@layout/fragment_his_detail_ordered" />
 </navigation>

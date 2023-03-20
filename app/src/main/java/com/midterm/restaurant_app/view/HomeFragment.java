@@ -20,9 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.FirstActivity;
-import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.foodItem;
+import com.midterm.restaurant_app.model.FoodItem;
 import com.midterm.restaurant_app.viewmodel.itemsFoodAdapter;
 
 import java.util.ArrayList;
@@ -81,22 +80,22 @@ public class HomeFragment extends Fragment {
         navSer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.serve, savedInstanceState);
+                Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
             }
         });
-        navHis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrder, savedInstanceState);
-            }
-        });
-        navAccount = view.findViewById(R.id.nav_account);
-        navAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.account, savedInstanceState);
-            }
-        });
+//        navHis.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Navigation.findNavController(view).navigate(R.id.hisOrder, savedInstanceState);
+//            }
+//        });
+//        navAccount = view.findViewById(R.id.nav_account);
+//        navAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Navigation.findNavController(view).navigate(R.id.account, savedInstanceState);
+//            }
+//        });
 
         drawerLayout = view.findViewById(R.id.drawerLayout);
         ivSideMenu = view.findViewById(R.id.iv_sidemenu);
@@ -119,17 +118,17 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<foodItem> getListItem(){
-        List<foodItem> list = new ArrayList<>();
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new foodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+    private List<FoodItem> getListItem(){
+        List<FoodItem> list = new ArrayList<>();
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
         return list;
     }
 }
