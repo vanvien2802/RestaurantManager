@@ -1,1 +1,1 @@
-Restaurant-App : Ui-page-NVV SNAPSHOT
+Restaurant-App : Ui-page-NVV (Intro page, Home page, side menu)
