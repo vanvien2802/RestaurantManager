@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8E3D7"
+    tools:context=".view.hisOrderFragment"
     app:defaultNavHost="true"
-    tools:context=".view.DetailsOrder">
+    >
 
     <ImageView
         android:id="@+id/imageView12"
@@ -20,54 +21,42 @@
         app:srcCompat="@drawable/iconmenus" />
 
     <TextView
-        android:id="@+id/tvNameTableServing"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_weight="0"
         android:gravity="center"
-        android:text="All Table"
+        android:text="Who Ordered"
         android:textColor="#f36155"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/my_image_view3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
         android:layout_weight="0"
-        android:gravity="center"
-        android:text="Details Order"
-        android:textColor="#f36155"
-        android:textSize="34sp"
+        android:src="@drawable/mypic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameTableServing" />
-
-<!--    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--        android:id="@+id/my_image_view3"-->
-<!--        android:layout_width="60dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:layout_marginEnd="40dp"-->
-<!--        android:layout_weight="0"-->
-<!--        android:src="@drawable/mypic"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="MissingConstraints" />-->
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_detailtable"
+        android:id="@+id/rv_allHisOrderedTable"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -121,19 +110,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingTop="5dp"
-                android:src="@drawable/ic_baseline_local_grocery_store_ser" />
+                android:src="@drawable/ic_baseline_local_grocery_store_24" />
 
             <TextView
-                android:id="@+id/textView19"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_bottom"
                 android:gravity="center"
                 android:text="Serve"
-                android:textColor="#ff3131"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -149,20 +135,22 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:paddingTop="5dp"
-                app:srcCompat="@drawable/ic_baseline_restore_24" />
+                app:srcCompat="@drawable/ic_baseline_restore_his" />
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
+                android:background="@drawable/border_bottom"
                 android:gravity="center"
                 android:text="History Order"
-                android:textColor="@color/black"
+                android:textColor="#ff3131"
                 android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_account"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

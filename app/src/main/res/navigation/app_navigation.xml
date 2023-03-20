@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homenav_to_serveFragment"
             app:destination="@id/serveFragment" />
+        <action
+            android:id="@+id/action_homenav_to_hisOrderFragment"
+            app:destination="@id/hisOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/serveFragment"
@@ -27,11 +30,33 @@
     </fragment>
     <fragment
         android:id="@+id/detailsOrderFragment"
-        android:name="com.midterm.restaurant_app.view.DetailsOrderFragment"
+        android:name="com.midterm.restaurant_app.view.DetailsOrder"
         android:label="fragment_details_order"
-        tools:layout="@layout/fragment_details_order" >
+        tools:layout="@layout/fragment_details_order">
+
         <action
             android:id="@+id/action_detailsOrderFragment_to_serveFragment"
             app:destination="@id/serveFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/hisOrderFragment"
+        android:name="com.midterm.restaurant_app.view.hisOrderFragment"
+        android:label="fragment_his_order"
+        tools:layout="@layout/fragment_his_order" >
+        <action
+            android:id="@+id/action_hisOrderFragment_to_detailHisOrderFragment"
+            app:destination="@id/detailHisOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailHisOrderFragment"
+        android:name="com.midterm.restaurant_app.view.HisDetailOrder"
+        android:label="fragment_detail_his_order"
+        tools:layout="@layout/fragment_detail_his_order" >
+        <action
+            android:id="@+id/action_detailHisOrderFragment_to_hisOrderFragment"
+            app:destination="@id/hisOrderFragment" />
     </fragment>
 </navigation>

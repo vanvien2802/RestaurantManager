@@ -10,9 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.TableItem;
@@ -36,7 +34,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.table_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_table,parent,false);
 
         return new ViewHolder(view);
     }

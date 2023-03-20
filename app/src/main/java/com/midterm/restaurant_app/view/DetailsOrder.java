@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +21,7 @@ import com.midterm.restaurant_app.viewmodel.FoodOrderAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsOrderFragment extends Fragment {
+public class DetailsOrder extends Fragment {
 
     private RecyclerView recyclerListFoods;
     private FoodOrderAdapter foodsOrAdapter;
