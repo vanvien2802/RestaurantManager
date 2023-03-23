@@ -19,21 +19,19 @@ public class FirstActivity extends AppCompatActivity {
         button_Signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(FirstActivity.this, Signin.class);
-                Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent intent = new Intent(FirstActivity.this, SignIn.class);
                 startActivity(intent);
             }
         });
-//
-//       Button button_Signup = findViewById(btn_snUp);
-//        button_Signup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(FirstActivity.this, SignUp.class);
-//                startActivity(intent);
-//            }
-//        });
+
+       Button button_Signup = findViewById(R.id.btn_snUp);
+        button_Signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FirstActivity.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

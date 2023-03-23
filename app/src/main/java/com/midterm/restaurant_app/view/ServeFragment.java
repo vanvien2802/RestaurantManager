@@ -55,28 +55,26 @@ public class ServeFragment extends Fragment {
         tablesAdap.setData(getListItem());
         recyclerAllTable.setAdapter(tablesAdap);
         navHis = view.findViewById(R.id.nav_his);
+        navHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
+            }
+        });
+        navAccount = view.findViewById(R.id.nav_account);
+        navAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+            }
+        });
         navHome = view.findViewById(R.id.nav_home);
-//        navHis.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.hisOrder, savedInstanceState);
-//            }
-//        });
-//        navHome.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.home_nav, savedInstanceState);
-//            }
-//        });
-
-
-//        navAccount = view.findViewById(R.id.nav_account);
-//        navAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.account, savedInstanceState);
-//            }
-//        });
+        navHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
+            }
+        });
     }
 
     private List<TableItem> getListItem() {

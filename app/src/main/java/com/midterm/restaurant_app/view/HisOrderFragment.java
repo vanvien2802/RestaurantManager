@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,12 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class hisOrderFragment extends Fragment {
+public class HisOrderFragment extends Fragment {
     private RecyclerView recyclerHisOrder;
     private customerOrderedAdapter cusOrderedAdapter;
     private LinearLayout navHome;
     private LinearLayout navSer;
-    private LinearLayout navAccount;
     private LinearLayout navAcc;
     private String nameTable;
 
@@ -49,15 +49,28 @@ public class hisOrderFragment extends Fragment {
         recyclerHisOrder.setLayoutManager(linearLayoutManager);
         cusOrderedAdapter.setData(getListItem());
         recyclerHisOrder.setAdapter(cusOrderedAdapter);
-        navHome = view.findViewById(R.id.nav_home);
+
         navSer = view.findViewById(R.id.nav_serve);
-        navAccount = view.findViewById(R.id.nav_account);
-//        navHome.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(view).navigate(R.id.home_nav, savedInstanceState);
-//            }
-//        });
+        navSer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
+            }
+        });
+        navAcc = view.findViewById(R.id.nav_account);
+        navAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+            }
+        });
+        navHome = view.findViewById(R.id.nav_home);
+        navHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
+            }
+        });
     }
 
     private List<CustomerItem> getListItem(){

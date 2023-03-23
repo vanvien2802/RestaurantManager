@@ -89,13 +89,13 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
             }
         });
-//        navAccount = view.findViewById(R.id.nav_account);
-//        navAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.account, savedInstanceState);
-//            }
-//        });
+        navAccount = view.findViewById(R.id.nav_account);
+        navAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+            }
+        });
 
         drawerLayout = view.findViewById(R.id.drawerLayout);
         ivSideMenu = view.findViewById(R.id.iv_sidemenu);
