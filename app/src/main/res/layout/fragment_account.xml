@@ -57,12 +57,12 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="50dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/Bevan_Regular"
                 android:text="My Profile"
                 android:textColor="#000"
-                android:textSize="40sp" />
+                android:textSize="35sp"/>
 
 
         </LinearLayout>
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:text="ID"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:text="Name"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:text="Date of birth"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:text="Phone number"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -312,7 +312,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:text="Email"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -369,7 +369,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:text="ID card number"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -449,7 +449,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:gravity="center"
                 android:text="Home"
                 android:textColor="@color/black"
@@ -477,7 +477,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:gravity="center"
                 android:text="Serve"
                 android:textColor="@color/black"
@@ -505,7 +505,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:gravity="center"
                 android:text="History Order"
                 android:textColor="@color/black"
@@ -533,7 +533,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_bottom"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="@font/AbrilFatface_Regular"
                 android:gravity="center"
                 android:text="Account"
                 android:textColor="@color/black"
@@ -556,7 +556,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/AbrilFatface_Regular"
             android:text="SAVE"
             android:textColor="@color/black"
             android:textSize="17sp"

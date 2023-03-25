@@ -11,16 +11,14 @@
     android:gravity="center">
 
     <TextView
-        android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:id="@+id/textView_Title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/Bevan_Regular"
         android:text="Create new  Account"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="33sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.479"
@@ -42,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/AbrilFatface_Regular"
             android:text="Please enter your name"
             android:textColor="#645a59"
             android:textSize="15sp"
@@ -70,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/AbrilFatface_Regular"
             android:text="Please enter your phone number"
             android:textColor="#645a59"
             android:textSize="15sp"
@@ -98,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/AbrilFatface_Regular"
             android:text="Please enter your email"
             android:textColor="#645a59"
             android:textSize="15sp"
@@ -126,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/AbrilFatface_Regular"
             android:text="Please enter your ID card number"
             android:textColor="#645a59"
             android:textSize="15sp"
@@ -154,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/AbrilFatface_Regular"
             android:text="Please enter your date of birth"
             android:textColor="#645a59"
             android:textSize="15sp"
@@ -184,7 +182,7 @@
         android:layout_height="wrap_content"
         android:padding="40px"
         android:backgroundTint="#f36155"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/AbrilFatface_Regular"
         android:text="SEND"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -214,6 +212,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="Sign in"
+        android:textStyle="italic"
         android:textColor="#f36155"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -221,57 +220,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_send" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="24dp"
-        android:layout_height="12dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Title2"
-        app:srcCompat="@drawable/baseline_star_24" />
 
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="24dp"
-        android:layout_height="12dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/edittext4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.661"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_star_24" />
-
-    <ImageView
-        android:id="@+id/imageView21"
-        android:layout_width="24dp"
-        android:layout_height="12dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/edittext5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_star_24" />
-
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="24dp"
-        android:layout_height="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.705"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext5"
-        app:srcCompat="@drawable/baseline_star_24" />
-
-    <ImageView
-        android:id="@+id/imageView16"
-        android:layout_width="24dp"
-        android:layout_height="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext"
-        app:srcCompat="@drawable/baseline_star_24" />
 
 </LinearLayout>
