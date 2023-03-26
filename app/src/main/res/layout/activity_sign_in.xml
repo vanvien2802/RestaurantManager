@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pic_login"
-    tools:context=".SignIn">
+    tools:context=".view.SignIn">
 
     <TextView
         android:id="@+id/tv_Title"
@@ -13,10 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
-        android:fontFamily="@font/Bevan_Regular"
+        android:fontFamily="@font/Alkatra_VariableFont"
+        android:textStyle="bold"
         android:text="Sign in to your account"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.436"
@@ -42,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
-            android:fontFamily="sans-serif-black"
-            android:text="User"
+            android:fontFamily="@font/Alkatra_VariableFont"
+            android:text="User:"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -103,8 +104,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Password"
+            android:fontFamily="@font/Alkatra_VariableFont"
+            android:text="Password:"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -174,7 +175,8 @@
         android:layout_width="280dp"
         android:layout_height="60dp"
         android:backgroundTint="#f36155"
-        android:fontFamily="@font/AbrilFatface_Regular"
+        android:fontFamily="@font/Alkatra_VariableFont"
+        android:textStyle="bold"
         android:text="Sign In"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
