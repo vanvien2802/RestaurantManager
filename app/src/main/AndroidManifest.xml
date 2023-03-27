@@ -13,10 +13,16 @@
         android:theme="@style/Theme.Restaurantapp"
         tools:targetApi="31">
         <activity
-            android:name=".ChatMain"
+            android:name=".view.Chat"
             android:exported="false" />
         <activity
-            android:name=".Chat"
+            android:name=".view.ChatMain"
+            android:exported="false" />
+        <activity
+            android:name=".view.SignIn"
+            android:exported="false" />
+        <activity
+            android:name=".view.SignUp"
             android:exported="false" />
 
         <meta-data

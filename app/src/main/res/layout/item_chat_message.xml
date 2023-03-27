@@ -2,11 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:orientation="horizontal">
     <ImageView
-        android:id="@+id/chat_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/user_avatar_inchat"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/baseline_person_24"
         >
 
     </ImageView>
@@ -18,6 +22,7 @@
         android:background="@xml/chat_bubble"
         android:padding="8dp"
         android:text="Heelo"
-        android:textColor="@color/black"/>\
+        android:textColor="@color/black"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

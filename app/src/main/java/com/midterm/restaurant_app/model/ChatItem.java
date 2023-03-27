@@ -7,6 +7,12 @@ public class ChatItem {
     private String userName;
     private String latestMessage;
 
+    public ChatItem(Drawable avatar, String userName, String latestMessage) {
+        this.avatar = avatar;
+        this.userName = userName;
+        this.latestMessage = latestMessage;
+    }
+
     public Drawable getAvatar() {
         return avatar;
     }

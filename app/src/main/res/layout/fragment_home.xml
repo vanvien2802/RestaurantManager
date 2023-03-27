@@ -21,7 +21,7 @@
             <EditText
                 android:id="@+id/search_edit_text"
                 android:layout_width="350dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_margin="8dp"
                 android:background="@drawable/search_edit_text_background"
                 android:drawableLeft="@drawable/ic_baseline_search_24"
@@ -111,7 +111,8 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:background="#F8E3D7"
-                    app:srcCompat="@drawable/ic_baseline_navigate_next_24" />
+                    app:srcCompat="@drawable/ic_baseline_navigate_next_24"
+                    android:contentDescription="imagebutton5"/>
 
             </LinearLayout>
 
@@ -365,6 +366,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linear_chat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
