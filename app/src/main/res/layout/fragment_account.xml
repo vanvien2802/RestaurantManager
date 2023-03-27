@@ -10,9 +10,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout7"
-        android:layout_width="414dp"
-        android:layout_height="580dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
         android:background="#F8E3D7"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,8 +22,8 @@
 
 
         <LinearLayout
-            android:layout_width="417dp"
-            android:layout_height="149dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,12 +58,12 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="50dp"
                 android:fontFamily="sans-serif-black"
                 android:text="My Profile"
                 android:textColor="#000"
-                android:textSize="40sp" />
+                android:textSize="40sp"/>
 
 
         </LinearLayout>
@@ -84,7 +85,7 @@
                 android:textSize="15sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="98dp"
                 android:layout_marginTop="5dp"
@@ -96,7 +97,7 @@
 
                 <EditText
                     android:id="@+id/edit_ID"
-                    android:layout_width="217dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:background="@drawable/edittext_border_pink"
                     android:enabled="false"
@@ -107,10 +108,11 @@
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.313"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:ignore="MissingConstraints" />
 
                 <ImageView
                     android:id="@+id/imageView_Lock1"
@@ -140,10 +142,15 @@
                 android:fontFamily="sans-serif-black"
                 android:text="Name"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="73dp"
                 android:layout_marginTop="5dp"
@@ -155,7 +162,7 @@
 
                 <EditText
                     android:id="@+id/edit_Name"
-                    android:layout_width="217dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:background="@drawable/edittext_border_pink"
                     android:enabled="false"
@@ -167,10 +174,11 @@
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.183"
+                    app:layout_constraintHorizontal_bias="0.313"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.538" />
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="MissingConstraints" />
 
                 <ImageView
                     android:id="@+id/pen_editName"
@@ -202,7 +210,7 @@
                 android:textSize="15sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="5dp"
@@ -214,7 +222,7 @@
 
                 <EditText
                     android:id="@+id/edit_DateBirth"
-                    android:layout_width="217dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:background="#f5c3c0"
                     android:enabled="false"
@@ -260,7 +268,7 @@
                 android:textSize="15sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="5dp"
@@ -272,7 +280,7 @@
 
                 <EditText
                     android:id="@+id/edit_phone"
-                    android:layout_width="217dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:background="#f5c3c0"
                     android:enabled="false"
@@ -318,7 +326,7 @@
                 android:textSize="15sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="75dp"
                 android:layout_marginTop="5dp"
@@ -330,7 +338,7 @@
 
                 <EditText
                     android:id="@+id/edit_Mail"
-                    android:layout_width="217dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:background="#f5c3c0"
                     android:enabled="false"
@@ -375,7 +383,7 @@
                 android:textSize="15sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="280dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
@@ -387,7 +395,7 @@
 
                 <EditText
                     android:id="@+id/edit_IDCard"
-                    android:layout_width="217dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:background="#f5c3c0"
                     android:enabled="false"
@@ -449,7 +457,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="Home"
                 android:textColor="@color/black"
@@ -477,7 +485,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="Serve"
                 android:textColor="@color/black"
@@ -505,7 +513,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="History Order"
                 android:textColor="@color/black"
@@ -533,7 +541,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_bottom"
                 android:layout_weight="1"
-                android:fontFamily="@font/abril_fatface"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="Account"
                 android:textColor="@color/black"

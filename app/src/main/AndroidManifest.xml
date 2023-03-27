@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Restaurantapp"
         tools:targetApi="31">
         <activity
-            android:name=".SignUp"
+            android:name=".view.Chat"
             android:exported="false" />
         <activity
-            android:name=".SignIn"
+            android:name=".view.ChatMain"
             android:exported="false" />
         <activity
             android:name=".Confirm_reset_pass"
@@ -27,7 +27,17 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:name=".view.SignIn"
+            android:exported="false" />
+        <activity
+            android:name=".view.SignUp"
+            android:exported="false" />
 
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/chat_bubble" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -49,6 +59,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

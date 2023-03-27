@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     private LinearLayout navAcc;
     private LinearLayout navHome;
     private LinearLayout navAccount;
+    private LinearLayout navChat;
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
@@ -94,6 +95,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+            }
+        });
+        navChat = view.findViewById(R.id.linear_chat);
+        navChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChatMain.class);
+                startActivity(intent);
             }
         });
 

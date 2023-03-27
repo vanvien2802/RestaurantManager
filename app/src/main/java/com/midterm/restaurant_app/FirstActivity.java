@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.midterm.restaurant_app.view.SignIn;
+import com.midterm.restaurant_app.view.SignUp;
+
 public class FirstActivity extends AppCompatActivity {
 
     @Override

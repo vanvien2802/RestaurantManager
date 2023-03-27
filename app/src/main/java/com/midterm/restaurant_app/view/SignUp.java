@@ -1,4 +1,4 @@
-package com.midterm.restaurant_app;
+package com.midterm.restaurant_app.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.midterm.restaurant_app.R;
 
 public class SignUp extends AppCompatActivity {
 

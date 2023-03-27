@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.midterm.restaurant_app.view.SignIn;
+
 public class Reset_pass extends AppCompatActivity {
 
     @Override
