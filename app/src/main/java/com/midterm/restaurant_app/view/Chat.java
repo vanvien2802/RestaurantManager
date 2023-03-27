@@ -40,7 +40,7 @@ public class Chat extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         messageEditText = findViewById(R.id.chat_message_edit_text);
-        sendButton = findViewById(R.id.chat_send_button);
+        sendButton = findViewById(R.id.btn_send_messenger);
         LinearLayout chatHeader = findViewById(R.id.chat_header);
 
         ImageView chatAvatar = findViewById(R.id.chat_avatar);

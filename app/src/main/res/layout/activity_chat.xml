@@ -11,41 +11,44 @@
         android:id="@+id/chat_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginLeft="20dp">
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnBack"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnBackDetailMessenger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="-25dp"
-            android:text="Back"
-            android:backgroundTint="#FF6666"
-            android:gravity="center"/>
+            android:backgroundTint="#FFFFFF"
+            android:clickable="true"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:maxImageSize="30dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
         <TextView
             android:id="@+id/chat_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="60dp"
             android:layout_weight="1"
             android:text="John Doe"
             android:textColor="#000"
             android:textSize="20sp"
-            android:layout_marginRight="60dp"/>
+            android:layout_gravity="center"
+            android:gravity="center"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/btnSettingDetailChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:clickable="true"
-            app:maxImageSize="40dp"
             android:gravity="end"
             app:borderWidth="0dp"
             app:elevation="0dp"
+            app:maxImageSize="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="end"
             app:srcCompat="@drawable/baseline_settings_24" />
 
 
@@ -72,12 +75,17 @@
             android:layout_marginBottom="20dp"
             android:textColorHint="#808080"/>
 
-        <Button
-            android:id="@+id/chat_send_button"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_send_messenger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send"
-            android:backgroundTint="#FF6666"/>
+            android:backgroundTint="#FFFFFF"
+            android:clickable="true"
+            app:maxImageSize="30dp"
+            android:gravity="end"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/baseline_send_24"/>
 
     </LinearLayout>
 

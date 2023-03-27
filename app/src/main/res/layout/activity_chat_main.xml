@@ -18,19 +18,39 @@
         android:id="@+id/message_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF6666"
+        android:background="#EEEEEE"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingTop="15dp">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MESSENGER"
-            android:textColor="@color/white"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:orientation="horizontal">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnBackMessager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#EEEEEE"
+                android:clickable="true"
+                app:maxImageSize="30dp"
+                android:gravity="end"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Messenges"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="30dp"/>
+
+
+        </LinearLayout>
+
 
         <!-- Add other header elements here -->
         <LinearLayout
@@ -49,7 +69,8 @@
                 android:minHeight="48dp"
                 android:minWidth="48dp"
                 android:background="@android:color/transparent"
-                android:elevation="0dp"/>
+                android:elevation="0dp"
+                android:textAllCaps="false"/>
 
 
             <Button
@@ -58,11 +79,12 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Read"
-                android:textColor="@android:color/black"
+                android:textColor="#666666"
                 android:minHeight="48dp"
                 android:minWidth="48dp"
                 android:background="@android:color/transparent"
-                android:elevation="0dp" />
+                android:elevation="0dp"
+                android:textAllCaps="false"/>
 
             <Button
                 android:id="@+id/unread_button"
@@ -70,11 +92,12 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Unread"
-                android:textColor="@android:color/black"
+                android:textColor="#666666"
                 android:minHeight="48dp"
                 android:minWidth="48dp"
                 android:background="@android:color/transparent"
-                android:elevation="0dp" />
+                android:elevation="0dp"
+                android:textAllCaps="false"/>
 
         </LinearLayout>
 
