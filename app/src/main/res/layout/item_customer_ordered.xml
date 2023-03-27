@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/bevan"
             android:gravity="center|center_horizontal"
             android:text="Name"
             android:textColor="@color/black" />
@@ -42,7 +43,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Selina Nguyen"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,6 +59,7 @@
             android:id="@+id/tv_numserved"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:fontFamily="@font/bevan"
             android:gravity="center"
             android:text="Paid"
             android:textColor="@color/black" />
@@ -79,7 +82,8 @@
                 android:layout_weight="0"
                 android:gravity="center"
                 android:text="12,94"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -97,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/bevan"
             android:gravity="center"
             android:text="Time"
             android:textColor="@color/black" />
@@ -116,7 +121,8 @@
                 android:layout_weight="0"
                 android:gravity="center"
                 android:text="00/00/0000"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

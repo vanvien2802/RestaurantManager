@@ -33,6 +33,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/abril_fatface"
             android:text="Name food"
+            android:fontFamily="@font/bevan"
             android:textColor="@color/black" />
 
         <TextView
@@ -74,6 +75,7 @@
                 android:fontFamily="@font/saira_medium"
                 android:gravity="center"
                 android:text="12,94"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -85,6 +87,7 @@
             android:fontFamily="@font/abril_fatface"
             android:gravity="center"
             android:text="Done"
+            android:textStyle="bold"
             android:textColor="@color/black" />
 
     </LinearLayout>
