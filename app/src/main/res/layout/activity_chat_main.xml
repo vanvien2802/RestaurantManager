@@ -21,12 +21,12 @@
         android:background="#FF6666"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingTop="15dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Messenger"
+            android:text="MESSENGER"
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold"
@@ -36,20 +36,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <Button
                 android:id="@+id/all_message_button"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="All message"
                 android:textColor="@android:color/black"
-                android:background=""
                 android:minHeight="48dp"
-                android:minWidth="0dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp" />
+                android:minWidth="48dp"
+                android:background="@android:color/transparent"
+                android:elevation="0dp"/>
+
 
             <Button
                 android:id="@+id/read_button"
@@ -58,11 +59,10 @@
                 android:layout_height="wrap_content"
                 android:text="Read"
                 android:textColor="@android:color/black"
-                android:background=""
                 android:minHeight="48dp"
-                android:minWidth="0dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp" />
+                android:minWidth="48dp"
+                android:background="@android:color/transparent"
+                android:elevation="0dp" />
 
             <Button
                 android:id="@+id/unread_button"
@@ -71,17 +71,17 @@
                 android:layout_height="wrap_content"
                 android:text="Unread"
                 android:textColor="@android:color/black"
-                android:background=""
                 android:minHeight="48dp"
-                android:minWidth="0dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp" />
+                android:minWidth="48dp"
+                android:background="@android:color/transparent"
+                android:elevation="0dp" />
 
         </LinearLayout>
 
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:background="#FFFFFF"
         android:id="@+id/chat_menu_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

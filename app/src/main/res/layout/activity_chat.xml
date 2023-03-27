@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/chat_layout">
+    android:id="@+id/chat_layout"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/chat_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginLeft="20dp">
 
         <Button
             android:id="@+id/btnBack"
@@ -54,7 +55,8 @@
         android:id="@+id/chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +69,8 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:hint="Type your message"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:textColorHint="#808080"/>
 
         <Button
             android:id="@+id/chat_send_button"
