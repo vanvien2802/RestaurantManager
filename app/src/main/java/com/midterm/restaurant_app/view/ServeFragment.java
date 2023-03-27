@@ -77,7 +77,7 @@ public class ServeFragment extends Fragment {
         });
     }
 
-    private List<TableItem> getListItem() {
+    public List<TableItem> getListItem() {
         List<TableItem> list = new ArrayList<>();
         list.add(new TableItem("Table 1", true, 4, 5, "145,95"));
         list.add(new TableItem("Table 2", false, 2, 5, "145,95"));

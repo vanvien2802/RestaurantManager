@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/abril_fatface"
             android:text="Name food"
             android:textColor="@color/black" />
 
@@ -39,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/saira_medium"
             android:text="descript"
             android:textColor="#AAA1A1" />
     </LinearLayout>
@@ -69,18 +71,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
+                android:fontFamily="@font/saira_medium"
                 android:gravity="center"
                 android:text="12,94"
                 android:textColor="@color/black" />
+
         </LinearLayout>
         <TextView
             android:id="@+id/tv_statusserve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/abril_fatface"
             android:gravity="center"
             android:text="Done"
             android:textColor="@color/black" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/im_remove"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="-10dp"
+        android:layout_weight="1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        app:srcCompat="@drawable/delicon" />
+
 </LinearLayout>

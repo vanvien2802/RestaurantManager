@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,8 +28,7 @@ public class DetailsOrder extends Fragment {
     private FoodOrderAdapter foodsOrAdapter;
     private LinearLayout navHome;
     private LinearLayout navHis;
-    private LinearLayout navAcc;
-    private LinearLayout navSer;
+    private LinearLayout navAccount;
     private String nameTable;
 
     @Override
@@ -63,36 +63,27 @@ public class DetailsOrder extends Fragment {
         TextView tvNameTable = view.findViewById(R.id.tvNameTableServing);
         tvNameTable.setText(nameTable);
 
-        navHome = view.findViewById(R.id.nav_home);
         navHis = view.findViewById(R.id.nav_his);
-        navSer = view.findViewById(R.id.nav_serve);
-//        navAcc = view.findViewById(R.id.nav_account);
-
-//        navHome.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.home_nav, savedInstanceState);
-//            }
-//        });
-//        navHis.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.hisOrder, savedInstanceState);
-//            }
-//        });
-//        navSer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.serve, savedInstanceState);
-//            }
-//        });
-//        navAcc.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.nav_account, savedInstanceState);
-//            }
-//        });
-
+        navHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
+            }
+        });
+        navAccount = view.findViewById(R.id.nav_account);
+        navAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+            }
+        });
+        navHome = view.findViewById(R.id.nav_home);
+        navHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
+            }
+        });
     }
 
     private List<FoodItem> getListItem(){

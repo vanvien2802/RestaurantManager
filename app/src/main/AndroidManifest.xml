@@ -19,13 +19,23 @@
             android:name=".SignIn"
             android:exported="false" />
         <activity
+            android:name=".Confirm_reset_pass"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".Reset_pass"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
+        </activity
+            >
         <activity
             android:name=".FirstActivity"
             android:exported="true">
