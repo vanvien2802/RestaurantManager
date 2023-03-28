@@ -87,6 +87,7 @@
                 android:src="@drawable/ic_baseline_home_ser" />
 
             <TextView
+                android:fontFamily="@font/abril_fatface"
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,6 +120,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Serve"
+                android:fontFamily="@font/abril_fatface"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -145,6 +147,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/border_bottom"
                 android:gravity="center"
+                android:fontFamily="@font/abril_fatface"
                 android:text="History Order"
                 android:textColor="#ff3131"
                 android:textSize="14sp" />
@@ -172,6 +175,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Account"
+                android:fontFamily="@font/abril_fatface"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>

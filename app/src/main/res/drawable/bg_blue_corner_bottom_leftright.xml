@@ -6,5 +6,5 @@
     <solid android:color="@color/white" />
 
     <!-- Border color and width -->
-    <corners android:topLeftRadius="40dp" android:topRightRadius="40dp"></corners>
+    <corners android:bottomLeftRadius="40dp" android:bottomRightRadius="40dp"></corners>
 </shape>

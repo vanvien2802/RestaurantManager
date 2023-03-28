@@ -124,6 +124,7 @@
                 android:gravity="center"
                 android:text="Home"
                 android:textColor="@color/black"
+                android:fontFamily="@font/abril_fatface"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -150,6 +151,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Serve"
+                android:fontFamily="@font/abril_fatface"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -178,6 +180,7 @@
                 android:gravity="center"
                 android:text="History Order"
                 android:textColor="#ff3131"
+                android:fontFamily="@font/abril_fatface"
                 android:background="@drawable/border_bottom"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -204,6 +207,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Account"
+                android:fontFamily="@font/abril_fatface"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>

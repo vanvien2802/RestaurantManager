@@ -102,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:fontFamily="@font/abril_fatface"
                 android:text="Home"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -130,6 +131,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/border_bottom"
                 android:gravity="center"
+                android:fontFamily="@font/abril_fatface"
                 android:text="Serve"
                 android:textColor="#ff3131"
                 android:textSize="14sp" />
@@ -146,7 +148,7 @@
             <ImageView
                 android:id="@+id/imageView19"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="33dp"
                 android:layout_weight="1"
                 android:paddingTop="5dp"
                 app:srcCompat="@drawable/ic_baseline_restore_24" />
@@ -158,6 +160,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="History Order"
+                android:fontFamily="@font/abril_fatface"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -184,6 +187,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Account"
+                android:fontFamily="@font/abril_fatface"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>

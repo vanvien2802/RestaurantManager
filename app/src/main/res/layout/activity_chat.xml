@@ -1,57 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chat_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/chat_layout"
-    android:background="@color/white">
+    android:background="@color/blue"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/chat_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnBackDetailMessenger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/bg_app"
             android:clickable="true"
+            android:contentDescription="back_button"
             app:borderWidth="0dp"
             app:elevation="0dp"
             app:maxImageSize="30dp"
-            android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/baseline_arrow_back_ios_24"
-            android:contentDescription="back_button"/>
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
         <TextView
             android:id="@+id/chat_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="John Doe"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:gravity="center"/>
+            android:textSize="20sp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnSettingDetailChat"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:clickable="true"
-            android:gravity="end"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            app:maxImageSize="40dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="end"
-            app:srcCompat="@drawable/baseline_settings_24"
-            android:contentDescription="setting_button"/>
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@android:color/system_accent1_400"
+            android:text="Book"
+            android:textColor="@color/material_dynamic_neutral10"></Button>
 
 
     </LinearLayout>
@@ -60,35 +54,39 @@
         android:id="@+id/chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         android:layout_weight="1"
-        android:layout_marginLeft="15dp"/>
+        android:background="@drawable/bg_blue_corner_bottom_leftright" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <EditText
             android:id="@+id/chat_message_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_blue_corner_16_tp_left_top_right"
             android:hint="Type your message"
-            android:layout_marginBottom="20dp"
-            android:textColorHint="#808080"/>
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_send_messenger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#7493AE"
             android:clickable="true"
-            app:maxImageSize="30dp"
+            android:contentDescription="send_button"
             android:gravity="end"
             app:borderWidth="0dp"
             app:elevation="0dp"
-            app:srcCompat="@drawable/baseline_send_24"
-            android:contentDescription="send_button"/>
+            app:maxImageSize="30dp"
+            app:srcCompat="@drawable/baseline_send_24" />
 
     </LinearLayout>
 
