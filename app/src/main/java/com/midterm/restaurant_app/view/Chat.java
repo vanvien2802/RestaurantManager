@@ -28,6 +28,7 @@ public class Chat extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatAdapter adapter;
     private EditText messageEditText;
+    private Button btnBook;
     private FloatingActionButton sendButton;
     private FloatingActionButton backButton;
 
@@ -54,6 +55,7 @@ public class Chat extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnBook = findViewById(R.id.btnBookOnMessage);
 
 //        messageEditText = findViewById(R.id.chat_message_edit_text);
 //        sendButton = findViewById(R.id.btn_send_messenger);
