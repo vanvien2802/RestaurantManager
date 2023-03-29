@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/abril_fatface"
             android:text="Name table"
             android:textColor="@color/black" />
 
@@ -42,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/saira_medium"
             android:text="Serving..."
             android:textColor="#AAA1A1" />
     </LinearLayout>
@@ -58,6 +60,7 @@
             android:id="@+id/tv_numserved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/abril_fatface"
             android:text="3"
             android:textColor="@color/black" />
 
@@ -65,6 +68,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/abril_fatface"
             android:layout_weight="0"
             android:text="/"
             android:textColor="@color/black" />
@@ -75,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:text="5"
+            android:fontFamily="@font/abril_fatface"
             android:textColor="@color/black" />
 
     </LinearLayout>
@@ -92,6 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/abril_fatface"
             android:gravity="center"
             android:text="Total"
             android:textColor="@color/black" />
@@ -115,6 +121,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:gravity="center"
+                android:fontFamily="@font/saira_medium"
                 android:text="12,94"
                 android:textColor="@color/black" />
         </LinearLayout>

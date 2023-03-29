@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/abril_fatface"
             android:text="Name food"
             android:textColor="@color/black" />
 
@@ -38,6 +39,7 @@
             android:id="@+id/tv_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/saira_medium"
             android:layout_weight="1"
             android:text="descript"
             android:textColor="#AAA1A1" />
@@ -70,6 +72,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:gravity="center"
+                android:fontFamily="@font/saira_medium"
                 android:text="12,94"
                 android:textColor="@color/black" />
         </LinearLayout>
@@ -79,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/abril_fatface"
             android:text="Done"
             android:textColor="@color/black" />
 
