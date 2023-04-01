@@ -2,6 +2,7 @@ package com.midterm.restaurant_app.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.Reset_pass;
@@ -26,6 +25,8 @@ public class SignIn extends AppCompatActivity {
     private EditText edtUser;
     private EditText edtPass;
 
+    private static final int RC_SIGN_IN = 9001;
+    private ConstraintLayout btn_google_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,8 @@ public class SignIn extends AppCompatActivity {
 
         edtUser = findViewById(R.id.edt_user);
         edtPass = findViewById(R.id.edt_pass);
+
+        btn_google_login = findViewById(R.id.btn_google_login);
 
         Button button_Signin = findViewById(R.id.btn_snin);
         button_Signin.setOnClickListener(new View.OnClickListener() {

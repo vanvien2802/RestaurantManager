@@ -1,7 +1,6 @@
-package com.midterm.restaurant_app.viewmodel;
+package com.midterm.restaurant_app.viewmodel.adapter;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.ChatItem;
 import com.midterm.restaurant_app.view.Chat;
-import com.midterm.restaurant_app.view.ChatMain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatMainAdapter extends RecyclerView.Adapter<ChatMainAdapter.ChatViewHolder> {
     private ArrayList<ChatItem> chatItemsList;

@@ -1,4 +1,4 @@
-package com.midterm.restaurant_app.viewmodel;
+package com.midterm.restaurant_app.viewmodel.adapter;
 
 
 import android.content.Context;
@@ -43,22 +43,22 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TableItem tables = tableItems.get(position);
 
-        holder.tvNameTable.setText(tables.getNameTable().toString());
+        holder.tvNameTable.setText(tables.getName());
         if(tables.isStatus()){
             holder.tvStatus.setText("Served");
         }
         else{
             holder.tvStatus.setText("Serving");
         }
-        holder.tvNumServed.setText(Integer.toString(tables.getNumServed()));
-        holder.tvTotalServe.setText(Integer.toString(tables.getTotalServe()));
-        holder.tvCostFoods.setText(tables.getTotalCostFood().toString());
+//        holder.tvNumServed.setText(Integer.toString(tables.getNumServed()));
+//        holder.tvTotalServe.setText(Integer.toString(tables.getTotalServe()));
+//        holder.tvCostFoods.setText(tables.getTotalCostFood().toString());
 
         holder.llTableItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("nameTable", tables.getNameTable().toString());
+                bundle.putString("nameTable", tables.getName());
                 Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
             }
         });

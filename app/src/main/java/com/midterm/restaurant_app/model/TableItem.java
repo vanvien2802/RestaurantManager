@@ -1,27 +1,26 @@
 package com.midterm.restaurant_app.model;
 
 public class TableItem {
-    private String nameTable;
+    private String name;
     private boolean status;
-    private int numServed;
-    private int totalServe;
+    private int capacity;
+    private int floor;
 
-    public String getTotalCostFood() {
-        return totalCostFood;
+    public TableItem(){}
+
+    public TableItem(String name, boolean status, int capacity, int floor) {
+        this.name = name;
+        this.status = status;
+        this.capacity = capacity;
+        this.floor = floor;
     }
 
-    public void setTotalCostFood(String totalCostFood) {
-        this.totalCostFood = totalCostFood;
+    public String getName() {
+        return name;
     }
 
-    private String totalCostFood;
-
-    public String getNameTable() {
-        return nameTable;
-    }
-
-    public void setNameTable(String nameTable) {
-        this.nameTable = nameTable;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isStatus() {
@@ -32,30 +31,19 @@ public class TableItem {
         this.status = status;
     }
 
-    public int getNumServed() {
-        return numServed;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setNumServed(int numServed) {
-        this.numServed = numServed;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
-    public int getTotalServe() {
-        return totalServe;
+    public int getFloor() {
+        return floor;
     }
 
-    public void setTotalServe(int totalServe) {
-        this.totalServe = totalServe;
-    }
-
-    public TableItem() {
-    }
-
-    public TableItem(String nameTable, boolean status, int numServed, int totalServe, String total) {
-        this.nameTable = nameTable;
-        this.status = status;
-        this.numServed = numServed;
-        this.totalServe = totalServe;
-        this.totalCostFood = total;
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 }

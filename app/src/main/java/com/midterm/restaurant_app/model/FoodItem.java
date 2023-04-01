@@ -2,28 +2,39 @@ package com.midterm.restaurant_app.model;
 
 public class FoodItem {
 
-    private String title;
-    private String cost;
+    private String name;
+    private String price;
     private String details;
     private boolean status;
+    private String category;
+    private float rate;
 
     public FoodItem() {
     }
 
-    public String getTitle() {
-        return title;
+    public FoodItem(String name, String price, String details, boolean status, String category, float rate) {
+        this.name = name;
+        this.price = price;
+        this.details = details;
+        this.status = status;
+        this.category = category;
+        this.rate = rate;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getName() {
+        return name;
     }
 
-    public String getCost() {
-        return cost;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCost(String cost) {
-        this.cost = cost;
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getDetails() {
@@ -42,10 +53,19 @@ public class FoodItem {
         this.status = status;
     }
 
-    public FoodItem(String title, String cost, String details, boolean status) {
-        this.title = title;
-        this.cost = cost;
-        this.details = details;
-        this.status = status;
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
     }
 }
