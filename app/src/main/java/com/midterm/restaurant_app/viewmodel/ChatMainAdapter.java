@@ -1,7 +1,6 @@
 package com.midterm.restaurant_app.viewmodel;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.ChatItem;
+import com.midterm.restaurant_app.model.Conversation;
 import com.midterm.restaurant_app.view.Chat;
-import com.midterm.restaurant_app.view.ChatMain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatMainAdapter extends RecyclerView.Adapter<ChatMainAdapter.ChatViewHolder> {
-    private ArrayList<ChatItem> chatItemsList;
+    private ArrayList<Conversation> chatItemsList;
 
-    public ChatMainAdapter(ArrayList<ChatItem> chatItemsList) {
+    public ChatMainAdapter(ArrayList<Conversation> chatItemsList) {
         this.chatItemsList = chatItemsList;
     }
 
@@ -37,10 +33,10 @@ public class ChatMainAdapter extends RecyclerView.Adapter<ChatMainAdapter.ChatVi
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        ChatItem chatItem = chatItemsList.get(position);
-        holder.userAvatar.setImageDrawable(chatItem.getAvatar());
-        holder.userName.setText(chatItem.getUserName());
-        holder.latestMessage.setText(chatItem.getLatestMessage());
+        Conversation chatItem = chatItemsList.get(position);
+//        holder.userAvatar.setImageDrawable(chatItem.getAvatar());
+//        holder.userName.setText(chatItem.getUserName());
+//        holder.latestMessage.setText(chatItem.getLatestMessage());
 
 
     }

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -21,8 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
-import com.midterm.restaurant_app.model.TableItem;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.view.ServeFragment;
 
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ import java.util.List;
 public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.ViewHolder> {
 
     private Context context;
-    List<FoodItem> foodItems;
+    List<Product> productItems;
 
     private Spinner spTable;
 
@@ -39,8 +37,8 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
         this.context = context;
     }
 
-    public void setData(List<FoodItem> items){
-        this.foodItems = items;
+    public void setData(List<Product> items){
+        this.productItems = items;
         notifyDataSetChanged();
     }
 
@@ -54,9 +52,9 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FoodItem foodItem = foodItems.get(position);
-        holder.tvTitle.setText(foodItem.getTitle());
-        holder.tvCost.setText((String) foodItem.getCost());
+        Product productItem = productItems.get(position);
+//        holder.tvTitle.setText(foodItem.getTitle());
+//        holder.tvCost.setText((String) foodItem.getCost());
 
         holder.itemView.findViewById(R.id.card_food).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,22 +129,22 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
                 ServeFragment getlistTable= new ServeFragment();
                 ArrayList<String> tableNameList = new ArrayList<>();
 
-                for (TableItem table : getlistTable.getListItem()) {
-                    String tableName = table.getNameTable();
-                    tableNameList.add(tableName);
-                }
-                ArrayAdapter<String> arrayAdapter_Table = new ArrayAdapter<>(context.getApplicationContext(),R.layout.style_spinner,tableNameList);
-                spTable = dialog.findViewById(R.id.List_table);
-                spTable.setAdapter(arrayAdapter_Table);
-                dialog.show();
+//                for (TableItem table : getlistTable.getListItem()) {
+//                    String tableName = table.getNameTable();
+//                    tableNameList.add(tableName);
+//                }
+//                ArrayAdapter<String> arrayAdapter_Table = new ArrayAdapter<>(context.getApplicationContext(),R.layout.style_spinner,tableNameList);
+//                spTable = dialog.findViewById(R.id.List_table);
+//                spTable.setAdapter(arrayAdapter_Table);
+//                dialog.show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(foodItems != null){
-            return foodItems.size();
+        if(productItems != null){
+            return productItems.size();
         }
         return 0;
     }

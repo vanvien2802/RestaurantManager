@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.CustomerItem;
+import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.viewmodel.customerOrderedAdapter;
 
 import java.util.ArrayList;
@@ -73,14 +73,14 @@ public class HisOrderFragment extends Fragment {
         });
     }
 
-    private List<CustomerItem> getListItem(){
+    private List<Account> getListItem(){
 
-        List<CustomerItem> list = new ArrayList<>();
-        list.add(new CustomerItem("Huong Trinh","250,9","28/02/2023"));
-        list.add(new CustomerItem("Huong Trinh","250,9","28/02/2023"));
-        list.add(new CustomerItem("Huong Trinh","250,9","28/02/2023"));
-        list.add(new CustomerItem("Huong Trinh","250,9","28/02/2023"));
-        list.add(new CustomerItem("Huong Trinh","250,9","28/02/2023"));
+        List<Account> list = new ArrayList<>();
+//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
+//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
+//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
+//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
+//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
         return list;
     }
 }

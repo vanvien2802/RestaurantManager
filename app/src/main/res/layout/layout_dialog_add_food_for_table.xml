@@ -211,8 +211,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_black_corner_10"
+            android:alpha="0.8"
+            android:backgroundTint="@color/teal_200"
             android:text="CANCEL"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <Button
@@ -220,8 +222,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_pink_eb5f54_corner_10"
+            android:backgroundTint="@color/red"
             android:text="ADD"
+            android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
 

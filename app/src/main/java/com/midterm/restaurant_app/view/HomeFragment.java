@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.itemsFoodAdapter;
 
 import java.util.ArrayList;
@@ -33,8 +33,6 @@ public class HomeFragment extends Fragment {
     private itemsFoodAdapter itemsAdapter;
     private LinearLayout navSer;
     private LinearLayout navHis;
-    private LinearLayout navAcc;
-    private LinearLayout navHome;
     private LinearLayout navAccount;
     private LinearLayout navChat;
     private ImageView ivSideMenu;
@@ -77,7 +75,6 @@ public class HomeFragment extends Fragment {
 
         navSer = view.findViewById(R.id.nav_serve);
         navHis = view.findViewById(R.id.nav_his);
-        navHome = view.findViewById(R.id.nav_home);
         navSer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,17 +124,8 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<FoodItem> getListItem(){
-        List<FoodItem> list = new ArrayList<>();
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+    private List<Product> getListItem(){
+        List<Product> list = new ArrayList<>();
         return list;
     }
 }

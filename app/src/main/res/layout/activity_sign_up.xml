@@ -52,7 +52,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView_Title2" />
 
         <EditText
-            android:id="@+id/edittext"
+            android:id="@+id/edt_newnameUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20px"
@@ -80,12 +80,13 @@
             app:layout_constraintTop_toBottomOf="@+id/edittext2" />
 
         <EditText
-            android:id="@+id/edittext2"
+            android:id="@+id/edt_newnumberphone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20px"
             android:background="@drawable/edittext_border"
-            android:hint="00/00/0000"
+            android:hint="0..."
+            android:inputType="phone"
             android:padding="15dp"
             android:textColorHint="#454749"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,18 +109,20 @@
             app:layout_constraintTop_toBottomOf="@+id/edittext4" />
 
         <EditText
-            android:id="@+id/edittext3"
+            android:id="@+id/edt_newemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20px"
             android:background="@drawable/edittext_border"
-            android:hint="123456789"
+            android:hint="abc@gmail.com"
             android:padding="15dp"
+            android:inputType="textEmailAddress"
             android:textColorHint="#454749"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.301"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
 
         <TextView
             android:id="@+id/textView17"
@@ -136,12 +139,12 @@
             app:layout_constraintTop_toBottomOf="@+id/edittext5" />
 
         <EditText
-            android:id="@+id/edittext5"
+            android:id="@+id/edt_newidcard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20px"
             android:background="@drawable/edittext_border"
-            android:hint="abcdxyz@gmail.com"
+            android:hint="678928376"
             android:padding="15dp"
             android:textColorHint="#454749"
             app:layout_constraintEnd_toEndOf="parent"
@@ -164,22 +167,24 @@
             app:layout_constraintTop_toBottomOf="@+id/edittext" />
 
         <EditText
-            android:id="@+id/edittext4"
+            android:id="@+id/edt_newdateofbirth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20px"
             android:background="@drawable/edittext_border"
-            android:hint="0934546340"
+            android:hint="00/00/0000"
             android:padding="15dp"
             android:textColorHint="#454749"
+            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.301"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_send"
+        android:id="@+id/btn_createUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"

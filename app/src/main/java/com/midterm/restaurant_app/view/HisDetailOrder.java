@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.FoodOrderAdapter;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class HisDetailOrder extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_his_order, container, false);
+        return inflater.inflate(R.layout.fragment_his_detail_order, container, false);
     }
 
     @Override
@@ -67,7 +67,6 @@ public class HisDetailOrder extends Fragment {
         navHome = view.findViewById(R.id.nav_home);
         navSer = view.findViewById(R.id.nav_serve);
         navAccount = view.findViewById(R.id.nav_account);
-//        navAcc = view.findViewById(R.id.nav_account);
 
         navHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,32 +80,26 @@ public class HisDetailOrder extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
             }
         });
-//        navAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.account, savedInstanceState);
-//            }
-//        });
-//        navAccount = view.findViewById(R.id.nav_account);
-//        navAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.account, savedInstanceState);
-//            }
-//        });
+        navAccount = view.findViewById(R.id.nav_account);
+        navAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+            }
+        });
     }
 
-    private List<FoodItem> getListItem(){
-        List<FoodItem> list = new ArrayList<>();
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+    private List<Product> getListItem(){
+        List<Product> list = new ArrayList<>();
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
         return list;
     }
 }

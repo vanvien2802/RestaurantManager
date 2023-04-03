@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.TableItem;
+import com.midterm.restaurant_app.model.Ordered;
 import com.midterm.restaurant_app.viewmodel.TableAdapter;
 
 import java.util.ArrayList;
@@ -77,19 +77,9 @@ public class ServeFragment extends Fragment {
         });
     }
 
-    public List<TableItem> getListItem() {
-        List<TableItem> list = new ArrayList<>();
-        list.add(new TableItem("Table 1", true, 4, 5, "145,95"));
-        list.add(new TableItem("Table 2", false, 2, 5, "145,95"));
-        list.add(new TableItem("Table 3", true, 4, 5, "145,95"));
-        list.add(new TableItem("Table 4", false, 4, 5, "145,95"));
-        list.add(new TableItem("Table 5", false, 4, 5, "145,95"));
-        list.add(new TableItem("Table 6", true, 4, 5, "145,95"));
-        list.add(new TableItem("Table 7", false, 4, 5, "145,95"));
-        list.add(new TableItem("Table 8", true, 4, 5, "145,95"));
-        list.add(new TableItem("Table 9", false, 4, 5, "145,95"));
-        list.add(new TableItem("Table 10", true, 4, 5, "145,95"));
-        list.add(new TableItem("Table 11", true, 4, 5, "145,95"));
+    public List<Ordered> getListItem() {
+        List<Ordered> list = new ArrayList<>();
+//        list.add(new Ordered(String idOrdered, String idAcc, String idOrderFood, String idTable, boolean statusOrdered, double totalBill, String dtimeOder))
         return list;
     }
 
