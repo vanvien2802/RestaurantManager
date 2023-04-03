@@ -1,9 +1,11 @@
 package com.midterm.restaurant_app.model;
 
+import java.util.List;
+
 public class Ordered {
     private String idOrdered;
     private String idAcc;
-    private String idDOrd;
+    private List<String> idDOrds;
     private String idTable;
     private boolean statusOrdered;
     private double totalBill;
@@ -13,10 +15,10 @@ public class Ordered {
     public Ordered() {
     }
 
-    public Ordered(String idOrdered, String idAcc, String idDOrd, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
+    public Ordered(String idOrdered, String idAcc, List<String> idDOrds, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
         this.idOrdered = idOrdered;
         this.idAcc = idAcc;
-        this.idDOrd = idDOrd;
+        this.idDOrds = idDOrds;
         this.idTable = idTable;
         this.statusOrdered = statusOrdered;
         this.totalBill = totalBill;
@@ -39,12 +41,12 @@ public class Ordered {
         this.idAcc = idAcc;
     }
 
-    public String getIdDOrd() {
-        return idDOrd;
+    public List<String> getIdDOrd() {
+        return idDOrds;
     }
 
-    public void setIdDOrd(String idDOrd) {
-        this.idDOrd = idDOrd;
+    public void setIdDOrd(List<String> idDOrds) {
+        this.idDOrds = idDOrds;
     }
 
     public String getIdTable() {

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Ordered;
-import com.midterm.restaurant_app.viewmodel.TableAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.TableAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +55,7 @@ public class ServeFragment extends Fragment {
         tablesAdap.setData(getListItem());
         recyclerAllTable.setAdapter(tablesAdap);
         navHis = view.findViewById(R.id.nav_his);
+
         navHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,10 +77,8 @@ public class ServeFragment extends Fragment {
             }
         });
     }
-
     public List<Ordered> getListItem() {
         List<Ordered> list = new ArrayList<>();
-//        list.add(new Ordered(String idOrdered, String idAcc, String idOrderFood, String idTable, boolean statusOrdered, double totalBill, String dtimeOder))
         return list;
     }
 

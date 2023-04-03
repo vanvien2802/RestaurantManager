@@ -3,13 +3,15 @@ package com.midterm.restaurant_app.model;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
+import java.util.List;
+
 public class Conversation {
     private String idConvs;
     private String urlAvatar;
-    private String idAcc;
-    private String idMess;
+    private List<String> idAcc;
+    private List<String> idMess;
 
-    public Conversation(String idConvs, String urlAvatar, String idAcc, String idMess) {
+    public Conversation(String idConvs, String urlAvatar, List<String> idAcc, List<String> idMess) {
         this.idConvs = idConvs;
         this.urlAvatar = urlAvatar;
         this.idAcc = idAcc;
@@ -35,19 +37,19 @@ public class Conversation {
         this.urlAvatar = urlAvatar;
     }
 
-    public String getIdAcc() {
+    public List<String> getIdAcc() {
         return idAcc;
     }
 
-    public void setIdAcc(String idAcc) {
+    public void setIdAcc(List<String> idAcc) {
         this.idAcc = idAcc;
     }
 
-    public String getIdMess() {
+    public List<String> getIdMess() {
         return idMess;
     }
 
-    public void setIdMess(String idMess) {
+    public void setIdMess(List<String> idMess) {
         this.idMess = idMess;
     }
 }

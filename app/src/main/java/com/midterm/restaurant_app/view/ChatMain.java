@@ -14,7 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Conversation;
-import com.midterm.restaurant_app.viewmodel.ChatMainAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.ChatMainAdapter;
 
 import java.util.ArrayList;
 

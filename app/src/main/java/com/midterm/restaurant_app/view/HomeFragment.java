@@ -22,7 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.viewmodel.itemsFoodAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.itemsFoodAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

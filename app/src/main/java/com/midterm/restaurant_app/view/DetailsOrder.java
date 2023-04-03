@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.viewmodel.FoodOrderAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.FoodOrderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

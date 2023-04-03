@@ -1,4 +1,4 @@
-package com.midterm.restaurant_app.viewmodel;
+package com.midterm.restaurant_app.viewmodel.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
