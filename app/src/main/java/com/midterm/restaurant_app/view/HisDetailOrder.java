@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
 import com.midterm.restaurant_app.viewmodel.adapter.FoodOrderAdapter;
 
 import java.util.ArrayList;

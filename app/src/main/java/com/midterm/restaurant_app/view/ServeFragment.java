@@ -15,9 +15,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.TableItem;
+import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.viewmodel.adapter.TableAdapter;
-import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +78,8 @@ public class ServeFragment extends Fragment {
         });
     }
 
-    public List<TableItem> getListItem() {
-        List<TableItem> list = new ArrayList<>();
+    public List<Table> getListItem() {
+        List<Table> list = new ArrayList<>();
 //        list.add(new TableItem("Table 1", true, 4, 5, "145,95"));
 //        list.add(new TableItem("Table 2", false, 2, 5, "145,95"));
 //        list.add(new TableItem("Table 3", true, 4, 5, "145,95"));

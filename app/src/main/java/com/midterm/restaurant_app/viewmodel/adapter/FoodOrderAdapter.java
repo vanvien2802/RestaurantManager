@@ -20,7 +20,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;

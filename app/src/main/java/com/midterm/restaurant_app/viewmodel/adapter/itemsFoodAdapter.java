@@ -21,8 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
-import com.midterm.restaurant_app.model.TableItem;
+import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.view.ServeFragment;
 
 import java.util.ArrayList;
@@ -131,7 +130,7 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
                 ServeFragment getlistTable= new ServeFragment();
                 ArrayList<String> tableNameList = new ArrayList<>();
 
-                for (TableItem table : getlistTable.getListItem()) {
+                for (Table table : getlistTable.getListItem()) {
                     String tableName = table.getNameTable();
                     tableNameList.add(tableName);
                 }
@@ -163,5 +162,4 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
             tvCost = itemView.findViewById(R.id.tv_cost);
         }
     }
-
 }

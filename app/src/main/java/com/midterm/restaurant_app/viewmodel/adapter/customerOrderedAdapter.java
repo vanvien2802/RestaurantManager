@@ -13,7 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.CustomerItem;
+
 import java.util.List;
 
 public class customerOrderedAdapter extends RecyclerView.Adapter<customerOrderedAdapter.ViewHolder>{

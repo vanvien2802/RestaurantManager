@@ -11,7 +11,7 @@ public class TableRepository extends Repository{
 
     @Override
     protected String getDatabaseReference() {
-        return "tables";
+        return "Table";
     }
     public static synchronized TableRepository getInstance() {
         if (instance == null) {

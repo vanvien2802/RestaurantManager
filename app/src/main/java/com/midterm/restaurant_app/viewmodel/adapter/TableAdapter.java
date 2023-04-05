@@ -13,20 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.TableItem;
+import com.midterm.restaurant_app.model.Table;
 
 import java.util.List;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> {
 
     private Context context;
-    List<TableItem> tableItems;
+    List<Table> tableItems;
 
     public TableAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<TableItem> items){
+    public void setData(List<Table> items){
         this.tableItems = items;
         notifyDataSetChanged();
     }
@@ -41,7 +41,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TableItem tables = tableItems.get(position);
+        Table tables = tableItems.get(position);
 
         holder.tvNameTable.setText(tables.getName());
         if(tables.isStatus()){

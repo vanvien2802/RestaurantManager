@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,8 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.FoodItem;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsFoodAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment {
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
+    ProductViewModel productViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,15 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
+        productViewModel= new ProductViewModel();
+
+        productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> products) {
+                itemsAdapter.setData(products);
+            }
+        });
+
         itemsAdapter.setData(getListItem());
         recyclerPopular.setAdapter(itemsAdapter);
 

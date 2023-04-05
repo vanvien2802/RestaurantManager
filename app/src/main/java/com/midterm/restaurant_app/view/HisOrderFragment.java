@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.CustomerItem;
 import com.midterm.restaurant_app.viewmodel.adapter.customerOrderedAdapter;
 
 import java.util.ArrayList;
