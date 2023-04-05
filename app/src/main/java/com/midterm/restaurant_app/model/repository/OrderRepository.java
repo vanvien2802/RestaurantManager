@@ -20,7 +20,7 @@ public class OrderRepository extends Repository<Order>{
     }
 
     @Override
-    protected Class getModelClass() {
+    protected Class<Order> getModelClass() {
         return Order.class;
     }
 

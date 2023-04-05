@@ -43,13 +43,8 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Table tables = tableItems.get(position);
 
-        holder.tvNameTable.setText(tables.getName());
-        if(tables.isStatus()){
-            holder.tvStatus.setText("Served");
-        }
-        else{
-            holder.tvStatus.setText("Serving");
-        }
+        holder.tvNameTable.setText(tables.getNameTable());
+            holder.tvStatus.setText(tables.isStatusTb());
 //        holder.tvNumServed.setText(Integer.toString(tables.getNumServed()));
 //        holder.tvTotalServe.setText(Integer.toString(tables.getTotalServe()));
 //        holder.tvCostFoods.setText(tables.getTotalCostFood().toString());
@@ -58,7 +53,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("nameTable", tables.getName());
+                bundle.putString("nameTable", tables.getNameTable());
                 Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
             }
         });

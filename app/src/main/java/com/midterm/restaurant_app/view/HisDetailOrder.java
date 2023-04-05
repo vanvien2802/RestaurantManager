@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.FoodOrderAdapter;
 
 import java.util.ArrayList;
@@ -95,17 +96,17 @@ public class HisDetailOrder extends Fragment {
 //        });
     }
 
-    private List<FoodItem> getListItem(){
-        List<FoodItem> list = new ArrayList<>();
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+    private List<Product> getListItem(){
+        List<Product> list = new ArrayList<>();
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new Product("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
         return list;
     }
 }

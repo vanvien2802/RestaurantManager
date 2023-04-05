@@ -23,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.viewmodel.adapter.itemsFoodAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.ProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
     private RecyclerView recyclerFoods;
-    private itemsFoodAdapter itemsAdapter;
+    private ProductAdapter itemsAdapter;
     private LinearLayout navSer;
     private LinearLayout navHis;
     private LinearLayout navAcc;
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerPopular = view.findViewById(R.id.rv_popular);
         recyclerFoods = view.findViewById(R.id.rv_foods);
-        itemsAdapter = new itemsFoodAdapter(view.getContext());
+        itemsAdapter = new ProductAdapter(view.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
@@ -77,8 +77,6 @@ public class HomeFragment extends Fragment {
                 itemsAdapter.setData(products);
             }
         });
-
-        itemsAdapter.setData(getListItem());
         recyclerPopular.setAdapter(itemsAdapter);
 
 
@@ -139,17 +137,17 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private List<FoodItem> getListItem(){
-        List<FoodItem> list = new ArrayList<>();
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        return list;
-    }
+//    private List<FoodItem> getListItem(){
+//        List<FoodItem> list = new ArrayList<>();
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        return list;
+//    }
 }

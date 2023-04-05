@@ -21,25 +21,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.view.ServeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
     private Context context;
-    List<FoodItem> foodItems;
+    List<Product> productList;
 
     private Spinner spTable;
 
-    public itemsFoodAdapter(Context context) {
+    public ProductAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<FoodItem> items){
-        this.foodItems = items;
+    public void setData(List<Product> items){
+        this.productList = items;
         notifyDataSetChanged();
     }
 
@@ -53,9 +54,9 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FoodItem foodItem = foodItems.get(position);
-        holder.tvTitle.setText(foodItem.getTitle());
-        holder.tvCost.setText((String) foodItem.getCost());
+        Product productItem = productList.get(position);
+        holder.tvTitle.setText(productItem.getNameProduct());
+        holder.tvCost.setText((Double.toString(productItem.getPricesProduct())));
 
         holder.itemView.findViewById(R.id.card_food).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,8 +145,8 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
 
     @Override
     public int getItemCount() {
-        if(foodItems != null){
-            return foodItems.size();
+        if(productList != null){
+            return productList.size();
         }
         return 0;
     }

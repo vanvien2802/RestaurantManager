@@ -13,17 +13,18 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.model.Account;
 
 import java.util.List;
 
 public class customerOrderedAdapter extends RecyclerView.Adapter<customerOrderedAdapter.ViewHolder>{
     private Context context;
-    List<CustomerItem> customerItemList;
+    List<Account> customerItemList;
 
     public customerOrderedAdapter(Context context) {
         this.context = context;
     }
-    public void setData(List<CustomerItem> items){
+    public void setData(List<Account> items){
         this.customerItemList = items;
         notifyDataSetChanged();
     }
@@ -39,18 +40,18 @@ public class customerOrderedAdapter extends RecyclerView.Adapter<customerOrdered
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        CustomerItem item_ordered = customerItemList.get(position);
-        holder.tvNameCus.setText((String) item_ordered.getNameCus());
-        holder.tvTotalPaid.setText((String) item_ordered.getTotalPaid());
-        holder.dateOrdered.setText((String) item_ordered.getDateOrdered());
-        holder.llFoodItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("nameCustom", item_ordered.getNameCus().toString()+"'s");
-                Navigation.findNavController(view).navigate(R.id.action_hisOrderFragment_to_detailHisOrderFragment, bundle);
-            }
-        });
+//        Account item_ordered = customerItemList.get(position);
+//        holder.tvNameCus.setText((String) item_ordered.getNameAcc());
+//        holder.tvTotalPaid.setText((String) item_ordered.getTotalPaid());
+//        holder.dateOrdered.setText((String) item_ordered.getDateOrdered());
+//        holder.llFoodItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("nameCustom", item_ordered.getNameCus().toString()+"'s");
+//                Navigation.findNavController(view).navigate(R.id.action_hisOrderFragment_to_detailHisOrderFragment, bundle);
+//            }
+//        });
     }
 
     @Override

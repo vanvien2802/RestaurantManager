@@ -21,8 +21,8 @@ public class AccountRepository extends Repository<Account> {
     }
 
     @Override
-    protected Class getModelClass() {
-        return AccountRepository.class;
+    protected Class<Account> getModelClass() {
+        return Account.class;
     }
 
     @Override

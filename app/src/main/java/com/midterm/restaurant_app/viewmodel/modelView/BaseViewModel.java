@@ -47,7 +47,7 @@ public class BaseViewModel<T> extends ViewModel {
 
     public LiveData<List<T>> getAll() {
         isLoading.setValue(true);
-        repository.getAll();
+        return repository.getAll();
     }
 
     public void getById(String id) {

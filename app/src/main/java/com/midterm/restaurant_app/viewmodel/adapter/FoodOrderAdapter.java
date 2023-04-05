@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.model.Product;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,13 +29,13 @@ import java.util.List;
 public class FoodOrderAdapter extends RecyclerView.Adapter<FoodOrderAdapter.ViewHolder> {
 
     private Context context;
-    List<FoodItem> foodItems;
+    List<Product> foodItems;
 
     public FoodOrderAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<FoodItem> items){
+    public void setData(List<Product> items){
         this.foodItems = items;
         notifyDataSetChanged();
     }
@@ -49,11 +50,11 @@ public class FoodOrderAdapter extends RecyclerView.Adapter<FoodOrderAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FoodItem foodItem = foodItems.get(position);
-        holder.tvTitle.setText(foodItem.getTitle());
-        holder.tvCostFood.setText((String) foodItem.getCost());
-        holder.tvDescrip.setText(foodItem.getCost());
-        if(foodItem.isStatus()){
+        Product foodItem = foodItems.get(position);
+        holder.tvTitle.setText(foodItem.getNameProduct());
+        holder.tvCostFood.setText( Double.toString(foodItem.getPricesProduct()));
+        holder.tvDescrip.setText(foodItem.getDetailProduct());
+        if(foodItem.isStatusProduct()){
             holder.tvStatusServe.setText("Done");
         }
         else{

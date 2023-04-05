@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
+import com.midterm.restaurant_app.model.Table;
 
 public class TableRepository extends Repository{
 
@@ -21,8 +22,8 @@ public class TableRepository extends Repository{
     }
 
     @Override
-    protected Class getModelClass() {
-        return TableRepository.class;
+    protected Class<Table> getModelClass() {
+        return Table.class;
     }
 
     @Override

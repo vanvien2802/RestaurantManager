@@ -21,8 +21,8 @@ public class ProductRepository extends Repository<Product> {
     }
 
     @Override
-    protected Class getModelClass() {
-        return ProductRepository.class;
+    protected Class<Product> getModelClass() {
+        return Product.class;
     }
 
     @Override
