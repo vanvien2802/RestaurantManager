@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Account;
-import com.midterm.restaurant_app.viewmodel.adapter.customerOrderedAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.AccountAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class HisOrderFragment extends Fragment {
     private RecyclerView recyclerHisOrder;
-    private customerOrderedAdapter cusOrderedAdapter;
+    private AccountAdapter cusOrderedAdapter;
     private LinearLayout navHome;
     private LinearLayout navSer;
     private LinearLayout navAcc;
@@ -44,7 +44,7 @@ public class HisOrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerHisOrder =view.findViewById(R.id.rv_allHisOrderedTable);
-        cusOrderedAdapter = new customerOrderedAdapter(view.getContext());
+        cusOrderedAdapter = new AccountAdapter(view.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerHisOrder.VERTICAL,false);
         recyclerHisOrder.setLayoutManager(linearLayoutManager);
         cusOrderedAdapter.setData(getListItem());

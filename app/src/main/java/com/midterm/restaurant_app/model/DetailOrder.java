@@ -1,7 +1,7 @@
 package com.midterm.restaurant_app.model;
 
 public class DetailOrder {
-    private String idDOrd;
+    private String idDetailOrder;
     private String idBillOrder;
     private String idFood;
     private int quantity;
@@ -9,19 +9,19 @@ public class DetailOrder {
     public DetailOrder() {
     }
 
-    public DetailOrder(String idDOrd, String idBillOrder, String idFood, int quantity) {
-        this.idDOrd = idDOrd;
+    public DetailOrder(String idDetailOrder, String idBillOrder, String idFood, int quantity) {
+        this.idDetailOrder = idDetailOrder;
         this.idBillOrder = idBillOrder;
         this.idFood = idFood;
         this.quantity = quantity;
     }
 
-    public String getIdDOrd() {
-        return idDOrd;
+    public String getIdDetailOrder() {
+        return idDetailOrder;
     }
 
-    public void setIdDOrd(String idDOrd) {
-        this.idDOrd = idDOrd;
+    public void setIdDetailOrder(String idDetailOrder) {
+        this.idDetailOrder = idDetailOrder;
     }
 
     public String getIdBillOrder() {

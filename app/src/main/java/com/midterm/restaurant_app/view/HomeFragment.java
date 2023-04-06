@@ -22,7 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.viewmodel.adapter.itemsFoodAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
     private RecyclerView recyclerFoods;
-    private itemsFoodAdapter itemsAdapter;
+    private itemsProductAdapter itemsAdapter;
     private LinearLayout navSer;
     private LinearLayout navHis;
     private LinearLayout navAccount;
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerPopular = view.findViewById(R.id.rv_popular);
         recyclerFoods = view.findViewById(R.id.rv_foods);
-        itemsAdapter = new itemsFoodAdapter(view.getContext());
+        itemsAdapter = new itemsProductAdapter(view.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
@@ -124,8 +125,12 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private FoodViewModel foodViewModel;
+
     private List<Product> getListItem(){
         List<Product> list = new ArrayList<>();
+        foodViewModel = new FoodViewModel();
+        foodViewModel.getAll();
         return list;
     }
 }

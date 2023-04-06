@@ -26,14 +26,14 @@ import com.midterm.restaurant_app.view.ServeFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.ViewHolder> {
+public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapter.ViewHolder> {
 
     private Context context;
     List<Product> productItems;
 
     private Spinner spTable;
 
-    public itemsFoodAdapter(Context context) {
+    public itemsProductAdapter(Context context) {
         this.context = context;
     }
 
@@ -45,7 +45,7 @@ public class itemsFoodAdapter extends RecyclerView.Adapter<itemsFoodAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_foods,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
 
         return new ViewHolder(view);
     }

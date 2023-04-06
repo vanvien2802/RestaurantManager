@@ -1,7 +1,6 @@
 package com.midterm.restaurant_app.viewmodel.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.model.Account;
 import java.util.List;
 
-public class customerOrderedAdapter extends RecyclerView.Adapter<customerOrderedAdapter.ViewHolder>{
+public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder>{
     private Context context;
     List<Account> customerItemList;
 
-    public customerOrderedAdapter(Context context) {
+    public AccountAdapter(Context context) {
         this.context = context;
     }
     public void setData(List<Account> items){

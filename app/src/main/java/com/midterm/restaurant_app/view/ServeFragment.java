@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.Ordered;
+import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.viewmodel.adapter.TableAdapter;
 
 import java.util.ArrayList;
@@ -77,8 +77,8 @@ public class ServeFragment extends Fragment {
             }
         });
     }
-    public List<Ordered> getListItem() {
-        List<Ordered> list = new ArrayList<>();
+    public List<Order> getListItem() {
+        List<Order> list = new ArrayList<>();
         return list;
     }
 

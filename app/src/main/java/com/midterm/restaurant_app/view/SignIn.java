@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.Reset_pass;
+import com.midterm.restaurant_app.model.Account;
 
 public class SignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -60,8 +61,8 @@ public class SignIn extends AppCompatActivity {
         button_txt_snup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(SignIn.this, SignUp.class);
-                startActivity(intent2);
+                Intent intentToSignUp = new Intent(SignIn.this, SignUp.class);
+                startActivity(intentToSignUp);
             }
         });
 
@@ -70,8 +71,8 @@ public class SignIn extends AppCompatActivity {
         button_txt_Forgotpass_snin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(SignIn.this, Reset_pass.class);
-                startActivity(intent3);
+                Intent intentToResetPass = new Intent(SignIn.this, Reset_pass.class);
+                startActivity(intentToResetPass);
             }
         });
 
@@ -83,9 +84,9 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Intent intent = new Intent(SignIn.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            Intent intentToHome = new Intent(SignIn.this, MainActivity.class);
+                            intentToHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intentToHome);
                         }
                         else{
                             Toast toast = Toast.makeText(SignIn.this,"User or Password error", Toast.LENGTH_SHORT);

@@ -42,7 +42,7 @@
         android:layout_marginTop="72dp"
         android:layout_weight="0"
         android:gravity="center"
-        android:text="ordered list"
+        android:text="order list"
         android:textColor="#f36155"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/my_image_view3"

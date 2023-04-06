@@ -11,21 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.model.Ordered;
+import com.midterm.restaurant_app.model.Order;
 
 import java.util.List;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> {
 
     private Context context;
-    List<Ordered> Ordereds;
+    List<Order> orders;
 
     public TableAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<Ordered> Ordereds){
-        this.Ordereds = Ordereds;
+    public void setData(List<Order> orders){
+        this.orders = orders;
         notifyDataSetChanged();
     }
 
@@ -39,7 +39,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Ordered ordered = Ordereds.get(position);
+        Order order = orders.get(position);
 
 //        holder.tvNameTable.setText(tables.getNameTable().toString());
 //        if(tables.isStatus()){
@@ -64,8 +64,8 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        if(Ordereds != null){
-            return Ordereds.size();
+        if(orders != null){
+            return orders.size();
         }
         return 0;
     }

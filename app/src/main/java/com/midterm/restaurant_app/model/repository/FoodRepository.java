@@ -2,8 +2,9 @@ package com.midterm.restaurant_app.model.repository;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseError;
+import com.midterm.restaurant_app.model.Product;
 
-public class FoodRepository extends Repository<FoodItem>{
+public class FoodRepository extends Repository<Product>{
 
     private static FoodRepository instance;
 
@@ -26,13 +27,7 @@ public class FoodRepository extends Repository<FoodItem>{
 
     @Override
     protected void handleDatabaseError(DatabaseError databaseError) {
-        // Get the error message from the database error
         String errorMessage = databaseError.getMessage();
-
-        // Display a message to the user
-//        Toast.makeText(context, "Database error: " + errorMessage, Toast.LENGTH_SHORT).show();
-
-        // Log the error for further analysis
         Log.e("DEBUG", "Database error: " + errorMessage);
     }
 }

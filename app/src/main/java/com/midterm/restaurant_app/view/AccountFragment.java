@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,33 +19,33 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.model.Upload;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.grpc.Context;
 
 public class AccountFragment extends Fragment {
     private LinearLayout  navSer, navHis, navHome;
+
     private static final int PICK_IMAGE_REQUESR = 1;
     private ImageView ivUpload;
     private CircleImageView ivAvatar;
     private Uri avatarUri;
     private Button btnSave;
+    private FragmentAccountBinding binding;
+
 
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
@@ -69,6 +68,8 @@ public class AccountFragment extends Fragment {
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
+
+        binding = FragmentAccountBinding.inflate(getLayoutInflater());
 
         ivUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,16 +107,16 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        ImageView editName = view.findViewById(R.id.pen_editName);
-        EditText editText_Name = view.findViewById(R.id.edit_Name);
-        ImageView editDateBirth = view.findViewById(R.id.pen_editDateBirth);
-        EditText editText_DateBirth = view.findViewById(R.id.edit_DateBirth);
-        ImageView editPhone = view.findViewById(R.id.pen_editPhoneNumber);
-        EditText editText_Phone = view.findViewById(R.id.edit_phone);
-        ImageView editEmail = view.findViewById(R.id.pen_editEmail);
-        EditText editText_Email = view.findViewById(R.id.edit_Mail);
-        ImageView editIDCard = view.findViewById(R.id.pen_editIDCard);
-        EditText editText_IDCard= view.findViewById(R.id.edit_IDCard);
+        ImageView editName = binding.penEditName;
+        EditText editText_Name = binding.editName;
+        ImageView editDateBirth = binding.penEditDateBirth;
+        EditText editText_DateBirth = binding.editDateBirth;
+        ImageView editPhone = binding.penEditPhoneNumber;
+        EditText editText_Phone = binding.editPhone;
+        ImageView editEmail = binding.penEditEmail;
+        EditText editText_Email = binding.editMail;
+        ImageView editIDCard = binding.penEditIDCard;
+        EditText editText_IDCard= binding.editIDCard;
 
 
         editName.setOnClickListener(new View.OnClickListener() {

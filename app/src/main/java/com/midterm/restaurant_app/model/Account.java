@@ -8,13 +8,13 @@ public class Account {
     private String phoneNumber;
     private String email;
     private String address;
-    private String UrlImage;;
+    private String UrlAvatar;
     private int idRole;
 
     public Account() {
     }
 
-    public Account(String idAcc, String nameAcc, String password, String nameUser, String phoneNumber, String email, String address, String urlImage, int idRole) {
+    public Account(String idAcc, String nameAcc, String password, String nameUser, String phoneNumber, String email, String address, String UrlAvatar, int idRole) {
         this.idAcc = idAcc;
         this.nameAcc = nameAcc;
         this.password = password;
@@ -22,7 +22,7 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        UrlImage = urlImage;
+        this.UrlAvatar = UrlAvatar;
         this.idRole = idRole;
     }
 
@@ -91,10 +91,10 @@ public class Account {
     }
 
     public String getUrlImage() {
-        return UrlImage;
+        return UrlAvatar;
     }
 
-    public void setUrlImage(String urlImage) {
-        UrlImage = urlImage;
+    public void setUrlImage(String UrlAvatar) {
+        UrlAvatar = UrlAvatar;
     }
 }

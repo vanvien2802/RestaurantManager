@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FoodOrderAdapter extends RecyclerView.Adapter<FoodOrderAdapter.ViewHolder> {
+public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapter.ViewHolder> {
 
     private Context context;
     List<Product> productItems;
 
-    public FoodOrderAdapter(Context context) {
+    public ProductOrderAdapter(Context context) {
         this.context = context;
     }
 
@@ -43,7 +43,7 @@ public class FoodOrderAdapter extends RecyclerView.Adapter<FoodOrderAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_details_food,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_details_product,parent,false);
 
         return new ViewHolder(view);
     }

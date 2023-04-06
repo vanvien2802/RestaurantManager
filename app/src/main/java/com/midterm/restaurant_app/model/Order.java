@@ -2,7 +2,7 @@ package com.midterm.restaurant_app.model;
 
 import java.util.List;
 
-public class Ordered {
+public class Order {
     private String idOrdered;
     private String idAcc;
     private List<String> idDOrds;
@@ -12,10 +12,10 @@ public class Ordered {
     private String dtimeOder;
 
 
-    public Ordered() {
+    public Order() {
     }
 
-    public Ordered(String idOrdered, String idAcc, List<String> idDOrds, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
+    public Order(String idOrdered, String idAcc, List<String> idDOrds, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
         this.idOrdered = idOrdered;
         this.idAcc = idAcc;
         this.idDOrds = idDOrds;

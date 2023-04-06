@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.midterm.restaurant_app.model.Account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,8 @@ import java.util.List;
 public class CustomerRepository {
     private static CustomerRepository instance;
     private final DatabaseReference databaseReference;
-    private final List<CustomerItem> customerItems = new ArrayList<>();
-    private final MutableLiveData<List<CustomerItem>> mutableLiveData = new MutableLiveData<>();
+    private final List<Account> customerItems = new ArrayList<>();
+    private final MutableLiveData<List<Account>> mutableLiveData = new MutableLiveData<>();
 
     private CustomerRepository(){
         databaseReference = FirebaseDatabase.getInstance().getReference("customer");
@@ -25,7 +26,7 @@ public class CustomerRepository {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 customerItems.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    CustomerItem customerItem = snapshot.getValue(CustomerItem.class);
+                    Account customerItem = snapshot.getValue(Account.class);
                     customerItems.add(customerItem);
                 }
                 mutableLiveData.postValue(customerItems);
@@ -45,15 +46,15 @@ public class CustomerRepository {
         return instance;
     }
 
-    public MutableLiveData<List<CustomerItem>> getMutableLiveData(){
+    public MutableLiveData<List<Account>> getMutableLiveData(){
         return mutableLiveData;
     }
 
-    public void addCustomerItem(CustomerItem customerItem){
+    public void addCustomerItem(Account customerItem){
         databaseReference.push().setValue(customerItem);
     }
 
-    public void updateCustomerItem(String key, CustomerItem customerItem){
+    public void updateCustomerItem(String key, Account customerItem){
         databaseReference.child(key).setValue(customerItem);
     }
 

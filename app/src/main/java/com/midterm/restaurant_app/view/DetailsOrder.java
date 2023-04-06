@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.viewmodel.adapter.FoodOrderAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
 public class DetailsOrder extends Fragment {
 
     private RecyclerView recyclerListFoods;
-    private FoodOrderAdapter foodsOrAdapter;
+    private ProductOrderAdapter foodsOrAdapter;
     private LinearLayout navHome;
     private LinearLayout navHis;
     private LinearLayout navAccount;
@@ -46,14 +46,14 @@ public class DetailsOrder extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details_order, container, false);
+        return inflater.inflate(R.layout.fragment_detail_serve, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerListFoods = view.findViewById(R.id.rv_detailtable);
-        foodsOrAdapter = new FoodOrderAdapter(view.getContext());
+        foodsOrAdapter = new ProductOrderAdapter(view.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerListFoods.VERTICAL,false);
         recyclerListFoods.setLayoutManager(linearLayoutManager);
