@@ -150,36 +150,32 @@
         android:id="@+id/checkBox"
         android:layout_width="163dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginStart="20dp"
         android:text="Remember me!"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/btn_snin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
     <Button
         android:id="@+id/btn_snin"
         android:layout_width="280dp"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#f36155"
         android:fontFamily="sans-serif-black"
         android:text="Sign In"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.671" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
     <TextView
         android:id="@+id/textView_Forgotpass_snin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-black"
         android:text="Foggot the password?"
         android:textColor="#ea5a53"
@@ -203,104 +199,98 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_Forgotpass_snin" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="143dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
-        app:layout_constraintHorizontal_bias="0.556"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_Continue">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_Face"
-            android:layout_width="36dp"
-            android:layout_height="38dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="88dp"
-            android:src="@drawable/icon_face"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/textView_Face"
-            android:layout_width="64dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Facebook"
-            android:textColor="#000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btn_google_login"
-        android:layout_width="143dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="8dp"
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Continue">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_Gmail"
-            android:layout_width="49dp"
-            android:layout_height="53dp"
-            android:layout_marginEnd="88dp"
-            android:src="@drawable/google"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:id="@+id/linear_signinface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_Face"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:src="@drawable/icon_face"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView_Face"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="Facebook"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_signingg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_Gmail"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_weight="1"
+                android:src="@drawable/google"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView_Gmail"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:text="Google"
+                android:textColor="#000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
 
         <TextView
-            android:id="@+id/textView_Gmail"
-            android:layout_width="64dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:fontFamily="sans-serif-black"
-            android:text="Google"
-            android:textColor="#000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Don't have an account?"
+            android:textColor="#a9acad"
+            android:textSize="15sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_SignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="178dp"
-        android:layout_marginTop="11dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Sign Up"
-        android:textColor="#f36155"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_google_login" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Don't have an account?"
-        android:textColor="#a9acad"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Continue" />
+        <TextView
+            android:id="@+id/tv_SignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Sign Up"
+            android:textColor="#f36155"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

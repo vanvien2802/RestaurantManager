@@ -2,7 +2,6 @@ package com.midterm.restaurant_app.model;
 
 public class DetailOrder {
     private String idDetailOrder;
-    private String idBillOrder;
     private String idFood;
     private int quantity;
 

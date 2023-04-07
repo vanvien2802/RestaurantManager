@@ -29,7 +29,6 @@ android {
     }
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
 }
 
@@ -53,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation 'com.google.firebase:firebase-messaging:23.1.1'
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
 
     testImplementation 'junit:junit:4.13.2'

@@ -5,7 +5,7 @@ import java.util.List;
 public class Order {
     private String idOrdered;
     private String idAcc;
-    private List<String> idDOrds;
+    private List<String> idDetailOrders;
     private String idTable;
     private boolean statusOrdered;
     private double totalBill;
@@ -15,10 +15,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(String idOrdered, String idAcc, List<String> idDOrds, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
+    public Order(String idOrdered, String idAcc, List<String> idDetailOrders, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
         this.idOrdered = idOrdered;
         this.idAcc = idAcc;
-        this.idDOrds = idDOrds;
+        this.idDetailOrders = idDetailOrders;
         this.idTable = idTable;
         this.statusOrdered = statusOrdered;
         this.totalBill = totalBill;
@@ -41,12 +41,12 @@ public class Order {
         this.idAcc = idAcc;
     }
 
-    public List<String> getIdDOrd() {
-        return idDOrds;
+    public List<String> getIdDetailOrders() {
+        return idDetailOrders;
     }
 
-    public void setIdDOrd(List<String> idDOrds) {
-        this.idDOrds = idDOrds;
+    public void setIdDetailOrders(List<String> idDetailOrders) {
+        this.idDetailOrders = idDetailOrders;
     }
 
     public String getIdTable() {

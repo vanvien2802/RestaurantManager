@@ -1,17 +1,23 @@
 package com.midterm.restaurant_app.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
@@ -19,25 +25,40 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.Reset_pass;
-import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.databinding.ActivitySignInBinding;
 
 public class SignIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText edtUser;
     private EditText edtPass;
+    private ActivitySignInBinding binding;
 
-    private static final int RC_SIGN_IN = 9001;
-    private ConstraintLayout btn_google_login;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        binding = ActivitySignInBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         mAuth = FirebaseAuth.getInstance();
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(this,gso);
 
         edtUser = findViewById(R.id.edt_user);
         edtPass = findViewById(R.id.edt_pass);
 
-        btn_google_login = findViewById(R.id.btn_google_login);
+        LinearLayout linearLoginByFB = binding.linearSigningg;
+
+        linearLoginByFB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignInWithGG();
+            }
+        });
 
         Button button_Signin = findViewById(R.id.btn_snin);
         button_Signin.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +97,33 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void SignInWithGG(){
+        Intent intent = gsc.getSignInIntent();
+        startActivityForResult(intent,100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode ==100){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                task.getResult(ApiException.class);
+                HomeFragement();
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void HomeFragement(){
+        finish();
+        Intent intentToHome = new Intent(SignIn.this, MainActivity.class);
+        intentToHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intentToHome);
     }
 
     private void login(String email, String pass){
