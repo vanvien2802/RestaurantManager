@@ -288,7 +288,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:background="@color/white"
+            android:background="#205776"
             android:layout_gravity="start"
             android:fitsSystemWindows="true">
 
@@ -301,7 +301,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/gradient"
+                    android:background="#205776"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingTop="20dp"
@@ -321,13 +321,15 @@
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/flbtn_logout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="100dp"
                         android:layout_weight="1"
+                        android:background="#bbfbfc"
                         android:clickable="true"
                         android:foregroundGravity="center"
-                        android:src="@drawable/ic_baseline_logout_30" />
+                        android:src="@drawable/baseline_logout_24"
+                        app:backgroundTint="#bbfbfc" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -361,7 +363,7 @@
                             android:fontFamily="@font/saira_medium"
                             android:gravity="center_vertical"
                             android:text="My Profile"
-                            android:textColor="#545454"
+                            android:textColor="#fff"
                             android:textSize="24dp" />
                     </LinearLayout>
 
@@ -386,7 +388,32 @@
                             android:fontFamily="@font/saira_medium"
                             android:gravity="center_vertical"
                             android:text="Chat"
-                            android:textColor="#545454"
+                            android:textColor="#fff"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0"
+                            app:srcCompat="@drawable/baseline_restaurant_menu_24_black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/saira_medium"
+                            android:gravity="center_vertical"
+                            android:text="Menu"
+                            android:textColor="#fff"
                             android:textSize="24dp" />
                     </LinearLayout>
 
@@ -410,33 +437,11 @@
                             android:fontFamily="@font/saira_medium"
                             android:gravity="center_vertical"
                             android:text="Setting"
-                            android:textColor="#545454"
+                            android:textColor="#fff"
                             android:textSize="24dp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_weight="0"
-                            app:srcCompat="@drawable/ic_baseline_headset_mic_24" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="20dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/saira_medium"
-                            android:gravity="center_vertical"
-                            android:text="Help"
-                            android:textColor="#545454"
-                            android:textSize="24dp" />
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -484,7 +489,7 @@
                             android:fontFamily="@font/saira_medium"
                             android:gravity="center_vertical"
                             android:text="viennguyen.280202@gmail.com"
-                            android:textColor="#545454" />
+                            android:textColor="#fff" />
                     </LinearLayout>
                 </LinearLayout>
 

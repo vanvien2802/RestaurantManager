@@ -27,21 +27,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.itemsMenuProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
-import com.midterm.restaurant_app.view.MenuFoodFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
-    private RecyclerView recyclerPopular;
+public class MenuFoodFragment extends Fragment {
     private RecyclerView recyclerFoods;
-    private itemsProductAdapter itemsAdapter;
+    private  itemsMenuProductAdapter itemsAdapter;
     private LinearLayout navSer;
     private LinearLayout navHis;
     private LinearLayout navAccount;
-    private LinearLayout navChat, navMenu;
+    private LinearLayout navMenu;
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
@@ -62,26 +60,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_menu_food, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerPopular = view.findViewById(R.id.rv_popular);
-        recyclerFoods = view.findViewById(R.id.rv_foods);
+
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Product");
 
-        itemsAdapter = new itemsProductAdapter(view.getContext());
+        itemsAdapter = new itemsMenuProductAdapter(view.getContext());
 
         lstProduct = new ArrayList<>();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
-        recyclerPopular.setLayoutManager(linearLayoutManager);
+
         itemsAdapter.setData(lstProduct);
-        recyclerPopular.setAdapter(itemsAdapter);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,6 +100,7 @@ public class HomeFragment extends Fragment {
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 3); // số 2 ở đây là số cột hiển thị
+        recyclerFoods = view.findViewById(R.id.rv_list_food);
         recyclerFoods.setLayoutManager(gridLayoutManager);
 
         recyclerFoods.setAdapter(itemsAdapter);
@@ -129,41 +126,26 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
             }
         });
-        navChat = view.findViewById(R.id.linear_chat);
-        navChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ChatMain.class);
-                startActivity(intent);
-            }
-        });
 
-        navMenu = view.findViewById(R.id.linear_menu);
-        navMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.menuFoodFragment, savedInstanceState);
-            }
-        });
 
-        drawerLayout = view.findViewById(R.id.drawerLayout);
-        ivSideMenu = view.findViewById(R.id.iv_sidemenu);
-        ivSideMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        flbtnLogout = view.findViewById(R.id.flbtn_logout);
-        flbtnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), FirstActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
+//        drawerLayout = view.findViewById(R.id.drawerLayout);
+//        ivSideMenu = view.findViewById(R.id.iv_sidemenu);
+//        ivSideMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawerLayout.openDrawer(GravityCompat.START);
+//            }
+//        });
+//
+//        flbtnLogout = view.findViewById(R.id.flbtn_logout);
+//        flbtnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), FirstActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }
