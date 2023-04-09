@@ -51,9 +51,9 @@ public class SignIn extends AppCompatActivity {
         edtUser = findViewById(R.id.edt_user);
         edtPass = findViewById(R.id.edt_pass);
 
-        LinearLayout linearLoginByFB = binding.linearSigningg;
+        LinearLayout linearLoginByGG = binding.linearSigningg;
 
-        linearLoginByFB.setOnClickListener(new View.OnClickListener() {
+        linearLoginByGG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SignInWithGG();
@@ -101,25 +101,27 @@ public class SignIn extends AppCompatActivity {
 
     private void SignInWithGG(){
         Intent intent = gsc.getSignInIntent();
-        startActivityForResult(intent,100);
+        startActivityForResult(intent,1000);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode ==100){
+        Log.d("DDDD" , String.valueOf(requestCode));
+
+        if(requestCode ==1000){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 task.getResult(ApiException.class);
-                HomeFragement();
+                HomeFragment();
             } catch (ApiException e) {
-                e.printStackTrace();
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void HomeFragement(){
+    private void HomeFragment(){
         finish();
         Intent intentToHome = new Intent(SignIn.this, MainActivity.class);
         intentToHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

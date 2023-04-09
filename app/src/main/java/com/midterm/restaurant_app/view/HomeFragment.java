@@ -19,6 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
@@ -40,6 +45,9 @@ public class HomeFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
 
+    private DatabaseReference databaseReference;
+    List<Product> lstProduct;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -59,14 +67,39 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerPopular = view.findViewById(R.id.rv_popular);
         recyclerFoods = view.findViewById(R.id.rv_foods);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Product");
+
         itemsAdapter = new itemsProductAdapter(view.getContext());
+
+        lstProduct = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
-        itemsAdapter.setData(getListItem());
+        itemsAdapter.setData(lstProduct);
         recyclerPopular.setAdapter(itemsAdapter);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    lstProduct.add(product);
+                }
+
+                itemsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 3); // số 2 ở đây là số cột hiển thị
@@ -123,14 +156,29 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
     }
 
     private FoodViewModel foodViewModel;
 
     private List<Product> getListItem(){
         List<Product> list = new ArrayList<>();
-        foodViewModel = new FoodViewModel();
-        foodViewModel.getAll();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = dataSnapshot.getValue(Product.class);
+                    list.add(product);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        itemsAdapter.notifyDataSetChanged();
         return list;
     }
 }

@@ -2,10 +2,10 @@
     android:shape="rectangle">
 
 
-    <solid android:color="@color/bg_app" />
+    <solid android:color="#f5c350" />
     <stroke
-        android:width="3dp"
-        android:color="#bcfefe" />
+        android:width="5dp"
+        android:color="#f5c3c0" />
 
     <padding
         android:left="5dp"

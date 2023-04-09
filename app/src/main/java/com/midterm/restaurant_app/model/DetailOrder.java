@@ -2,16 +2,15 @@ package com.midterm.restaurant_app.model;
 
 public class DetailOrder {
     private String idDetailOrder;
-    private String idFood;
+    private String idProduct;
     private int quantity;
 
     public DetailOrder() {
     }
 
-    public DetailOrder(String idDetailOrder, String idBillOrder, String idFood, int quantity) {
+    public DetailOrder(String idDetailOrder, String idProduct, int quantity) {
         this.idDetailOrder = idDetailOrder;
-        this.idBillOrder = idBillOrder;
-        this.idFood = idFood;
+        this.idProduct = idProduct;
         this.quantity = quantity;
     }
 
@@ -23,20 +22,12 @@ public class DetailOrder {
         this.idDetailOrder = idDetailOrder;
     }
 
-    public String getIdBillOrder() {
-        return idBillOrder;
+    public String getIdProduct() {
+        return idProduct;
     }
 
-    public void setIdBillOrder(String idBillOrder) {
-        this.idBillOrder = idBillOrder;
-    }
-
-    public String getIdFood() {
-        return idFood;
-    }
-
-    public void setIdFood(String idFood) {
-        this.idFood = idFood;
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
     }
 
     public int getQuantity() {

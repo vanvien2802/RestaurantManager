@@ -1,23 +1,31 @@
 package com.midterm.restaurant_app.model;
 
 public class Product {
+    private String urlProduct;
     private String idProduct;
     private String nameProduct;
     private double pricesProduct;
-    private boolean statusProduct;
     private String detailProduct;
     private int rateProduct;
 
     public Product() {
     }
 
-    public Product(String idProduct, String nameProduct, double pricesProduct, boolean statusProduct, String detailProduct, int rateProduct, int quantity) {
+    public Product(String urlProduct, String idProduct, String nameProduct, double pricesProduct, String detailProduct, int rateProduct) {
+        this.urlProduct = urlProduct;
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.pricesProduct = pricesProduct;
-        this.statusProduct = statusProduct;
         this.detailProduct = detailProduct;
         this.rateProduct = rateProduct;
+    }
+
+    public String getUrlProduct() {
+        return urlProduct;
+    }
+
+    public void setUrlProduct(String urlProduct) {
+        this.urlProduct = urlProduct;
     }
 
     public String getIdProduct() {
@@ -42,14 +50,6 @@ public class Product {
 
     public void setPricesProduct(double pricesProduct) {
         this.pricesProduct = pricesProduct;
-    }
-
-    public boolean isStatusProduct() {
-        return statusProduct;
-    }
-
-    public void setStatusProduct(boolean statusProduct) {
-        this.statusProduct = statusProduct;
     }
 
     public String getDetailProduct() {

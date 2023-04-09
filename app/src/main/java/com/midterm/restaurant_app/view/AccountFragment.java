@@ -5,8 +5,10 @@ import static android.app.Activity.RESULT_OK;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +24,27 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
+import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.model.Upload;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,12 +60,48 @@ public class AccountFragment extends Fragment {
 
 
     private StorageReference storageReference;
+    private StorageTask storageTask;
     private DatabaseReference databaseReference;
+
+    private Account account;
+    private EditText edtNameAcc;
+    private EditText edtAddress;
+    private EditText edtPhone;
+    private EditText edtEmail;
+    private EditText edtPass;
+
+
     public AccountFragment() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Account");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    account = dataSnapshot.getValue(Account.class);
+                    if(account.getEmail().equals("viennguyen.280202@gmail.com")){
+                        binding.setAccount(account);
+                        Log.d("helloo",account.getUrlAvatar());
+                            Glide.with(getContext())
+                                    .load(account.getUrlAvatar())
+                                    .centerCrop()
+                                    .placeholder(R.drawable.initialimage)
+                                    .into(ivAvatar);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if (getArguments() != null) {
         }
     }
@@ -66,10 +114,6 @@ public class AccountFragment extends Fragment {
         ivAvatar = view.findViewById(R.id.cirv_avatar);
         btnSave = view.findViewById(R.id.btn_save);
 
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
-        databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
-
-        binding = FragmentAccountBinding.inflate(getLayoutInflater());
 
         ivUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +124,7 @@ public class AccountFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadFile();
+                    updateAccount();
             }
         });
 
@@ -107,102 +151,97 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        ImageView editName = binding.penEditName;
-        EditText editText_Name = binding.editName;
-        ImageView editDateBirth = binding.penEditDateBirth;
-        EditText editText_DateBirth = binding.editDateBirth;
-        ImageView editPhone = binding.penEditPhoneNumber;
-        EditText editText_Phone = binding.editPhone;
-        ImageView editEmail = binding.penEditEmail;
-        EditText editText_Email = binding.editMail;
-        ImageView editIDCard = binding.penEditIDCard;
-        EditText editText_IDCard= binding.editIDCard;
+        ImageView imvNameUser = binding.penEditName;
+        edtNameAcc = binding.editNameAcc;
+        ImageView imvAddress = binding.penEditDateBirth;
+        edtAddress = binding.editAddress;
+        ImageView imvPhone = binding.penEditPhoneNumber;
+        edtPhone = binding.editPhone;
+        ImageView imvEmail = binding.penEditEmail;
+        edtEmail = binding.editMail;
+        ImageView imvPass = binding.penEditIDCard;
+        edtPass= binding.editPass;
 
 
-        editName.setOnClickListener(new View.OnClickListener() {
+        imvNameUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // Nếu EditText không được kích hoạt, kích hoạt nó và thay đổi văn bản của Button
-                if (!editText_Name.isEnabled()) {
-                    editText_Name.setEnabled(true);
-                    editText_Name.setBackgroundColor(Color.parseColor("#f09e98"));
+                if (!edtNameAcc.isEnabled()) {
+                    edtNameAcc.setEnabled(true);
+                    edtNameAcc.setBackgroundColor(Color.parseColor("#f09e98"));
 
                     //button.setText("Lưu");
                 }
                 // Ngược lại, vô hiệu hóa EditText và đặt lại văn bản của Button
                 else {
-                    editText_Name.setEnabled(false);
+                    edtNameAcc.setEnabled(false);
                     //button.setText("Chỉnh sửa");
-                    editText_Name.setBackgroundColor(Color.parseColor("#f5c3c0"));
+                    edtNameAcc.setBackgroundColor(Color.parseColor("#f5c3c0"));
                 }
             }
         });
-        editDateBirth.setOnClickListener(new View.OnClickListener() {
+        imvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!editText_DateBirth.isEnabled()) {
-                    editText_DateBirth.setEnabled(true);
-                    editText_DateBirth.setBackgroundColor(Color.parseColor("#f09e98"));
+                if (!edtAddress.isEnabled()) {
+                    edtAddress.setEnabled(true);
+                    edtAddress.setBackgroundColor(Color.parseColor("#f09e98"));
                 }
                 else {
-                    editText_DateBirth.setEnabled(false);
-                    editText_DateBirth.setBackgroundColor(Color.parseColor("#f5c3c0"));
+                    edtAddress.setEnabled(false);
+                    edtAddress.setBackgroundColor(Color.parseColor("#f5c3c0"));
                 }
 
             }
         });
-        editPhone.setOnClickListener(new View.OnClickListener() {
+        imvPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (!editText_Phone.isEnabled()) {
-                    editText_Phone.setEnabled(true);
-                    editText_Phone.setBackgroundColor(Color.parseColor("#f09e98"));
+                if (!edtPhone.isEnabled()) {
+                    edtPhone.setEnabled(true);
+                    edtPhone.setBackgroundColor(Color.parseColor("#f09e98"));
                 }
                 else {
-                    editText_Phone.setEnabled(false);
-                    editText_Phone.setBackgroundColor(Color.parseColor("#f5c3c0"));
+                    edtPhone.setEnabled(false);
+                    edtPhone.setBackgroundColor(Color.parseColor("#f5c3c0"));
                 }
 
             }
         });
-        editEmail.setOnClickListener(new View.OnClickListener() {
+        imvEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // Nếu EditText không được kích hoạt, kích hoạt nó và thay đổi văn bản của Button
-                if (!editText_Email.isEnabled()) {
-                    editText_Email.setEnabled(true);
-                    editText_Email.setBackgroundColor(Color.parseColor("#f09e98"));
-
-                    //button.setText("Lưu");
+                if (!edtEmail.isEnabled()) {
+                    edtEmail.setEnabled(true);
+                    edtAddress.setBackgroundColor(Color.parseColor("#f09e98"));
                 }
                 // Ngược lại, vô hiệu hóa EditText và đặt lại văn bản của Button
                 else {
-                    editText_Email.setEnabled(false);
-                    //button.setText("Chỉnh sửa");
-                    editText_Email.setBackgroundColor(Color.parseColor("#f5c3c0"));
+                    edtEmail.setEnabled(false);
+                    edtAddress.setBackgroundColor(Color.parseColor("#f5c3c0"));
                 }
 
             }
         });
-        editIDCard.setOnClickListener(new View.OnClickListener() {
+        imvPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // Nếu EditText không được kích hoạt, kích hoạt nó và thay đổi văn bản của Button
-                if (!editText_IDCard.isEnabled()) {
-                    editText_IDCard.setEnabled(true);
-                    editText_IDCard.setBackgroundColor(Color.parseColor("#f09e98"));
-
-                    //button.setText("Lưu");
+                if (!edtPass.isEnabled()) {
+                    edtPass.setEnabled(true);
+                    edtPass.setBackgroundColor(Color.parseColor("#f09e98"));
                 }
                 // Ngược lại, vô hiệu hóa EditText và đặt lại văn bản của Button
                 else {
-                    editText_IDCard.setEnabled(false);
+                    edtPass.setEnabled(false);
                     //button.setText("Chỉnh sửa");
-                    editText_IDCard.setBackgroundColor(Color.parseColor("#f5c3c0"));
+                    edtPass.setBackgroundColor(Color.parseColor("#f5c3c0"));
                 }
 
             }
@@ -215,7 +254,8 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        binding = FragmentAccountBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     private void openFileChooser(){
@@ -231,19 +271,32 @@ public class AccountFragment extends Fragment {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void uploadFile(){
+    private void updateAccount(){
+        databaseReference.child(account.getIdAcc()).child("nameAcc").setValue(edtNameAcc.getText().toString());
+        databaseReference.child(account.getIdAcc()).child("address").setValue(edtAddress.getText().toString());
+        databaseReference.child(account.getIdAcc()).child("phoneNumber").setValue(edtPhone.getText().toString());
+        databaseReference.child(account.getIdAcc()).child("email").setValue(edtEmail.getText().toString());
+        databaseReference.child(account.getIdAcc()).child("password").setValue(edtPass.getText().toString());
+
         if(avatarUri != null){
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(avatarUri));
-            fileReference.putFile(avatarUri)
+            storageReference = FirebaseStorage.getInstance().getReference("avatarAcc");
+            StorageReference fileReference = storageReference.child(account.getNameAcc()+"."+getFileExtension(avatarUri));
+            storageTask = fileReference.putFile(avatarUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     Toast.makeText(getContext(), "Upload successfull !!!",Toast.LENGTH_SHORT).show();
-
-                                    Upload upload = new Upload("avatar",taskSnapshot.getUploadSessionUri().toString());
-                                    String uploadId = databaseReference.push().getKey();
-                                    databaseReference.child(uploadId).setValue(upload);
-
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageUrl = uri.toString();
+                                    databaseReference.child(account.getIdAcc()).child("urlAvatar").setValue(imageUrl);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -252,10 +305,6 @@ public class AccountFragment extends Fragment {
                             Toast.makeText(getContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
-        }
-
-        else{
-            Toast.makeText(this.getContext(),"No file selected",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -267,7 +316,6 @@ public class AccountFragment extends Fragment {
                         && data != null &&data.getData() !=null){
             avatarUri = data.getData();
             Picasso.with(this.getContext()).load(avatarUri).into(ivAvatar);
-//            ivAvatar.setImageURI();
         }
     }
 }

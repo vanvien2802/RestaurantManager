@@ -5,20 +5,20 @@
     android:id="@+id/Page_Create_AccountInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pic_login"
+    android:background="@drawable/img_1"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".view.SignUp">
 
     <TextView
         android:id="@+id/textView_Title2"
-        android:layout_width="wrap_content"
+        android:layout_width="211dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="35dp"
         android:fontFamily="sans-serif-black"
+        android:gravity="center"
         android:text="Create new  Account"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="33sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,6 +27,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.324" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Already Registered? Login"
+        android:textColor="#a4f4f7" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +52,7 @@
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-black"
             android:text="Please enter your name:"
-            android:textColor="#645a59"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.14"
@@ -72,7 +80,7 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="sans-serif-black"
             android:text="Please enter your phone number:"
-            android:textColor="#645a59"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.186"
@@ -101,7 +109,7 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="sans-serif-black"
             android:text="Please enter your email:"
-            android:textColor="#645a59"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.171"
@@ -131,7 +139,7 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="sans-serif-black"
             android:text="Please enter your ID card number:"
-            android:textColor="#645a59"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.236"
@@ -159,7 +167,7 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="sans-serif-black"
             android:text="Please enter your date of birth:"
-            android:textColor="#645a59"
+            android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.172"
@@ -189,16 +197,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:backgroundTint="#f36155"
+        android:background="@drawable/edittext_border"
+        android:backgroundTint="@color/bg_app"
         android:fontFamily="sans-serif-black"
         android:padding="40px"
-        android:text="SEND"
+        android:text="Sign up"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext3" />
+        app:layout_constraintTop_toBottomOf="@+id/edittext3"
+        app:rippleColor="@color/bg_app" />
 
     <TextView
         android:id="@+id/textView_OrSignIn"

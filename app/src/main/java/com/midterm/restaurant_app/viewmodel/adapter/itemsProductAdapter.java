@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
+import com.midterm.restaurant_app.databinding.ItemProductsBinding;
+import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForTableBinding;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.view.ServeFragment;
 
@@ -29,9 +34,9 @@ import java.util.List;
 public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapter.ViewHolder> {
 
     private Context context;
-    List<Product> productItems;
-
-    private Spinner spTable;
+    private List<Product> productItems;
+    private ItemProductsBinding binding;
+    private LayoutDialogAddFoodForTableBinding bindingDialog;
 
     public itemsProductAdapter(Context context) {
         this.context = context;
@@ -45,18 +50,24 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
 
-        return new ViewHolder(view);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_products,
+                parent,
+                false
+        );
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product productItem = productItems.get(position);
+//        Product productItem = productItems.get(position);
 //        holder.tvTitle.setText(foodItem.getTitle());
 //        holder.tvCost.setText((String) foodItem.getCost());
+        holder.binding.setProduct(productItems.get(position));
 
-        holder.itemView.findViewById(R.id.card_food).setOnClickListener(new View.OnClickListener() {
+        holder.binding.cardFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openFeedbackDialog(Gravity.CENTER);
@@ -64,8 +75,12 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
             private void openFeedbackDialog(int gravity){
                 final Dialog dialog = new Dialog (context);
+
+                bindingDialog = LayoutDialogAddFoodForTableBinding.inflate(LayoutInflater.from(context));
+
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.layout_dialog_add_food_for_table);
+//                dialog.setContentView(R.layout.layout_dialog_add_food_for_table);
+                dialog.setContentView(bindingDialog.getRoot());
 
                 Window window = dialog.getWindow();
                 if(window==null){
@@ -84,41 +99,37 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 } else{
                     dialog.setCancelable(false);
                 }
-                Button btnNoThanks = dialog.findViewById(R.id.btn_no_thanks);
-                Button btnSend = dialog.findViewById(R.id.btn_send);
-                ImageView imageView_plus = dialog.findViewById(R.id.img_plus);
-                ImageView imageView_minus = dialog.findViewById(R.id.img_minus);
-                TextView number_of_dishes = dialog.findViewById(R.id.txt_number_of_dishes);
-                imageView_plus.setOnClickListener(new View.OnClickListener() {
+                bindingDialog.imgPlus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int currentValue = Integer.parseInt(number_of_dishes.getText().toString());
+                        int currentValue = Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString());
                         int newValue = currentValue + 1;
-                        number_of_dishes.setText(Integer.toString(newValue));
+                        bindingDialog.txtNumberOfDishes.setText(Integer.toString(newValue));
                     }
                 });
 
 
-                imageView_minus.setOnClickListener(new View.OnClickListener() {
+                bindingDialog.imgMinus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int currentValue = Integer.parseInt(number_of_dishes.getText().toString());
+                        int currentValue = Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString());
                         if (currentValue > 0) {
                             int newValue = currentValue - 1;
-                            number_of_dishes.setText(Integer.toString(newValue));
+                            bindingDialog.txtNumberOfDishes.setText(Integer.toString(newValue));
                         }
                     }
                 });
 
-                btnNoThanks.setOnClickListener(new View.OnClickListener() {
+                bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
+                        Log.d("CCCCCCCCCCC", "Clickkkk");
                         dialog.dismiss();
                     }
                 });
 
-                btnSend.setOnClickListener(new View.OnClickListener() {
+                bindingDialog.btnAdd.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -136,7 +147,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 //                ArrayAdapter<String> arrayAdapter_Table = new ArrayAdapter<>(context.getApplicationContext(),R.layout.style_spinner,tableNameList);
 //                spTable = dialog.findViewById(R.id.List_table);
 //                spTable.setAdapter(arrayAdapter_Table);
-//                dialog.show();
+                dialog.show();
             }
         });
     }
@@ -151,14 +162,11 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvTitle;
-        private TextView tvCost;
+        private ItemProductsBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            tvTitle = itemView.findViewById(R.id.tv_title);
-            tvCost = itemView.findViewById(R.id.tv_cost);
+        public ViewHolder(ItemProductsBinding itembinding) {
+            super(itembinding.getRoot());
+            this.binding = itembinding;
         }
     }
 
