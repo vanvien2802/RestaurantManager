@@ -1,15 +1,19 @@
 package com.midterm.restaurant_app.view;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -43,6 +47,7 @@ public class MenuFoodFragment extends Fragment {
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
+    private Button  Add_Button;
 
     private DatabaseReference databaseReference;
     List<Product> lstProduct;
@@ -101,8 +106,10 @@ public class MenuFoodFragment extends Fragment {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 3); // số 2 ở đây là số cột hiển thị
         recyclerFoods = view.findViewById(R.id.rv_list_food);
-        recyclerFoods.setLayoutManager(gridLayoutManager);
-
+//        recyclerFoods.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerFoods.setLayoutManager(layoutManager);
         recyclerFoods.setAdapter(itemsAdapter);
 
         navSer = view.findViewById(R.id.nav_serve);
@@ -127,30 +134,58 @@ public class MenuFoodFragment extends Fragment {
             }
         });
 
+        Add_Button = view.findViewById(R.id.but_Add);
+        updateAddButton(false, "+ Add");
+        recyclerFoods.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // RecyclerView đứng yên, hiển thị nút dạng hình chữ nhật bo tròn
+                    updateAddButton(false, "+ Add");
+                } else {
+                    // RecyclerView đang di chuyển, hiển thị nút dạng hình tròn
+                    updateAddButton(true, "+");
+                }
+            }
+        });
 
-//        drawerLayout = view.findViewById(R.id.drawerLayout);
-//        ivSideMenu = view.findViewById(R.id.iv_sidemenu);
-//        ivSideMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                drawerLayout.openDrawer(GravityCompat.START);
-//            }
-//        });
-//
-//        flbtnLogout = view.findViewById(R.id.flbtn_logout);
-//        flbtnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), FirstActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(intent);
-//            }
-//        });
+        Add_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
 
     }
 
     private FoodViewModel foodViewModel;
+    public void updateAddButton ( boolean isRound,String text) {
+        if (isRound) {
+            // Đặt định dạng hình tròn cho nút
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.OVAL);
+            shape.setSize(80,80);
+            shape.setColor(ContextCompat.getColor(getContext(), R.color.green));
+            Add_Button.setBackground(shape);
+            Add_Button.setTextSize(40);
+            Add_Button.setGravity(Gravity.CENTER);
+        } else {
+            // Đặt định dạng hình chữ nhật bo tròn cho nút
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.RECTANGLE);
+            shape.setSize(200,80);
+            shape.setCornerRadius(getResources().getDimension(R.dimen.button_corner_radius));
+            shape.setColor(ContextCompat.getColor(getContext(), R.color.green));
+            Add_Button.setBackground(shape);
+            Add_Button.setTextSize(20);
+            Add_Button.setGravity(Gravity.CENTER);
+
+        }
+        Add_Button.setText(text);
+    }
 
     private List<Product> getListItem(){
         List<Product> list = new ArrayList<>();
