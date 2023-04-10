@@ -32,7 +32,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     private Context context;
     private List<Product> productItems;
     private ItemMenuProductsBinding binding;
-    private LayoutDialogAddFoodForTableBinding bindingDialog;
+
 
     public itemsMenuProductAdapter(Context context) {
         this.context = context;
@@ -48,11 +48,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_details_product,
-                parent,
-                false
-        );
+        ItemMenuProductsBinding binding = ItemMenuProductsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
@@ -62,82 +58,6 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 //        holder.tvTitle.setText(foodItem.getTitle());
 //        holder.tvCost.setText((String) foodItem.getCost());
         holder.binding.setProduct(productItems.get(position));
-
-//        holder.binding.cardFood.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                openFeedbackDialog(Gravity.CENTER);
-//            }
-//
-//            private void openFeedbackDialog(int gravity){
-//                final Dialog dialog = new Dialog (context);
-//
-//                bindingDialog = LayoutDialogAddFoodForTableBinding.inflate(LayoutInflater.from(context));
-//
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-////                dialog.setContentView(R.layout.layout_dialog_add_food_for_table);
-//                dialog.setContentView(bindingDialog.getRoot());
-//
-//                Window window = dialog.getWindow();
-//                if(window==null){
-//                    return;
-//                }
-//
-//                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-//                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//
-//                WindowManager.LayoutParams windowAttributes = window.getAttributes();
-//                windowAttributes.gravity= gravity;
-//                window.setAttributes(windowAttributes);
-//
-//                if(Gravity.BOTTOM == gravity){
-//                    dialog.setCancelable(true);
-//                } else{
-//                    dialog.setCancelable(false);
-//                }
-//                bindingDialog.imgPlus.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        int currentValue = Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString());
-//                        int newValue = currentValue + 1;
-//                        bindingDialog.txtNumberOfDishes.setText(Integer.toString(newValue));
-//                    }
-//                });
-//
-//
-//                bindingDialog.imgMinus.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        int currentValue = Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString());
-//                        if (currentValue > 0) {
-//                            int newValue = currentValue - 1;
-//                            bindingDialog.txtNumberOfDishes.setText(Integer.toString(newValue));
-//                        }
-//                    }
-//                });
-//
-//                bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View v) {
-//                        Log.d("CCCCCCCCCCC", "Clickkkk");
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                bindingDialog.btnAdd.setOnClickListener(new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                });
-//                //Lấy list table
-//                ServeFragment getlistTable= new ServeFragment();
-//                ArrayList<String> tableNameList = new ArrayList<>();
-//                dialog.show();
-//            }
-//        });
     }
 
     @Override
@@ -150,7 +70,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private ItemMenuProductsBinding binding;
+        public ItemMenuProductsBinding binding;
 
         public ViewHolder(ItemMenuProductsBinding itembinding) {
             super(itembinding.getRoot());
