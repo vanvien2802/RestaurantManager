@@ -21,6 +21,7 @@ import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemMenuProductsBinding;
 import com.midterm.restaurant_app.databinding.ItemProductsBinding;
 import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForTableBinding;
+import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForMenuBinding;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.view.ServeFragment;
 
@@ -58,6 +59,61 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 //        holder.tvTitle.setText(foodItem.getTitle());
 //        holder.tvCost.setText((String) foodItem.getCost());
         holder.binding.setProduct(productItems.get(position));
+
+        holder.binding.cardFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFeedbackDialog(Gravity.CENTER);
+            }
+
+            private void openFeedbackDialog(int gravity) {
+                final Dialog dialog = new Dialog(context);
+
+                @NonNull LayoutDialogAddFoodForMenuBinding bindingDialog = LayoutDialogAddFoodForMenuBinding.inflate(LayoutInflater.from(context));
+
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(bindingDialog.getRoot());
+
+                Window window = dialog.getWindow();
+                if (window == null) {
+                    return;
+                }
+
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+                WindowManager.LayoutParams windowAttributes = window.getAttributes();
+                windowAttributes.gravity = gravity;
+                window.setAttributes(windowAttributes);
+
+                if (Gravity.BOTTOM == gravity) {
+                    dialog.setCancelable(true);
+                } else {
+                    dialog.setCancelable(false);
+                }
+
+                bindingDialog.btnCancel.setText("Delete");
+                bindingDialog.btnAdd.setText("Update");
+                bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("CCCCCCCCCCC", "Clickkkk");
+                        dialog.dismiss();
+                    }
+                });
+
+                bindingDialog.btnAdd.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     @Override

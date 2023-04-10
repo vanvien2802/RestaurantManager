@@ -1,15 +1,23 @@
 package com.midterm.restaurant_app.view;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +41,7 @@ import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsMenuProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,15 +162,65 @@ public class MenuFoodFragment extends Fragment {
         Add_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                openDialog(Gravity.CENTER);
 
             }
         });
 
 
 
+
     }
 
     private FoodViewModel foodViewModel;
+    private void openDialog(int gravity){
+        final Dialog dialog = new Dialog (this.getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_add_food_for_menu);
+
+        Window window = dialog.getWindow();
+        if(window==null){
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity= gravity;
+        window.setAttributes(windowAttributes);
+
+        if(Gravity.BOTTOM == gravity){
+            dialog.setCancelable(true);
+        } else{
+            dialog.setCancelable(false);
+        }
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+        Button btnAdd = dialog.findViewById(R.id.btn_add);
+
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+
+
+
+        dialog.show();
+    }
     public void updateAddButton ( boolean isRound,String text) {
         if (isRound) {
             // Đặt định dạng hình tròn cho nút
