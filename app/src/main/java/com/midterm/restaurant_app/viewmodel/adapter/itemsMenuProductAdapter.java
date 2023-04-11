@@ -1,6 +1,7 @@
 package com.midterm.restaurant_app.viewmodel.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,9 +15,16 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemMenuProductsBinding;
 import com.midterm.restaurant_app.databinding.ItemProductsBinding;
@@ -54,19 +62,22 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 //        Product productItem = productItems.get(position);
 //        holder.tvTitle.setText(foodItem.getTitle());
 //        holder.tvCost.setText((String) foodItem.getCost());
         holder.binding.setProduct(productItems.get(position));
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference productRef = database.getReference("Product");
+
         holder.binding.cardFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openFeedbackDialog(Gravity.CENTER);
+                openFeedbackDialog(Gravity.CENTER, productItems.get(position).getIdProduct());
             }
 
-            private void openFeedbackDialog(int gravity) {
+            private void openFeedbackDialog(int gravity, String productId) {
                 final Dialog dialog = new Dialog(context);
 
                 @NonNull LayoutDialogAddFoodForMenuBinding bindingDialog = LayoutDialogAddFoodForMenuBinding.inflate(LayoutInflater.from(context));
@@ -93,13 +104,37 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                     dialog.setCancelable(false);
                 }
 
+                // Load data from Realtime Database
+                productRef.child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            Product product = snapshot.getValue(Product.class);
+                            if (product != null) {
+                                bindingDialog.setProduct(product);
+                                Glide.with(context)
+                                        .load(productItems.get(position).getUrlProduct())
+                                        .centerCrop()
+                                        .placeholder(R.drawable.hampogar)
+                                        .into(bindingDialog.imgFood);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // Handle error
+                    }
+                });
+
                 bindingDialog.btnCancel.setText("Delete");
                 bindingDialog.btnAdd.setText("Update");
                 bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        Log.d("CCCCCCCCCCC", "Clickkkk");
+                        // Delete product
+                        productRef.child(productId).removeValue();
                         dialog.dismiss();
                     }
                 });
@@ -108,7 +143,12 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
                     @Override
                     public void onClick(View v) {
-
+                        // Update product
+                        Product product = bindingDialog.getProduct();
+                        if (product != null) {
+                            productRef.child(productId).setValue(product);
+                        }
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
@@ -132,6 +172,8 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
             super(itembinding.getRoot());
             this.binding = itembinding;
         }
+
     }
+
 
 }
