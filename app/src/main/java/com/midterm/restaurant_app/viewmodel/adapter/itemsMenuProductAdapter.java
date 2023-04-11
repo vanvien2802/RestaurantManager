@@ -44,13 +44,38 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
 
     public itemsMenuProductAdapter(Context context) {
+
         this.context = context;
+        setupFirebaseListener();
     }
 
     public void setData(List<Product> items){
         this.productItems = items;
         notifyDataSetChanged();
     }
+
+    private void setupFirebaseListener() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference productRef = database.getReference("Product");
+
+        productRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Product> products = new ArrayList<>();
+                for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                    Product product = productSnapshot.getValue(Product.class);
+                    products.add(product);
+                }
+                setData(products);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
+
 
     @NonNull
     @Override
@@ -174,6 +199,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
         }
 
     }
+
 
 
 }
