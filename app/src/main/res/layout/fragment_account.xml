@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8E3D7"
-    tools:context=".view.AccountFragment"
-    tools:viewBindingIgnore="true"
-    >
+    tools:context=".view.AccountFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout7"

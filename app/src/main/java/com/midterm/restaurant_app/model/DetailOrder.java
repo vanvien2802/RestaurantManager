@@ -1,18 +1,20 @@
 package com.midterm.restaurant_app.model;
 
+import java.util.List;
+
 public class DetailOrder {
     private String idDetailOrder;
     private String idBillOrder;
-    private String idFood;
+    private String idProduct;
     private int quantity;
 
     public DetailOrder() {
     }
 
-    public DetailOrder(String idDetailOrder, String idBillOrder, String idFood, int quantity) {
+    public DetailOrder(String idDetailOrder, String idBillOrder, String idProduct, int quantity) {
         this.idDetailOrder = idDetailOrder;
         this.idBillOrder = idBillOrder;
-        this.idFood = idFood;
+        this.idProduct = idProduct;
         this.quantity = quantity;
     }
 
@@ -32,12 +34,12 @@ public class DetailOrder {
         this.idBillOrder = idBillOrder;
     }
 
-    public String getIdFood() {
-        return idFood;
+    public String getIdProduct() {
+        return idProduct;
     }
 
-    public void setIdFood(String idFood) {
-        this.idFood = idFood;
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
     }
 
     public int getQuantity() {

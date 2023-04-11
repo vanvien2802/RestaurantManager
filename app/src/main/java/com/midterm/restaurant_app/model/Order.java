@@ -1,36 +1,30 @@
 package com.midterm.restaurant_app.model;
 
-import java.util.List;
-
 public class Order {
-    private String idOrdered;
+    private String idOrder;
     private String idAcc;
-    private List<String> idDOrds;
     private String idTable;
-    private boolean statusOrdered;
+    private int statusOrdered;
     private double totalBill;
-    private String dtimeOder;
+    private String dtimeOrder;
 
+    public Order() {}
 
-    public Order() {
-    }
-
-    public Order(String idOrdered, String idAcc, List<String> idDOrds, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
-        this.idOrdered = idOrdered;
+    public Order(String idOrder, String idAcc, String idTable, int statusOrdered, double totalBill, String dtimeOrder) {
+        this.idOrder = idOrder;
         this.idAcc = idAcc;
-        this.idDOrds = idDOrds;
         this.idTable = idTable;
         this.statusOrdered = statusOrdered;
         this.totalBill = totalBill;
-        this.dtimeOder = dtimeOder;
+        this.dtimeOrder = dtimeOrder;
     }
 
-    public String getIdOrdered() {
-        return idOrdered;
+    public String getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdOrdered(String idOrdered) {
-        this.idOrdered = idOrdered;
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 
     public String getIdAcc() {
@@ -41,14 +35,6 @@ public class Order {
         this.idAcc = idAcc;
     }
 
-    public List<String> getIdDOrd() {
-        return idDOrds;
-    }
-
-    public void setIdDOrd(List<String> idDOrds) {
-        this.idDOrds = idDOrds;
-    }
-
     public String getIdTable() {
         return idTable;
     }
@@ -57,11 +43,11 @@ public class Order {
         this.idTable = idTable;
     }
 
-    public boolean isStatusOrdered() {
+    public int getStatusOrdered() {
         return statusOrdered;
     }
 
-    public void setStatusOrdered(boolean statusOrdered) {
+    public void setStatusOrdered(int statusOrdered) {
         this.statusOrdered = statusOrdered;
     }
 
@@ -73,11 +59,21 @@ public class Order {
         this.totalBill = totalBill;
     }
 
-    public String getDtimeOder() {
-        return dtimeOder;
+    public String getDtimeOrder() {
+        return dtimeOrder;
     }
 
-    public void setDtimeOder(String dtimeOder) {
-        this.dtimeOder = dtimeOder;
+    public void setDtimeOrder(String dtimeOrder) {
+        this.dtimeOrder = dtimeOrder;
+    }
+
+    public String stringStatusOrdered(){
+        if (statusOrdered == 1){
+            return "Served";
+        }
+        else {
+            return "Serving...";
+        }
     }
 }
+
