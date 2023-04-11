@@ -2,6 +2,7 @@ package com.midterm.restaurant_app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +35,8 @@ import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
     private RecyclerView recyclerFoods;
@@ -44,6 +48,7 @@ public class HomeFragment extends Fragment {
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
+    private CircleImageView myAvatar;
 
     private DatabaseReference databaseReference;
     List<Product> lstProduct;
@@ -70,6 +75,12 @@ public class HomeFragment extends Fragment {
 
         recyclerPopular = view.findViewById(R.id.rv_popular);
         recyclerFoods = view.findViewById(R.id.rv_foods);
+        myAvatar = view.findViewById(R.id.my_image_avatar);
+//        Glide.with(getContext())
+//                .load(new AccountFragment().urlImage)
+//                .centerCrop()
+//                .placeholder(R.drawable.initialimage)
+//                .into(myAvatar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Product");
 

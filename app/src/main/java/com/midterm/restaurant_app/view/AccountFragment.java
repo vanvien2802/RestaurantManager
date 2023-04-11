@@ -36,6 +36,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.model.Account;
@@ -77,15 +78,16 @@ public class AccountFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseReference = FirebaseDatabase.getInstance().getReference("Account");
+        MainActivity mainActivity = new MainActivity();
+        String email = mainActivity.ID_ACCOUNT;
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     account = dataSnapshot.getValue(Account.class);
-                    if(account.getEmail().equals("viennguyen.280202@gmail.com")){
+                    if(account.getEmail().equals(email)){
                         binding.setAccount(account);
-                        Log.d("helloo",account.getUrlAvatar());
                             Glide.with(getContext())
                                     .load(account.getUrlAvatar())
                                     .centerCrop()

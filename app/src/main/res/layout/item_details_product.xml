@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="detailOrder"
+            type="com.midterm.restaurant_app.model.DetailOrder" />
+    </data>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:id="@+id/ll_tableitem"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -31,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Name food"
+            android:hint="Name food"
+            android:text="@{detailOrder.idProduct}"
             android:fontFamily="@font/bevan"
             android:textColor="@color/black" />
 
@@ -103,3 +111,4 @@
         app:srcCompat="@drawable/delicon" />
 
 </LinearLayout>
+</layout>

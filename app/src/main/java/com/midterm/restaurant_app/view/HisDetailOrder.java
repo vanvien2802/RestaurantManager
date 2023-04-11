@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Product;
+import com.midterm.restaurant_app.viewmodel.adapter.DetailOrderAdapter;
 import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import java.util.List;
 public class HisDetailOrder extends Fragment {
 
     private RecyclerView recyclerListFoods;
-    private ProductOrderAdapter foodsOrAdapter;
+    private DetailOrderAdapter detailOrderAdapter;
     private LinearLayout navHome;
     private LinearLayout navHis;
     private LinearLayout navAcc;
@@ -38,7 +40,7 @@ public class HisDetailOrder extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            nameCustom = bundle.getString("nameCustom");
+//            nameCustom = bundle.getString("nameCustom");
         }
 
     }
@@ -54,12 +56,12 @@ public class HisDetailOrder extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerListFoods = view.findViewById(R.id.rv_his_detail_ordered);
-        foodsOrAdapter = new ProductOrderAdapter(view.getContext());
+        detailOrderAdapter = new DetailOrderAdapter(view.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerListFoods.VERTICAL,false);
         recyclerListFoods.setLayoutManager(linearLayoutManager);
-        foodsOrAdapter.setData(getListItem());
-        recyclerListFoods.setAdapter(foodsOrAdapter);
+        detailOrderAdapter.setData(getListItem());
+        recyclerListFoods.setAdapter(detailOrderAdapter);
 
         TextView tvNameTable = view.findViewById(R.id.textView1);
         tvNameTable.setText(nameCustom);
@@ -89,8 +91,9 @@ public class HisDetailOrder extends Fragment {
         });
     }
 
-    private List<Product> getListItem(){
-        List<Product> list = new ArrayList<>();
+    private List<DetailOrder> getListItem(){
+        List<DetailOrder> list = new ArrayList<>();
+        list.add(new DetailOrder("123","abc",2));
 //        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
 //        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
 //        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));

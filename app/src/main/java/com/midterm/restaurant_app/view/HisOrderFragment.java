@@ -14,15 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.viewmodel.adapter.AccountAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.OrderAdappter;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class HisOrderFragment extends Fragment {
     private RecyclerView recyclerHisOrder;
-    private AccountAdapter cusOrderedAdapter;
+    private OrderAdappter orderAdappter;
     private LinearLayout navHome;
     private LinearLayout navSer;
     private LinearLayout navAcc;
@@ -44,11 +48,11 @@ public class HisOrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerHisOrder =view.findViewById(R.id.rv_allHisOrderedTable);
-        cusOrderedAdapter = new AccountAdapter(view.getContext());
+        orderAdappter = new OrderAdappter(view.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerHisOrder.VERTICAL,false);
         recyclerHisOrder.setLayoutManager(linearLayoutManager);
-        cusOrderedAdapter.setData(getListItem());
-        recyclerHisOrder.setAdapter(cusOrderedAdapter);
+        orderAdappter.setData(getListItem());
+        recyclerHisOrder.setAdapter(orderAdappter);
 
         navSer = view.findViewById(R.id.nav_serve);
         navSer.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +77,10 @@ public class HisOrderFragment extends Fragment {
         });
     }
 
-    private List<Account> getListItem(){
+    private List<Order> getListItem(){
 
-        List<Account> list = new ArrayList<>();
+        List<Order> list = new ArrayList<>();
+        list.add(new Order("123","abc",new ArrayList<>(Arrays.asList("apple", "banana", "orange")), "abc",true,11.2,"ahaha"));
 //        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
 //        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
 //        list.add(new Account("Huong Trinh","250,9","28/02/2023"));

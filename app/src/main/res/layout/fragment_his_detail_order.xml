@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="order"
+            type="com.midterm.restaurant_app.model.Order" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8E3D7"
@@ -27,7 +33,8 @@
         android:layout_marginTop="40dp"
         android:layout_weight="0"
         android:gravity="center"
-        android:text="Huong Trinh"
+        android:hint="Huong Trinh"
+        android:text="@{order.idAcc}"
         android:fontFamily="@font/bevan"
         android:textColor="#f36155"
         android:textSize="20sp"
@@ -226,3 +233,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
