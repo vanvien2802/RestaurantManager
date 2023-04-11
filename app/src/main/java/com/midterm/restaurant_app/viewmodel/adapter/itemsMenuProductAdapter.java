@@ -1,11 +1,18 @@
 package com.midterm.restaurant_app.viewmodel.adapter;
 
 
+import static android.app.Activity.RESULT_OK;
+import static com.google.common.io.Files.getFileExtension;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,18 +20,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.ObjectKey;
+import com.google.android.gms.fido.fido2.api.common.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemMenuProductsBinding;
 import com.midterm.restaurant_app.databinding.ItemProductsBinding;
@@ -32,6 +55,7 @@ import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForTableBinding
 import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForMenuBinding;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.view.ServeFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +65,15 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     private Context context;
     private List<Product> productItems;
     private ItemMenuProductsBinding binding;
+    public Uri uri_img_food;
+
+    private StorageReference storageReference;
+    private FirebaseDatabase database;
+    private DatabaseReference productRef;
+    public Product product;
+    public StorageTask storageTask_product;
+    public static final int PICK_IMAGE_REQUESR_Product = 1;
+
 
 
     public itemsMenuProductAdapter(Context context) {
@@ -55,8 +88,8 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     }
 
     private void setupFirebaseListener() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference productRef = database.getReference("Product");
+        database = FirebaseDatabase.getInstance();
+        productRef = database.getReference("Product");
 
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,7 +167,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            Product product = snapshot.getValue(Product.class);
+                            product = snapshot.getValue(Product.class);
                             if (product != null) {
                                 bindingDialog.setProduct(product);
                                 Glide.with(context)
@@ -154,6 +187,18 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
                 bindingDialog.btnCancel.setText("Delete");
                 bindingDialog.btnAdd.setText("Update");
+//                if(uri_img_food != null) {
+//                    uri_img_food = Uri.parse(product.getUrlProduct());
+//                }
+                Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
+
+                bindingDialog.ivUpload.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                       // openFileChooser();
+                    }
+                });
                 bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -164,16 +209,21 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                     }
                 });
 
+
                 bindingDialog.btnAdd.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        // Update product
                         Product product = bindingDialog.getProduct();
                         if (product != null) {
-                            productRef.child(productId).setValue(product);
+
+                            productRef.child(product.getIdProduct()).child("nameProduct").setValue(bindingDialog.edtName.getText().toString());
+                            productRef.child(product.getIdProduct()).child("detailProduct").setValue(bindingDialog.edtIngredient.getText().toString());
+                            productRef.child(product.getIdProduct()).child("pricesProduct").setValue(Double.parseDouble(bindingDialog.edtPrice.getText().toString()));
+                            //updateimg_Food(uri_img_food);
                         }
                         dialog.dismiss();
+
                     }
                 });
                 dialog.show();
@@ -181,12 +231,62 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
         });
     }
 
+//            private void updateimg_Food(Uri uri_img_food){
+//
+//                if(uri_img_food != null){
+//                    storageReference = FirebaseStorage.getInstance().getReference("ImageProduct");
+//                    StorageReference fileReference = storageReference.child(product.getNameProduct()+"."+getFileExtension(uri_img_food));
+//                    storageTask_product = fileReference.putFile(uri_img_food)
+//                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    Toast.makeText(context, "Upload successfull !!!",Toast.LENGTH_SHORT).show();
+//                                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                        @Override
+//                                        public void onSuccess(Uri uri) {
+//                                            String imageUrl = uri.toString();
+//                                            productRef.child(product.getIdProduct()).child("urlAvatar").setValue(imageUrl);
+//                                        }
+//                                    }).addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                        }
+//                                    });
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(context, e.getMessage(),Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                }
+//
+//            }
     @Override
     public int getItemCount() {
         if(productItems != null){
             return productItems.size();
         }
         return 0;
+    }
+//    private void openFileChooser(){
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//    }
+//    private String getFileExtension(Uri uri){
+//        ContentResolver cR = this.getContext().getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(cR.getType(uri));
+//    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
