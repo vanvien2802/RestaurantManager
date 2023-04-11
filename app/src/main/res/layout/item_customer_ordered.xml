@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
     <data>
         <variable
             name="order"
             type="com.midterm.restaurant_app.model.Order" />
     </data>
 <LinearLayout
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_tableitem"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -88,8 +88,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:text="@{Double.toString(order.totalBill)}"
-                android:textColor="@color/black"
+                android:hint="12,94"
+                android:text="@{Double.toString(order.totalBill)}"                android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -127,6 +127,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:gravity="center"
+                android:hint="00/00/0000"
                 android:text="@{order.dtimeOder.toString()}"
                 android:textColor="@color/black"
                 android:textStyle="bold" />

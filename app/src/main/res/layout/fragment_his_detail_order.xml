@@ -55,7 +55,6 @@
         app:layout_constraintEnd_toStartOf="@+id/my_image_view3"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView_total"
         android:layout_width="wrap_content"
@@ -71,7 +70,6 @@
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
     <de.hdodenhof.circleimageview.CircleImageView
