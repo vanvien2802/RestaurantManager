@@ -108,8 +108,6 @@ public class SignIn extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("DDDD" , String.valueOf(requestCode));
-
         if(requestCode ==1000){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -136,6 +134,7 @@ public class SignIn extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Intent intentToHome = new Intent(SignIn.this, MainActivity.class);
                             intentToHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intentToHome.putExtra("GMAIL", email);
                             startActivity(intentToHome);
                         }
                         else{

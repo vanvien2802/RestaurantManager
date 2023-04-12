@@ -2,6 +2,7 @@ package com.midterm.restaurant_app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,13 +27,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
+import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
+import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
@@ -44,9 +52,13 @@ public class HomeFragment extends Fragment {
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
+    private CircleImageView myAvatar;
 
     private DatabaseReference databaseReference;
+    private FragmentHomeBinding bindingHome;
     List<Product> lstProduct;
+
+    private Account accountHome;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,13 +67,6 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
 
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -157,6 +162,25 @@ public class HomeFragment extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
+        myAvatar = bindingHome.myImageAvatar;
+        MainActivity mainAct = new MainActivity();
+        accountHome = mainAct.accountSignIn;
+        bindingHome.setAccount(accountHome);
+//        if(accountHome.getUrlAvatar()!= null){
+//            Glide.with(getContext())
+//                    .load(accountHome.getUrlAvatar())
+//                    .centerCrop()
+//                    .placeholder(R.drawable.initialimage)
+//                    .into(myAvatar);
+//        }
+        return bindingHome.getRoot();
     }
 
     private FoodViewModel foodViewModel;

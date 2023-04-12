@@ -36,6 +36,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.model.Account;
@@ -77,31 +78,6 @@ public class AccountFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseReference = FirebaseDatabase.getInstance().getReference("Account");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    account = dataSnapshot.getValue(Account.class);
-                    if(account.getEmail().equals("viennguyen.280202@gmail.com")){
-                        binding.setAccount(account);
-                        Log.d("helloo",account.getUrlAvatar());
-                            Glide.with(getContext())
-                                    .load(account.getUrlAvatar())
-                                    .centerCrop()
-                                    .placeholder(R.drawable.initialimage)
-                                    .into(ivAvatar);
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         if (getArguments() != null) {
         }
     }
@@ -111,7 +87,6 @@ public class AccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ivUpload = view.findViewById(R.id.iv_upload);
-        ivAvatar = view.findViewById(R.id.cirv_avatar);
         btnSave = view.findViewById(R.id.btn_save);
 
 
@@ -255,6 +230,18 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAccountBinding.inflate(inflater, container, false);
+
+        ivAvatar = binding.cirvAvatar;
+        MainActivity mainActivity = new MainActivity();
+        account = mainActivity.accountSignIn;
+        binding.setAccount(account);
+        if(account.getUrlAvatar()!= null){
+            Glide.with(getContext())
+                    .load(account.getUrlAvatar())
+                    .centerCrop()
+                    .placeholder(R.drawable.initialimage)
+                    .into(ivAvatar);
+        }
         return binding.getRoot();
     }
 

@@ -29,6 +29,9 @@ import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ActivitySignUpBinding;
 import com.midterm.restaurant_app.model.Account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SignUp extends AppCompatActivity {
     private Button btnCreateUser;
     private EditText edtFullName;
@@ -41,6 +44,7 @@ public class SignUp extends AppCompatActivity {
 
     private ActivitySignUpBinding bindingSignUp;
     private FirebaseAuth mAuth;
+    private List<Account> listAcount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class SignUp extends AppCompatActivity {
         progressBar = bindingSignUp.progressCircular;
         progressBar.setVisibility(View.GONE);
         mAuth = FirebaseAuth.getInstance();
+        listAcount = new ArrayList<>();
+        getAllAccount();
 
 
         TextView button_txt_SignIn = bindingSignUp.textViewSignIn;
@@ -122,6 +128,8 @@ public class SignUp extends AppCompatActivity {
             edtPhoneNumber.requestFocus();
             return;
         }
+        String idAcount = idAccount();
+//        Log.d("vvvvvvvv", idAcount);
 
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(edtEmail.getText().toString().trim(),edtPass.getText().toString().trim())
@@ -130,7 +138,7 @@ public class SignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Account account = new Account(
-                                    idAccount(),
+                                    idAcount,
                                     edtNameAcc.getText().toString().trim(),
                                     edtPass.getText().toString().trim(),
                                     edtFullName.getText().toString().trim(),
@@ -141,7 +149,7 @@ public class SignUp extends AppCompatActivity {
                                     0
                             );
                             FirebaseDatabase.getInstance().getReference("Account")
-                                    .child(idAccount())
+                                    .child(idAcount)
                                     .setValue(account).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -163,16 +171,25 @@ public class SignUp extends AppCompatActivity {
     }
 
     private String idAccount() {
+        int max =0;
+        for (Account acc: listAcount ){
+            int id = Integer.parseInt(acc.getIdAcc().toString().trim().substring(3));
+            if(id > max) max = id;
+        }
+        String s = "Acc0" + (max+1);
+        Log.d("vvvvvvvv", s);
+        if(max+1 < 10) return "Acc0" + (max+1);
+        return "Acc" + (max+1);
+    }
+
+    private void getAllAccount(){
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Account");
-        final int[] max = {0};
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Account account = dataSnapshot.getValue(Account.class);
-                    int num =Integer.parseInt(account.getIdAcc().toString().trim());
-                    if(num > max[0])
-                        max[0] = num;
+                    listAcount.add(account);
                 }
             }
 
@@ -181,9 +198,5 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
-        if(max[0] <10){
-            return "Acc0"+max[0];
-        }
-        return "Acc"+max[0];
     }
 }
