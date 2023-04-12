@@ -71,4 +71,9 @@
             android:id="@+id/action_detailHisOrderFragment_to_hisOrderFragment"
             app:destination="@id/hisOrderFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/menuFoodFragment"
+        android:name="com.midterm.restaurant_app.view.MenuFoodFragment"
+        android:label="fragment_menu_food"
+        tools:layout="@layout/fragment_menu_food" />
 </navigation>

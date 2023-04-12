@@ -44,7 +44,7 @@ public class Product {
         this.nameProduct = nameProduct;
     }
 
-    public double getPricesProduct() {
+    public Double getPricesProduct() {
         return pricesProduct;
     }
 

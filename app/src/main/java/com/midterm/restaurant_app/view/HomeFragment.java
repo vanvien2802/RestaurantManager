@@ -35,6 +35,7 @@ import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
+import com.midterm.restaurant_app.view.MenuFoodFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class HomeFragment extends Fragment {
     private LinearLayout navSer;
     private LinearLayout navHis;
     private LinearLayout navAccount;
-    private LinearLayout navChat;
+    private LinearLayout navChat, navMenu;
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
@@ -142,6 +143,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        navMenu = view.findViewById(R.id.linear_menu);
+        navMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.menuFoodFragment, savedInstanceState);
+            }
+        });
+
         drawerLayout = view.findViewById(R.id.drawerLayout);
         ivSideMenu = view.findViewById(R.id.iv_sidemenu);
         ivSideMenu.setOnClickListener(new View.OnClickListener() {
@@ -169,10 +178,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
-        myAvatar = bindingHome.myImageAvatar;
-        MainActivity mainAct = new MainActivity();
-        accountHome = mainAct.accountSignIn;
-        bindingHome.setAccount(accountHome);
+//        myAvatar = bindingHome.myImageAvatar;
+//        MainActivity mainAct = new MainActivity();
+//        accountHome = mainAct.accountSignIn;
+//        bindingHome.setAccount(accountHome);
 //        if(accountHome.getUrlAvatar()!= null){
 //            Glide.with(getContext())
 //                    .load(accountHome.getUrlAvatar())

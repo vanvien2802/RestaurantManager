@@ -11,6 +11,12 @@
         android:orientation="vertical"
         tools:context=".view.SignUp">
 
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/textView_Title2"
             android:layout_width="211dp"
@@ -275,12 +281,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edittext3" />
-
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
