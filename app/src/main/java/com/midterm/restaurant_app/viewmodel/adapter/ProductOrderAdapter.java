@@ -18,8 +18,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.ItemDetailsProductBinding;
+import com.midterm.restaurant_app.databinding.ItemOrderBinding;
+import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Product;
 
 import java.util.ArrayList;
@@ -29,67 +39,52 @@ import java.util.List;
 public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapter.ViewHolder> {
 
     private Context context;
-    List<Product> productItems;
+    private List<DetailOrder> detailOrderItems;
+    private ItemDetailsProductBinding bindingDetailsProduct;
+    private static Product product;
 
     public ProductOrderAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<Product> items){
-        this.productItems = items;
+    public void setData(List<DetailOrder> items){
+        this.detailOrderItems = items;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_details_product,parent,false);
-
-        return new ViewHolder(view);
+        bindingDetailsProduct = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_details_product,
+                parent,
+                false
+        );
+        return new ViewHolder(bindingDetailsProduct);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product productItem = productItems.get(position);
-//        holder.tvTitle.setText(foodItem.getTitle());
-//        holder.tvCostFood.setText((String) foodItem.getCost());
-//        holder.tvDescrip.setText(foodItem.getCost());
-//        if(foodItem.isStatus()){
-//            holder.tvStatusServe.setText("Done");
-//        }
-//        else{
-//            holder.tvStatusServe.setText("Not done");
-//        }
+        DetailOrder detailOrder = detailOrderItems.get(position);
+        holder.bindingDetailsProduct.tvNumber.setText(String.valueOf(detailOrder.getQuantity()));
     }
 
     @Override
     public int getItemCount() {
-        if(productItems != null){
-            return productItems.size();
+        if(detailOrderItems != null){
+            return detailOrderItems.size();
         }
         return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvTitle;
-        private TextView tvCostFood;
-        private TextView tvStatusServe;
-        private TextView tvDescrip;
-        private ImageView imRemove;
-        private Spinner spReason;
+        private ItemDetailsProductBinding bindingDetailsProduct;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            tvTitle = itemView.findViewById(R.id.tv_nameFood);
-            tvCostFood = itemView.findViewById(R.id.tv_costfood);
-            tvStatusServe = itemView.findViewById(R.id.tv_statusserve);
-            tvDescrip = itemView.findViewById(R.id.tv_details);
-
-            imRemove = itemView.findViewById(R.id.im_remove);
-
-            imRemove.setOnClickListener(new View.OnClickListener() {
+        public ViewHolder(@NonNull ItemDetailsProductBinding binding) {
+            super(binding.getRoot());
+            this.bindingDetailsProduct = binding;
+            bindingDetailsProduct.imRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     openFeedbackDialog(Gravity.CENTER);
@@ -97,7 +92,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             });
         }
         private void openFeedbackDialog(int gravity){
-            final Dialog dialog = new Dialog(imRemove.getContext());
+            final Dialog dialog = new Dialog(bindingDetailsProduct.imRemove.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_remove_food);
             Window window = dialog.getWindow();
@@ -110,7 +105,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             WindowManager.LayoutParams windownAttribute = window.getAttributes();
             windownAttribute.gravity = gravity;
             window.setAttributes(windownAttribute);
-            spReason = dialog.findViewById(R.id.sp_reason);
+            Spinner spReason = dialog.findViewById(R.id.sp_reason);
 
             String[] reasons = {"Đã hết nguyên liệu","Có vấn đề trong lúc nấu","Khác"};
             ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(reasons));
@@ -135,5 +130,23 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             dialog.show();
         }
     }
+
+//    private static void getProductById(String idProduct){
+//        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Product");
+//        myRef.child(idProduct).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Product prod = dataSnapshot.getValue(Product.class);
+//                if (prod != null) {
+//                    product = prod;
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Lỗi xảy ra khi lấy sản phẩm từ Firebase Realtime Database
+//            }
+//        });
+//    }
 
 }

@@ -40,12 +40,13 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/btnBookOnMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:backgroundTint="#219BCC"
+            android:backgroundTint="#0099FF"
             android:text="Book"
-            ></Button>
+            android:textColor="#111111"></Button>
 
 
     </LinearLayout>

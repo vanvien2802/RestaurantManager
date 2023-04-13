@@ -58,7 +58,7 @@ public class HisDetailOrder extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerListFoods.VERTICAL,false);
         recyclerListFoods.setLayoutManager(linearLayoutManager);
-        foodsOrAdapter.setData(getListItem());
+//        foodsOrAdapter.setData(getListItem());
         recyclerListFoods.setAdapter(foodsOrAdapter);
 
         TextView tvNameTable = view.findViewById(R.id.textView1);
@@ -89,17 +89,17 @@ public class HisDetailOrder extends Fragment {
         });
     }
 
-    private List<Product> getListItem(){
-        List<Product> list = new ArrayList<>();
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-        return list;
-    }
+//    private List<Product> getListItem(){
+//        List<Product> list = new ArrayList<>();
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
+//        return list;
+//    }
 }

@@ -1,36 +1,29 @@
 package com.midterm.restaurant_app.model;
 
-import java.util.List;
-
 public class Order {
-    private String idOrdered;
+    private String idOrder;
     private String idAcc;
-    private List<String> idDetailOrders;
-    private String idTable;
-    private boolean statusOrdered;
+    private String nameTable;
+    private String statusOrdered;
     private double totalBill;
-    private String dtimeOder;
+    private String dtimeOrder;
 
-
-    public Order() {
-    }
-
-    public Order(String idOrdered, String idAcc, List<String> idDetailOrders, String idTable, boolean statusOrdered, double totalBill, String dtimeOder) {
-        this.idOrdered = idOrdered;
+    public Order() {}
+    public Order(String idOrder, String idAcc, String nameTable, String statusOrdered, double totalBill, String dtimeOrder) {
+        this.idOrder = idOrder;
         this.idAcc = idAcc;
-        this.idDetailOrders = idDetailOrders;
-        this.idTable = idTable;
+        this.nameTable = nameTable;
         this.statusOrdered = statusOrdered;
         this.totalBill = totalBill;
-        this.dtimeOder = dtimeOder;
+        this.dtimeOrder = dtimeOrder;
     }
 
-    public String getIdOrdered() {
-        return idOrdered;
+    public String getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdOrdered(String idOrdered) {
-        this.idOrdered = idOrdered;
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 
     public String getIdAcc() {
@@ -40,28 +33,19 @@ public class Order {
     public void setIdAcc(String idAcc) {
         this.idAcc = idAcc;
     }
-
-    public List<String> getIdDetailOrders() {
-        return idDetailOrders;
+    public String getNameTable() {
+        return nameTable;
     }
 
-    public void setIdDetailOrders(List<String> idDetailOrders) {
-        this.idDetailOrders = idDetailOrders;
+    public void setNameTable(String nameTable) {
+        this.nameTable = nameTable;
     }
 
-    public String getIdTable() {
-        return idTable;
-    }
-
-    public void setIdTable(String idTable) {
-        this.idTable = idTable;
-    }
-
-    public boolean isStatusOrdered() {
+    public String getStatusOrdered() {
         return statusOrdered;
     }
 
-    public void setStatusOrdered(boolean statusOrdered) {
+    public void setStatusOrdered(String statusOrdered) {
         this.statusOrdered = statusOrdered;
     }
 
@@ -73,11 +57,12 @@ public class Order {
         this.totalBill = totalBill;
     }
 
-    public String getDtimeOder() {
-        return dtimeOder;
+    public String getDtimeOrder() {
+        return dtimeOrder;
     }
 
-    public void setDtimeOder(String dtimeOder) {
-        this.dtimeOder = dtimeOder;
+    public void setDtimeOrder(String dtimeOrder) {
+        this.dtimeOrder = dtimeOrder;
     }
 }
+

@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsOrderFragment"
-        android:name="com.midterm.restaurant_app.view.DetailsOrder"
+        android:name="com.midterm.restaurant_app.view.DetailsOrderFragment"
         android:label="fragment_details_order"
         tools:layout="@layout/fragment_detail_serve">
 

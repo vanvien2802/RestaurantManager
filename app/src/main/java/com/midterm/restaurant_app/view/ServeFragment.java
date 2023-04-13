@@ -15,71 +15,74 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentServeBinding;
 import com.midterm.restaurant_app.model.Order;
-import com.midterm.restaurant_app.viewmodel.adapter.TableAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.OrderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServeFragment extends Fragment {
-    private RecyclerView recyclerAllTable;
-    private TableAdapter tablesAdap;
-    private LinearLayout navHome;
-    private LinearLayout navHis;
-    private LinearLayout navAccount;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-    }
+    private FragmentServeBinding binding;
+    private OrderAdapter orderAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_serve, container, false);
+        // Inflate the layout for this fragment using data binding
+        binding = FragmentServeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerAllTable = view.findViewById(R.id.rv_alltable);
-        tablesAdap = new TableAdapter(view.getContext());
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerAllTable.VERTICAL,false);
+        // Get the reference to the RecyclerView using data binding
+        RecyclerView recyclerAllTable = binding.rvAlltable;
+
+        // Set up the RecyclerView and OrderAdapter
+        orderAdapter = new OrderAdapter(view.getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
         recyclerAllTable.setLayoutManager(linearLayoutManager);
-        tablesAdap.setData(getListItem());
-        recyclerAllTable.setAdapter(tablesAdap);
-        navHis = view.findViewById(R.id.nav_his);
+        recyclerAllTable.setAdapter(orderAdapter);
 
-        navHis.setOnClickListener(new View.OnClickListener() {
+        // Set up the onClickListeners for the navigation buttons
+        binding.navHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
+                Navigation.findNavController(view).navigate(R.id.hisOrderFragment);
             }
         });
-        navAccount = view.findViewById(R.id.nav_account);
-        navAccount.setOnClickListener(new View.OnClickListener() {
+
+        binding.navAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
+                Navigation.findNavController(view).navigate(R.id.accountFragment);
             }
         });
-        navHome = view.findViewById(R.id.nav_home);
-        navHome.setOnClickListener(new View.OnClickListener() {
+
+        binding.navHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
+                Navigation.findNavController(view).navigate(R.id.homenav);
             }
         });
-    }
-    public List<Order> getListItem() {
-        List<Order> list = new ArrayList<>();
-        return list;
+
+        // Load data from Firebase
+        orderAdapter.getOrdersFromFirebase();
     }
 
+    public void setData(List<Order> orderList) {
+        orderAdapter.setData(orderList);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
+
+

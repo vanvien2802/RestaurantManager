@@ -1,105 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_tableitem"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="0"
-    android:background="@drawable/boderitems"
-    android:orientation="horizontal"
-    android:layout_margin="10dp"
-    android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/my_image_view"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/pizza"/>
+    <data>
+        <variable
+            name="detailOrder"
+            type="com.midterm.restaurant_app.model.DetailOrder" />
+    </data>
 
     <LinearLayout
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:id="@+id/ll_tableitem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="0"
+        android:background="@drawable/boderitems"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tv_nameFood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Name food"
-            android:fontFamily="@font/bevan"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/tv_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/saira_medium"
-            android:text="descript"
-            android:textColor="#AAA1A1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cirv_product"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/pizza" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_baseline_attach_money_24" />
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_costfood"
+                android:id="@+id/tv_name_Product"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:fontFamily="@font/saira_medium"
-                android:gravity="center"
-                android:text="12,94"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bevan"
+                android:hint="Name food"
                 android:textColor="@color/black" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/saira_medium"
+                    android:gravity="center"
+                    android:text="Số lượng"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/saira_medium"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(detailOrder.getQuantity())}"
+                    android:hint="4"
+                    android:textColor="#AAA1A1" />
+
+            </LinearLayout>
+
         </LinearLayout>
-        <TextView
-            android:id="@+id/tv_statusserve"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:fontFamily="@font/abril_fatface"
-            android:gravity="center"
-            android:text="Done"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_baseline_attach_money_24" />
+
+                <TextView
+                    android:id="@+id/tv_costfood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:fontFamily="@font/saira_medium"
+                    android:gravity="center"
+                    android:hint="12,94"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_status_serve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/saira_medium"
+                android:gravity="center"
+                android:hint="Done"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/im_remove"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="-10dp"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            app:srcCompat="@drawable/delicon" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/im_remove"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="-10dp"
-        android:layout_weight="1"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        app:srcCompat="@drawable/delicon" />
-
-</LinearLayout>
+</layout>
