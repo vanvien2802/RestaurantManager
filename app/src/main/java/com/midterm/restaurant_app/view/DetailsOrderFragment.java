@@ -50,24 +50,24 @@ public class DetailsOrderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        lstDetailOrder = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("DetailOrder");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    DetailOrder detailOrder = dataSnapshot.getValue(DetailOrder.class);
-                    lstDetailOrder.add(detailOrder);
-                }
-                productsOrAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        lstDetailOrder = new ArrayList<>();
+//        databaseReference = FirebaseDatabase.getInstance().getReference("DetailOrder");
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    DetailOrder detailOrder = dataSnapshot.getValue(DetailOrder.class);
+//                    lstDetailOrder.add(detailOrder);
+//                }
+//                productsOrAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
         Bundle bundle = getArguments();
         if (bundle != null) {
             nameTable = bundle.getString("nameTable");

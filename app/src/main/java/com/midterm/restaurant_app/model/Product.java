@@ -51,7 +51,6 @@ public class Product {
     public void setPricesProduct(double pricesProduct) {
         this.pricesProduct = pricesProduct;
     }
-
     public String getDetailProduct() {
         return detailProduct;
     }

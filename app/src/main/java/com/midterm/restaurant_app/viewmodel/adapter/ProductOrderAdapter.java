@@ -66,7 +66,10 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DetailOrder detailOrder = detailOrderItems.get(position);
+        product = getProductById(detailOrder.getIdProduct());
+        bindingDetailsProduct.setDetailOrder(detailOrder);
         holder.bindingDetailsProduct.tvNumber.setText(String.valueOf(detailOrder.getQuantity()));
+        holder.bindingDetailsProduct.tvNameProduct.setText(detailOrder.getIdProduct());
     }
 
     @Override
@@ -131,22 +134,24 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
         }
     }
 
-//    private static void getProductById(String idProduct){
-//        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Product");
-//        myRef.child(idProduct).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Product prod = dataSnapshot.getValue(Product.class);
-//                if (prod != null) {
-//                    product = prod;
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Lỗi xảy ra khi lấy sản phẩm từ Firebase Realtime Database
-//            }
-//        });
-//    }
+    private static Product getProductById(String idProduct){
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Product");
+        myRef.child(idProduct).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Product prod = dataSnapshot.getValue(Product.class);
+                if (prod != null) {
+                    product = prod;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Lỗi xảy ra khi lấy sản phẩm từ Firebase Realtime Database
+            }
+        });
+        return product;
+    }
+
 
 }

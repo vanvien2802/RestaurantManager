@@ -12,17 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
 import com.midterm.restaurant_app.databinding.ItemProductsBinding;
 import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForTableBinding;
 import com.midterm.restaurant_app.model.Product;

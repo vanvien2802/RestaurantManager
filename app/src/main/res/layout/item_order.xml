@@ -43,7 +43,6 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/abril_fatface"
                 android:hint="Name table"
-                android:text="@{order.getNameTable()}"
                 android:textColor="@color/black" />
 
             <TextView

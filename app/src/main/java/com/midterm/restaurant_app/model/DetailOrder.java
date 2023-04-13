@@ -24,7 +24,6 @@ public class DetailOrder {
     public void setIdDetailOrder(String idDetailOrder) {
         this.idDetailOrder = idDetailOrder;
     }
-
     public String getIdOrder() {
         return idOrder;
     }
@@ -48,7 +47,6 @@ public class DetailOrder {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     public String getStatusDetailOrder() {
         return statusDetailOrder;
     }

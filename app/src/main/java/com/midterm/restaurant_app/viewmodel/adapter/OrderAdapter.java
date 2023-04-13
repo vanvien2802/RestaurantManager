@@ -48,6 +48,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     orderList.add(order);
                 }
                 setData(orderList);
+                for (Category category : categories) {
+                    DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("Products")
+                            .orderByChild("category_id").equalTo(category.getId());
+                    productsRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // Lấy danh sách các sản phẩm
+                            List<Product> products = new ArrayList<>();
+                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                                Product product = productSnapshot.getValue(Product.class);
+                                products.add(product);
+                            }
+
+                            // Hiển thị danh sách các sản phẩm lên giao diện
+                            // ...
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Xử lý lỗi
+                        }
+                    });
+                }
             }
 
             @Override

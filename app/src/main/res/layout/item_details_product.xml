@@ -114,6 +114,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/saira_medium"
                 android:gravity="center"
+                android:text="@{detailOrder.getStatusDetailOrder()}"
                 android:hint="Done"
                 android:textColor="@color/black"
                 android:textStyle="bold" />

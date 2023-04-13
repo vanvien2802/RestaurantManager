@@ -88,18 +88,4 @@ public class HisDetailOrder extends Fragment {
             }
         });
     }
-
-//    private List<Product> getListItem(){
-//        List<Product> list = new ArrayList<>();
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",false));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-////        list.add(new FoodItem("Hamperger","15.93","Carrot, rise, broccoli, paprica",true));
-//        return list;
-//    }
 }

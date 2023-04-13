@@ -3,16 +3,16 @@ package com.midterm.restaurant_app.model;
 public class Order {
     private String idOrder;
     private String idAcc;
-    private String nameTable;
+    private String idTable;
     private String statusOrdered;
     private double totalBill;
     private String dtimeOrder;
 
     public Order() {}
-    public Order(String idOrder, String idAcc, String nameTable, String statusOrdered, double totalBill, String dtimeOrder) {
+    public Order(String idOrder, String idAcc, String idTable, String statusOrdered, double totalBill, String dtimeOrder) {
         this.idOrder = idOrder;
         this.idAcc = idAcc;
-        this.nameTable = nameTable;
+        this.idTable = idTable;
         this.statusOrdered = statusOrdered;
         this.totalBill = totalBill;
         this.dtimeOrder = dtimeOrder;
@@ -34,11 +34,11 @@ public class Order {
         this.idAcc = idAcc;
     }
     public String getNameTable() {
-        return nameTable;
+        return idTable;
     }
 
-    public void setNameTable(String nameTable) {
-        this.nameTable = nameTable;
+    public void setNameTable(String idTable) {
+        this.idTable = idTable;
     }
 
     public String getStatusOrdered() {
@@ -65,4 +65,3 @@ public class Order {
         this.dtimeOrder = dtimeOrder;
     }
 }
-

@@ -32,7 +32,8 @@ public abstract class Repository<T> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<T> items = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    T item = snapshot.getValue(getModelClass());
+
+                     T item = snapshot.getValue(getModelClass());
                     items.add(item);
                 }
                 mutableLiveData.postValue(items);
