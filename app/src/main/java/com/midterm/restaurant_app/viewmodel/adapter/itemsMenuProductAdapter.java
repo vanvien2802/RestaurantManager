@@ -190,7 +190,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 //                if(uri_img_food != null) {
 //                    uri_img_food = Uri.parse(product.getUrlProduct());
 //                }
-                Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
+//                Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
 
                 bindingDialog.ivUpload.setOnClickListener(new View.OnClickListener() {
 

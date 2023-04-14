@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,15 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
-import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
-import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
-import com.midterm.restaurant_app.view.MenuFoodFragment;
+import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +51,7 @@ public class HomeFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
     private CircleImageView myAvatar;
-
-    private DatabaseReference databaseReference;
+    private ProductViewModel productViewModel;
     private FragmentHomeBinding bindingHome;
     List<Product> lstProduct;
 
@@ -78,36 +73,40 @@ public class HomeFragment extends Fragment {
         recyclerPopular = view.findViewById(R.id.rv_popular);
         recyclerFoods = view.findViewById(R.id.rv_foods);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Product");
-
         itemsAdapter = new itemsProductAdapter(view.getContext());
 
         lstProduct = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
-        itemsAdapter.setData(lstProduct);
-        recyclerPopular.setAdapter(itemsAdapter);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        productViewModel= new ProductViewModel();
+        //get all with view model
+        productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    lstProduct.add(product);
-                }
-
-                itemsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onChanged(List<Product> products) {
+                itemsAdapter.setData(products);
             }
         });
 
+        // get by id example
+
+        productViewModel.getById("Pd02").observe(getViewLifecycleOwner(), new Observer<Product>() {
+            @Override
+            public void onChanged(Product product) {
+                Log.d("DEBUG", product.getNameProduct());
+            }
+        });
+
+        // delete by id example
+
+//        productViewModel.delete("Pd07");
+
+        // update by id
+
+        productViewModel.update("Pd08", new Product("Pd08", "ajdf", "adsjf", 1.2, "haha", 1));
 
 
+        recyclerPopular.setAdapter(itemsAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 3); // số 2 ở đây là số cột hiển thị
         recyclerFoods.setLayoutManager(gridLayoutManager);
@@ -191,28 +190,5 @@ public class HomeFragment extends Fragment {
 //                    .into(myAvatar);
 //        }
         return bindingHome.getRoot();
-    }
-
-    private FoodViewModel foodViewModel;
-
-    private List<Product> getListItem(){
-        List<Product> list = new ArrayList<>();
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    list.add(product);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        itemsAdapter.notifyDataSetChanged();
-        return list;
     }
 }

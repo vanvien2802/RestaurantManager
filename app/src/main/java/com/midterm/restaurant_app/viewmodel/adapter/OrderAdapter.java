@@ -19,9 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemOrderBinding;
 import com.midterm.restaurant_app.model.Order;
+import com.midterm.restaurant_app.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
@@ -48,29 +50,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     orderList.add(order);
                 }
                 setData(orderList);
-                for (Category category : categories) {
-                    DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("Products")
-                            .orderByChild("category_id").equalTo(category.getId());
-                    productsRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            // Lấy danh sách các sản phẩm
-                            List<Product> products = new ArrayList<>();
-                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                                Product product = productSnapshot.getValue(Product.class);
-                                products.add(product);
-                            }
-
-                            // Hiển thị danh sách các sản phẩm lên giao diện
-                            // ...
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            // Xử lý lỗi
-                        }
-                    });
-                }
+//                for (Category category : categories) {
+//                    DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("Products")
+//                            .orderByChild("category_id").equalTo(category.getId());
+//                    productsRef.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            // Lấy danh sách các sản phẩm
+//                            List<Product> products = new ArrayList<>();
+//                            for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+//                                Product product = productSnapshot.getValue(Product.class);
+//                                products.add(product);
+//                            }
+//
+//                            // Hiển thị danh sách các sản phẩm lên giao diện
+//                            // ...
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//                            // Xử lý lỗi
+//                        }
+//                    });
+//                }
             }
 
             @Override
@@ -102,13 +104,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
+
     public int getItemCount() {
         return orderList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemOrderBinding bindingOrder;
-
         public ViewHolder(@NonNull ItemOrderBinding binding) {
             super(binding.getRoot());
             this.bindingOrder = binding;

@@ -302,7 +302,7 @@ public class AccountFragment extends Fragment {
         if(requestCode == PICK_IMAGE_REQUESR && resultCode == RESULT_OK
                         && data != null &&data.getData() !=null){
             avatarUri = data.getData();
-            Picasso.with(this.getContext()).load(avatarUri).into(ivAvatar);
+//            Picasso.with(this.getContext()).load(avatarUri).into(ivAvatar);
         }
     }
 }
