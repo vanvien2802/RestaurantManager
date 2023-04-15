@@ -54,7 +54,7 @@ public class HisDetailOrder extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerListFoods = view.findViewById(R.id.rv_his_detail_ordered);
-        foodsOrAdapter = new ProductOrderAdapter(view.getContext());
+//        foodsOrAdapter = new ProductOrderAdapter(view.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerListFoods.VERTICAL,false);
         recyclerListFoods.setLayoutManager(linearLayoutManager);

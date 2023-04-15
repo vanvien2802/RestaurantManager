@@ -31,20 +31,24 @@ import com.midterm.restaurant_app.databinding.ItemDetailsProductBinding;
 import com.midterm.restaurant_app.databinding.ItemOrderBinding;
 import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Product;
+import com.midterm.restaurant_app.model.Table;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapter.ViewHolder> {
 
     private Context context;
     private List<DetailOrder> detailOrderItems;
     private ItemDetailsProductBinding bindingDetailsProduct;
-    private static Product product;
+    private HashMap<String,Product> productHashMap;
 
-    public ProductOrderAdapter(Context context) {
+    public ProductOrderAdapter(Context context,HashMap<String,Product> productHashMap) {
         this.context = context;
+        this.productHashMap = productHashMap;
     }
 
     public void setData(List<DetailOrder> items){
@@ -66,10 +70,12 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DetailOrder detailOrder = detailOrderItems.get(position);
-        product = getProductById(detailOrder.getIdProduct());
-        bindingDetailsProduct.setDetailOrder(detailOrder);
-        holder.bindingDetailsProduct.tvNumber.setText(String.valueOf(detailOrder.getQuantity()));
-        holder.bindingDetailsProduct.tvNameProduct.setText(detailOrder.getIdProduct());
+        holder.bindingDetailsProduct.setDetailOrder(detailOrder);
+        for (Map.Entry<String, Product> entry : productHashMap.entrySet()) {
+            if(detailOrder.getIdProduct().equals(entry.getKey())){
+                holder.bindingDetailsProduct.tvNameProduct.setText(entry.getValue().getNameProduct());
+            }
+        }
     }
 
     @Override
@@ -132,25 +138,6 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
             dialog.show();
         }
-    }
-
-    private static Product getProductById(String idProduct){
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Product");
-        myRef.child(idProduct).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Product prod = dataSnapshot.getValue(Product.class);
-                if (prod != null) {
-                    product = prod;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Lỗi xảy ra khi lấy sản phẩm từ Firebase Realtime Database
-            }
-        });
-        return product;
     }
 
 

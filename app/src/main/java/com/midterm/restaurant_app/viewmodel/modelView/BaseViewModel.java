@@ -50,9 +50,9 @@ public class BaseViewModel<T> extends ViewModel {
         return repository.getAll();
     }
 
-    public void getById(String id) {
+    public LiveData<T> getById(String id) {
         isLoading.setValue(true);
-        repository.getById(id);
+        return repository.getById(id);
     }
 
     public void deleteAll() {

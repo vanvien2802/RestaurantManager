@@ -12,16 +12,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemProductsBinding;
 import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForTableBinding;
 import com.midterm.restaurant_app.model.Product;
+import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.view.ServeFragment;
+import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +41,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     private List<Product> productItems;
     private ItemProductsBinding binding;
     private LayoutDialogAddFoodForTableBinding bindingDialog;
+    private List<String> lstItemTable;
 
     public itemsProductAdapter(Context context) {
         this.context = context;
@@ -52,15 +62,21 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 parent,
                 false
         );
+
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Product productItem = productItems.get(position);
-//        holder.tvTitle.setText(foodItem.getTitle());
-//        holder.tvCost.setText((String) foodItem.getCost());
+        Product product = productItems.get(position);
         holder.binding.setProduct(productItems.get(position));
+        if(product.getUrlProduct()!= ""){
+            Glide.with(this.context)
+                    .load(product.getUrlProduct())
+                    .centerCrop()
+                    .placeholder(R.drawable.initialimage)
+                    .into(holder.binding.ivFoodimage);
+        }
 
         holder.binding.cardFood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +90,6 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 bindingDialog = LayoutDialogAddFoodForTableBinding.inflate(LayoutInflater.from(context));
 
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.setContentView(R.layout.layout_dialog_add_food_for_table);
                 dialog.setContentView(bindingDialog.getRoot());
 
                 Window window = dialog.getWindow();
@@ -94,6 +109,30 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 } else{
                     dialog.setCancelable(false);
                 }
+
+                lstItemTable = new ArrayList<>();
+                FirebaseDatabase.getInstance().getReference("Table").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                            Table table = childSnapshot.getValue(Table.class);
+                            if(table.getStatusTb().equals("opening")){
+                                lstItemTable.add(table.getNameTable());
+                                // Tạo một ArrayAdapter để hiển thị danh sách chuỗi
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context.getApplicationContext(), R.layout.style_spinner, lstItemTable);
+                                adapter.notifyDataSetChanged();
+                                bindingDialog.listTable.setAdapter(adapter);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
                 bindingDialog.imgPlus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -119,7 +158,6 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
                     @Override
                     public void onClick(View v) {
-                        Log.d("CCCCCCCCCCC", "Clickkkk");
                         dialog.dismiss();
                     }
                 });
@@ -134,14 +172,6 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 //Lấy list table
                 ServeFragment getlistTable= new ServeFragment();
                 ArrayList<String> tableNameList = new ArrayList<>();
-
-//                for (TableItem table : getlistTable.getListItem()) {
-//                    String tableName = table.getNameTable();
-//                    tableNameList.add(tableName);
-//                }
-//                ArrayAdapter<String> arrayAdapter_Table = new ArrayAdapter<>(context.getApplicationContext(),R.layout.style_spinner,tableNameList);
-//                spTable = dialog.findViewById(R.id.List_table);
-//                spTable.setAdapter(arrayAdapter_Table);
                 dialog.show();
             }
         });

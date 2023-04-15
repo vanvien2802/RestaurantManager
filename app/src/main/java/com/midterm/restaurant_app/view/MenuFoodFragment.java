@@ -348,11 +348,16 @@ public class MenuFoodFragment extends Fragment {
     private String getIdPush() {
         String id = "";
         int i = 1;
-        for (Product product:lstProduct) {
-            if (i < 10) id = "Pd0" + i;
-            else if (i >= 10) id = "Pd" + i;
-            if (!product.getIdProduct().toString().trim().equals(id)) {
-                break;
+        boolean check = false;
+        while(!check){
+            check = true;
+            if (i < 10) id = "Pd0" + (i+1);
+            else if (i >= 10) id = "Pd" + (i+1);
+            for (Product product:lstProduct) {
+                if (product.getIdProduct().toString().trim().equals(id)) {
+                    check = false;
+                    break;
+                }
             }
             i++;
         }

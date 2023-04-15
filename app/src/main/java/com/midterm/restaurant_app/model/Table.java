@@ -3,11 +3,11 @@ package com.midterm.restaurant_app.model;
 public class Table {
     private String idTable;
     private String nameTable;
-    private boolean statusTb;
+    private String statusTb;
     private int capacity;
     private int floor;
 
-    public Table(String idTable, String nameTable, boolean statusTb, int capacity, int floor) {
+    public Table(String idTable, String nameTable, String statusTb, int capacity, int floor) {
         this.idTable = idTable;
         this.nameTable = nameTable;
         this.statusTb = statusTb;
@@ -16,6 +16,9 @@ public class Table {
     }
 
     public Table() {
+    }
+    public String getStatusTb() {
+        return statusTb;
     }
 
     public String getIdTable() {
@@ -34,11 +37,7 @@ public class Table {
         this.nameTable = nameTable;
     }
 
-    public boolean isStatusTb() {
-        return statusTb;
-    }
-
-    public void setStatusTb(boolean statusTb) {
+    public void setStatusTb(String statusTb) {
         this.statusTb = statusTb;
     }
 

@@ -33,11 +33,12 @@ public class Order {
     public void setIdAcc(String idAcc) {
         this.idAcc = idAcc;
     }
-    public String getNameTable() {
+
+    public String getIdTable() {
         return idTable;
     }
 
-    public void setNameTable(String idTable) {
+    public void setIdTable(String idTable) {
         this.idTable = idTable;
     }
 

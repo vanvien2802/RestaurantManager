@@ -5,14 +5,18 @@ import static android.app.Activity.RESULT_OK;
 import static com.google.common.io.Files.getFileExtension;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,8 +42,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.gms.fido.fido2.api.common.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,7 +79,12 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     private DatabaseReference productRef;
     public Product product;
     public StorageTask storageTask_product;
-    public static final int PICK_IMAGE_REQUESR_Product = 1;
+    public static final int PICK_IMAGE_REQUESR_Product = 2;
+
+    public LayoutDialogAddFoodForMenuBinding bindingDialog;
+    private StorageTask storageTask;
+
+    private PreferenceManager.OnActivityResultListener listener;
 
 
 
@@ -113,17 +125,20 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
-
-        ItemMenuProductsBinding binding = ItemMenuProductsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding = ItemMenuProductsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-//        Product productItem = productItems.get(position);
-//        holder.tvTitle.setText(foodItem.getTitle());
-//        holder.tvCost.setText((String) foodItem.getCost());
+        Product productItem = productItems.get(position);
+        if(productItem.getUrlProduct()!= ""){
+            Glide.with(this.context)
+                    .load(productItem.getUrlProduct())
+                    .centerCrop()
+                    .placeholder(R.drawable.initialimage)
+                    .into(holder.binding.ivMenuFoodimage);
+        }
         holder.binding.setProduct(productItems.get(position));
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -138,10 +153,12 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
             private void openFeedbackDialog(int gravity, String productId) {
                 final Dialog dialog = new Dialog(context);
 
-                @NonNull LayoutDialogAddFoodForMenuBinding bindingDialog = LayoutDialogAddFoodForMenuBinding.inflate(LayoutInflater.from(context));
+                bindingDialog = LayoutDialogAddFoodForMenuBinding.inflate(LayoutInflater.from(context));
 
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(bindingDialog.getRoot());
+
+                bindingDialog.progressBar.setVisibility(View.GONE);
 
                 Window window = dialog.getWindow();
                 if (window == null) {
@@ -161,6 +178,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                 } else {
                     dialog.setCancelable(false);
                 }
+
 
                 // Load data from Realtime Database
                 productRef.child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -187,16 +205,17 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
                 bindingDialog.btnCancel.setText("Delete");
                 bindingDialog.btnAdd.setText("Update");
-//                if(uri_img_food != null) {
-//                    uri_img_food = Uri.parse(product.getUrlProduct());
-//                }
                 Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
+                dialog.show();
 
                 bindingDialog.ivUpload.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                       // openFileChooser();
+                                Intent intent = new Intent();
+                                intent.setType("image/*");
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUESR_Product);
                     }
                 });
                 bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -214,55 +233,61 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
                     @Override
                     public void onClick(View v) {
-                        Product product = bindingDialog.getProduct();
-                        if (product != null) {
-
-                            productRef.child(product.getIdProduct()).child("nameProduct").setValue(bindingDialog.edtName.getText().toString());
-                            productRef.child(product.getIdProduct()).child("detailProduct").setValue(bindingDialog.edtIngredient.getText().toString());
-                            productRef.child(product.getIdProduct()).child("pricesProduct").setValue(Double.parseDouble(bindingDialog.edtPrice.getText().toString()));
-                            //updateimg_Food(uri_img_food);
+                        Product prod = bindingDialog.getProduct();
+                        if (uri_img_food != null) {
+                            storageReference = FirebaseStorage.getInstance().getReference("imageProduct");
+                            StorageReference fileReference = storageReference.child(getFileExtension(uri_img_food));
+                            storageTask = fileReference.putFile(uri_img_food)
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            Toast.makeText(getContext(), "Upload successfull !!!", Toast.LENGTH_SHORT).show();
+                                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    Product product = new Product(
+                                                            uri.toString(),
+                                                            prod.getIdProduct(),
+                                                            bindingDialog.edtName.getText().toString().trim(),
+                                                            Double.parseDouble(bindingDialog.edtPrice.getText().toString().trim()),
+                                                            bindingDialog.edtIngredient.getText().toString().trim(),
+                                                            4);
+                                                    FirebaseDatabase.getInstance().getReference("Product")
+                                                            .child(prod.getIdProduct())
+                                                            .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    bindingDialog.progressBar.setVisibility(View.GONE);
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(getContext(), "Upload Successfully !", Toast.LENGTH_SHORT).show();
+                                                                    } else {
+                                                                        Toast.makeText(getContext(), "Upload Fail !", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                    dialog.dismiss();
+                                                                }
+                                                            });
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         }
                         dialog.dismiss();
 
                     }
                 });
-                dialog.show();
             }
         });
     }
-
-//            private void updateimg_Food(Uri uri_img_food){
-//
-//                if(uri_img_food != null){
-//                    storageReference = FirebaseStorage.getInstance().getReference("ImageProduct");
-//                    StorageReference fileReference = storageReference.child(product.getNameProduct()+"."+getFileExtension(uri_img_food));
-//                    storageTask_product = fileReference.putFile(uri_img_food)
-//                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                                @Override
-//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                    Toast.makeText(context, "Upload successfull !!!",Toast.LENGTH_SHORT).show();
-//                                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                                        @Override
-//                                        public void onSuccess(Uri uri) {
-//                                            String imageUrl = uri.toString();
-//                                            productRef.child(product.getIdProduct()).child("urlAvatar").setValue(imageUrl);
-//                                        }
-//                                    }).addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                        }
-//                                    });
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(context, e.getMessage(),Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                }
-//
-//            }
     @Override
     public int getItemCount() {
         if(productItems != null){
@@ -270,16 +295,28 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
         }
         return 0;
     }
-//    private void openFileChooser(){
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//    }
-//    private String getFileExtension(Uri uri){
-//        ContentResolver cR = this.getContext().getContentResolver();
-//        MimeTypeMap mime = MimeTypeMap.getSingleton();
-//        return mime.getExtensionFromMimeType(cR.getType(uri));
-//    }
+
+    @SuppressLint("Range")
+    private String getFileExtension(Uri uri) {
+        String result = null;
+        bindingDialog.progressBar.setVisibility(View.VISIBLE);
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getLastPathSegment();
+        }
+        return result;
+    }
+
+
 
     public Context getContext() {
         return context;
@@ -299,7 +336,6 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
         }
 
     }
-
 
 
 }
