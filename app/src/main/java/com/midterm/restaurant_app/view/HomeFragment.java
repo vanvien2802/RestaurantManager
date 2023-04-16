@@ -14,35 +14,23 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
-import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
 import com.midterm.restaurant_app.model.Account;
-import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
-import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
-import com.midterm.restaurant_app.view.MenuFoodFragment;
-import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
-import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +49,7 @@ public class HomeFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
     private CircleImageView myAvatar;
-
-    private DatabaseReference databaseReference;
+    private ProductViewModel productViewModel;
     private FragmentHomeBinding bindingHome;
     List<Product> lstProduct;
 
@@ -84,15 +71,12 @@ public class HomeFragment extends Fragment {
         recyclerPopular = view.findViewById(R.id.rv_popular);
         recyclerFoods = view.findViewById(R.id.rv_foods);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Product");
-
         itemsAdapter = new itemsProductAdapter(view.getContext());
 
         lstProduct = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
-
         ProductViewModel productViewModel = new ProductViewModel();
         productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
@@ -172,48 +156,4 @@ public class HomeFragment extends Fragment {
         bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
         return bindingHome.getRoot();
     }
-
-    private FoodViewModel foodViewModel;
-
-    private List<Product> getListItem(){
-        List<Product> list = new ArrayList<>();
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    list.add(product);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        itemsAdapter.notifyDataSetChanged();
-        return list;
-    }
-
-//    TableViewModel tableViewModel = new TableViewModel();
-//    OrderViewModel orderViewModel = new OrderViewModel();
-//        orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
-//        @Override
-//        public void onChanged(List<Order> orders) {
-//            for (Order order : orders){
-//                tableViewModel.getById(order.getIdTable()).observe(getViewLifecycleOwner(), new Observer<Table>() {
-//                    @Override
-//                    public void onChanged(Table table) {
-//                        if(order.getStatusOrdered().equals("Complete")){
-//                            FirebaseDatabase.getInstance().getReference("Table").child(table.getIdTable()).child("statusTB").setValue("0");
-//                        }
-//                        if(order.getStatusOrdered().equals("Serving...")){
-//                            FirebaseDatabase.getInstance().getReference("Table").child(table.getIdTable()).child("statusTB").setValue("1");
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//    });
 }

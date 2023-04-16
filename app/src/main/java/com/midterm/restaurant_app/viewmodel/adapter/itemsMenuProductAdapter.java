@@ -205,7 +205,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
                 bindingDialog.btnCancel.setText("Delete");
                 bindingDialog.btnAdd.setText("Update");
-                Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
+//                Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
                 dialog.show();
 
                 bindingDialog.ivUpload.setOnClickListener(new View.OnClickListener() {

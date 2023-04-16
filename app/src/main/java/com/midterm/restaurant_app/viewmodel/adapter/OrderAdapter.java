@@ -82,13 +82,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
+
     public int getItemCount() {
         return orderList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemOrderBinding bindingOrder;
-
         public ViewHolder(@NonNull ItemOrderBinding binding) {
             super(binding.getRoot());
             this.bindingOrder = binding;
