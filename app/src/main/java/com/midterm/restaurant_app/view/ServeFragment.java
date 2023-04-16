@@ -80,17 +80,17 @@ public class ServeFragment extends Fragment {
                                 hashMapTable.put(order.getIdTable(),table);
                                 orderAdapter = new OrderAdapter(view.getContext(),hashMapTable);
                                 if(account.getIdRole() == 1){
-                                    setAdapterDb();
+                                    setAdapterOrder();
                                 }
                                 else {
                                     if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Serving...")){
-                                        setAdapterDb();
+                                        setAdapterOrder();
                                     }
                                 }
                                 recyclerAllTable.setAdapter(orderAdapter);
                             }
 
-                            private void setAdapterDb() {
+                            private void setAdapterOrder() {
                                 lstOrders.add(order);
                                 orderAdapter.setData(lstOrders);
                                 orderAdapter.notifyDataSetChanged();

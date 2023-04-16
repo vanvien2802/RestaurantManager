@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -337,7 +338,7 @@ public class MenuFoodFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUESR && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             avatarUri = data.getData();
-//            Picasso.with(this.getContext()).load(avatarUri).into(bindingMenu.imgFood);
+            Picasso.get().load(avatarUri).into(bindingMenu.imgFood);
         }
     }
 

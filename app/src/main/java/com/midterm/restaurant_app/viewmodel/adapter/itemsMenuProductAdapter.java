@@ -205,7 +205,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
 
                 bindingDialog.btnCancel.setText("Delete");
                 bindingDialog.btnAdd.setText("Update");
-//                Picasso.with(context).load(uri_img_food).into(bindingDialog.imgFood);
+                Picasso.get().load(uri_img_food).into(bindingDialog.imgFood);
                 dialog.show();
 
                 bindingDialog.ivUpload.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +216,8 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                                 intent.setType("image/*");
                                 intent.setAction(Intent.ACTION_GET_CONTENT);
                                 ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUESR_Product);
+
+                        Picasso.get().load(uri_img_food).into(bindingDialog.imgFood);
                     }
                 });
                 bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +283,32 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                                         }
                                     });
                         }
+
+                        //==========================================================//
+                        else{
+                            Product product = new Product(
+                                    "",
+                                    prod.getIdProduct(),
+                                    bindingDialog.edtName.getText().toString().trim(),
+                                    Double.parseDouble(bindingDialog.edtPrice.getText().toString().trim()),
+                                    bindingDialog.edtIngredient.getText().toString().trim(),
+                                    4);
+                            FirebaseDatabase.getInstance().getReference("Product")
+                                    .child(prod.getIdProduct())
+                                    .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            bindingDialog.progressBar.setVisibility(View.GONE);
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(getContext(), "Update Successfully !", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getContext(), "Update Fail !", Toast.LENGTH_SHORT).show();
+                                            }
+                                            dialog.dismiss();
+                                        }
+                                    });
+                        }
+                        //==========================================================//
                         dialog.dismiss();
 
                     }
