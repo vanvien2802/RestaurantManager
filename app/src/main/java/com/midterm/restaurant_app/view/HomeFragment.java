@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,11 +34,15 @@ import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
 import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
+import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.FoodViewModel;
 import com.midterm.restaurant_app.view.MenuFoodFragment;
+import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -190,4 +195,25 @@ public class HomeFragment extends Fragment {
         itemsAdapter.notifyDataSetChanged();
         return list;
     }
+
+//    TableViewModel tableViewModel = new TableViewModel();
+//    OrderViewModel orderViewModel = new OrderViewModel();
+//        orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
+//        @Override
+//        public void onChanged(List<Order> orders) {
+//            for (Order order : orders){
+//                tableViewModel.getById(order.getIdTable()).observe(getViewLifecycleOwner(), new Observer<Table>() {
+//                    @Override
+//                    public void onChanged(Table table) {
+//                        if(order.getStatusOrdered().equals("Complete")){
+//                            FirebaseDatabase.getInstance().getReference("Table").child(table.getIdTable()).child("statusTB").setValue("0");
+//                        }
+//                        if(order.getStatusOrdered().equals("Serving...")){
+//                            FirebaseDatabase.getInstance().getReference("Table").child(table.getIdTable()).child("statusTB").setValue("1");
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//    });
 }

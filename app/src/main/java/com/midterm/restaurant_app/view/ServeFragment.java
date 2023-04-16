@@ -57,7 +57,6 @@ public class ServeFragment extends Fragment {
         RecyclerView recyclerAllTable = binding.rvAlltable;
 
         hashMapTable = new HashMap<>();
-        final boolean[] check = {false};
 
 
         tableViewModel = new TableViewModel();
@@ -74,24 +73,30 @@ public class ServeFragment extends Fragment {
             @Override
             public void onChanged(List<Order> orders) {
                 for (Order order : orders){
-                    tableViewModel.getById(order.getIdTable()).observe(getViewLifecycleOwner(), new Observer<Table>() {
-                        @Override
-                        public void onChanged(Table table) {
-                            hashMapTable.put(order.getIdTable(),table);
-                            orderAdapter = new OrderAdapter(view.getContext(),hashMapTable);
-                            if(account.getIdRole() == 1){
-                                orderAdapter.setData(orders);
-                            }
-                            else {
-                                if(order.getIdAcc().equals(account.getIdAcc())){
-                                    lstOrders.add(order);
-                                    orderAdapter.setData(lstOrders);
-                                    orderAdapter.notifyDataSetChanged();
+                    if(order.getStatusOrdered().equals("Serving...")){
+                        tableViewModel.getById(order.getIdTable()).observe(getViewLifecycleOwner(), new Observer<Table>() {
+                            @Override
+                            public void onChanged(Table table) {
+                                hashMapTable.put(order.getIdTable(),table);
+                                orderAdapter = new OrderAdapter(view.getContext(),hashMapTable);
+                                if(account.getIdRole() == 1){
+                                    setAdapterDb();
                                 }
+                                else {
+                                    if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Serving...")){
+                                        setAdapterDb();
+                                    }
+                                }
+                                recyclerAllTable.setAdapter(orderAdapter);
                             }
-                            recyclerAllTable.setAdapter(orderAdapter);
-                        }
-                    });
+
+                            private void setAdapterDb() {
+                                lstOrders.add(order);
+                                orderAdapter.setData(lstOrders);
+                                orderAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
                 }
             }
         });

@@ -2,6 +2,8 @@ package com.midterm.restaurant_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.model.Order;
+import com.midterm.restaurant_app.model.Table;
+import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static String GMAIL;

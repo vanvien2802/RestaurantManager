@@ -3,22 +3,23 @@ package com.midterm.restaurant_app.model;
 public class Table {
     private String idTable;
     private String nameTable;
-    private String statusTb;
+    private String statusTB;
+    private String status_rq;
+    private String time_rq;
     private int capacity;
     private int floor;
 
-    public Table(String idTable, String nameTable, String statusTb, int capacity, int floor) {
+    public Table(String idTable, String nameTable, String statusTb, String status_rq, String time_rq, int capacity, int floor) {
         this.idTable = idTable;
         this.nameTable = nameTable;
-        this.statusTb = statusTb;
+        this.statusTB = statusTb;
+        this.status_rq = status_rq;
+        this.time_rq = time_rq;
         this.capacity = capacity;
         this.floor = floor;
     }
 
     public Table() {
-    }
-    public String getStatusTb() {
-        return statusTb;
     }
 
     public String getIdTable() {
@@ -37,8 +38,28 @@ public class Table {
         this.nameTable = nameTable;
     }
 
+    public String getStatusTb() {
+        return statusTB;
+    }
+
     public void setStatusTb(String statusTb) {
-        this.statusTb = statusTb;
+        this.statusTB = statusTb;
+    }
+
+    public String getStatus_rq() {
+        return status_rq;
+    }
+
+    public void setStatus_rq(String status_rq) {
+        this.status_rq = status_rq;
+    }
+
+    public String getTime_rq() {
+        return time_rq;
+    }
+
+    public void setTime_rq(String time_rq) {
+        this.time_rq = time_rq;
     }
 
     public int getCapacity() {
