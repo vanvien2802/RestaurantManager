@@ -13,12 +13,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,12 +27,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.databinding.ItemDetailsProductBinding;
-import com.midterm.restaurant_app.databinding.ItemOrderBinding;
+import com.midterm.restaurant_app.databinding.ItemDetailsOrderBinding;
+import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.model.Table;
+import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,8 +45,9 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
     private Context context;
     private List<DetailOrder> detailOrderItems;
-    private ItemDetailsProductBinding bindingDetailsProduct;
+    private ItemDetailsOrderBinding bindingDetailsOrder;
     private HashMap<String,Product> productHashMap;
+    private CheckBox checkBox;
 
     public ProductOrderAdapter(Context context,HashMap<String,Product> productHashMap) {
         this.context = context;
@@ -59,22 +62,55 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        bindingDetailsProduct = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_details_product,
+        bindingDetailsOrder = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_details_order,
                 parent,
                 false
         );
-        return new ViewHolder(bindingDetailsProduct);
+        return new ViewHolder(bindingDetailsOrder);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DetailOrder detailOrder = detailOrderItems.get(position);
-        holder.bindingDetailsProduct.setDetailOrder(detailOrder);
+        holder.bindingDetailsOrder.setDetailOrder(detailOrder);
+
+        MainActivity mainActivity = new MainActivity();
+        Account account = mainActivity.accountSignIn;
+
+        checkBox = holder.bindingDetailsOrder.checkboxComfirm;
+        if(detailOrder.getStatusDetailOrder().equals("Done")){
+            checkBox.setChecked(true);
+        }
+        else checkBox.setChecked(false);
+
+        if(account.getIdRole() == 0){
+            holder.bindingDetailsOrder.constrainAction.removeView(checkBox);
+        }
+        else {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    updateStatus(detailOrder.getIdDetailOrder(),isChecked);
+                }
+            });
+        }
+
         for (Map.Entry<String, Product> entry : productHashMap.entrySet()) {
             if(detailOrder.getIdProduct().equals(entry.getKey())){
-                holder.bindingDetailsProduct.tvNameProduct.setText(entry.getValue().getNameProduct());
+                holder.bindingDetailsOrder.tvNameProduct.setText(entry.getValue().getNameProduct());
             }
+        }
+    }
+
+
+    private void updateStatus(String idDetailOrder, boolean isChecked){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DetailOrder").child(idDetailOrder);
+        if(isChecked){
+            databaseReference.child("statusDetailOrder").setValue("Done");
+        }
+        else{
+            databaseReference.child("statusDetailOrder").setValue("Not Done");
         }
     }
 
@@ -88,12 +124,12 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private ItemDetailsProductBinding bindingDetailsProduct;
+        private ItemDetailsOrderBinding bindingDetailsOrder;
 
-        public ViewHolder(@NonNull ItemDetailsProductBinding binding) {
+        public ViewHolder(@NonNull ItemDetailsOrderBinding binding) {
             super(binding.getRoot());
-            this.bindingDetailsProduct = binding;
-            bindingDetailsProduct.imRemove.setOnClickListener(new View.OnClickListener() {
+            this.bindingDetailsOrder = binding;
+            bindingDetailsOrder.imRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     openFeedbackDialog(Gravity.CENTER);
@@ -101,7 +137,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             });
         }
         private void openFeedbackDialog(int gravity){
-            final Dialog dialog = new Dialog(bindingDetailsProduct.imRemove.getContext());
+            final Dialog dialog = new Dialog(bindingDetailsOrder.imRemove.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_remove_food);
             Window window = dialog.getWindow();
@@ -139,6 +175,4 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             dialog.show();
         }
     }
-
-
 }

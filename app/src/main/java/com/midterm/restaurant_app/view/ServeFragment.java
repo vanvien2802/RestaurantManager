@@ -67,11 +67,10 @@ public class ServeFragment extends Fragment {
         orderViewModel = new OrderViewModel();
         MainActivity mainActivity = new MainActivity();
         Account account = mainActivity.accountSignIn;
-
-        lstOrders = new ArrayList<>();
         orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
+                lstOrders = new ArrayList<>();
                 for (Order order : orders){
                     if(order.getStatusOrdered().equals("Serving...")){
                         tableViewModel.getById(order.getIdTable()).observe(getViewLifecycleOwner(), new Observer<Table>() {
@@ -83,6 +82,7 @@ public class ServeFragment extends Fragment {
                                     setAdapterOrder();
                                 }
                                 else {
+                                    binding.tvTitle.setText("Your Order");
                                     if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Serving...")){
                                         setAdapterOrder();
                                     }

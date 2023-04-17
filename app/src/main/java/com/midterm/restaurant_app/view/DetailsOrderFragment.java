@@ -83,10 +83,10 @@ public class DetailsOrderFragment extends Fragment {
         recyclerListFoods.setLayoutManager(linearLayoutManager);
 
         detailOrderViewModel = new DetailOrderViewModel();
-        lstDetailOrder =new ArrayList<>();
         detailOrderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<DetailOrder>>() {
             @Override
             public void onChanged(List<DetailOrder> detailOrders) {
+                lstDetailOrder =new ArrayList<>();
                 for (DetailOrder detailOrder : detailOrders){
                     productViewModel.getById(detailOrder.getIdProduct()).observe(getViewLifecycleOwner(), new Observer<Product>() {
                         @Override

@@ -15,13 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentHisOrderBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Order;
-import com.midterm.restaurant_app.model.Table;
-import com.midterm.restaurant_app.viewmodel.adapter.AccountAdapter;
-import com.midterm.restaurant_app.viewmodel.adapter.OrderAdapter;
+import com.midterm.restaurant_app.viewmodel.adapter.HisOrderAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.AccountViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
-import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,15 +29,15 @@ import java.util.List;
 
 public class HisOrderFragment extends Fragment {
     private RecyclerView recyclerHisOrder;
-    private AccountAdapter cusOrderedAdapter;
+    private HisOrderAdapter hisOrderAdapter;
     private LinearLayout navHome;
     private LinearLayout navSer;
     private LinearLayout navAcc;
-    private String nameTable;
     private OrderViewModel orderViewModel;
-    private TableViewModel tableViewModel;
-    private HashMap<String, Table> hashMapTable;
+    private AccountViewModel accountViewModel;
+    private HashMap<String, Account> hashMapAccount;
     private List<Order> lstOrders;
+    private FragmentHisOrderBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,36 +59,39 @@ public class HisOrderFragment extends Fragment {
         recyclerHisOrder.setLayoutManager(linearLayoutManager);
 
         orderViewModel = new OrderViewModel();
-        tableViewModel = new TableViewModel();
+        accountViewModel = new AccountViewModel();
         MainActivity mainActivity = new MainActivity();
         Account account = mainActivity.accountSignIn;
+
+        hashMapAccount = new HashMap<>();
 
         lstOrders = new ArrayList<>();
         orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
                 for (Order order : orders){
-                    if(order.getStatusOrdered().equals("Serving...")){
-                        tableViewModel.getById(order.getIdTable()).observe(getViewLifecycleOwner(), new Observer<Table>() {
+                    if(order.getStatusOrdered().equals("Complete")){
+                        accountViewModel.getById(order.getIdAcc()).observe(getViewLifecycleOwner(), new Observer<Account>() {
                             @Override
-                            public void onChanged(Table table) {
-                                hashMapTable.put(order.getIdTable(),table);
-                                cusOrderedAdapter = new AccountAdapter(view.getContext(),hashMapTable);
+                            public void onChanged(Account t_account) {
+                                hashMapAccount.put(order.getIdAcc(),t_account);
+                                hisOrderAdapter = new HisOrderAdapter(view.getContext(),hashMapAccount);
                                 if(account.getIdRole() == 1){
                                     setAdapterDb();
                                 }
                                 else {
-                                    if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Serving...")){
+                                    binding.tvTitle.setText("Your Ordered");
+                                    if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Complete")){
                                         setAdapterDb();
                                     }
                                 }
-                                recyclerHisOrder.setAdapter(cusOrderedAdapter);
+                                recyclerHisOrder.setAdapter(hisOrderAdapter);
                             }
 
                             private void setAdapterDb() {
                                 lstOrders.add(order);
-                                cusOrderedAdapter.setData(lstOrders);
-                                cusOrderedAdapter.notifyDataSetChanged();
+                                hisOrderAdapter.setData(lstOrders);
+                                hisOrderAdapter.notifyDataSetChanged();
                             }
                         });
                     }

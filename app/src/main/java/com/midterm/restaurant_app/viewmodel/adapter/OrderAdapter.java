@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -23,8 +25,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemOrderBinding;
+import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
@@ -42,6 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private LayoutInflater layoutInflater;
     private ItemOrderBinding bindingOrder;
     private HashMap<String, Table> tableHashMap;
+    private CheckBox checkBoxAction;
 
     public OrderAdapter(Context context,HashMap<String, Table> tableHashMap) {
         layoutInflater = LayoutInflater.from(context);
@@ -64,6 +69,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         Order order = orderList.get(position);
         holder.bindingOrder.setOrder(orderList.get(position));
 
+        MainActivity mainActivity = new MainActivity();
+        Account account = mainActivity.accountSignIn;
+
+        checkBoxAction = holder.bindingOrder.checkboxAction;
+
+        if(order.getStatusOrdered().equals("Complete")){
+            checkBoxAction.setChecked(true);
+        }
+        else checkBoxAction.setChecked(false);
+
+        if(account.getIdRole() == 0){
+            holder.bindingOrder.llTableitem.removeView(checkBoxAction);
+        }
+        else {
+            checkBoxAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    updateStatus(order.getIdOrder(),isChecked);
+                }
+            });
+        }
+
+
         for (Map.Entry<String, Table> entry : tableHashMap.entrySet()) {
             String s = order.getIdTable();
             if(order.getIdTable().equals(entry.getKey())){
@@ -79,6 +107,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
             }
         });
+    }
+
+    private void updateStatus(String idOrder, boolean isChecked){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(idOrder);
+        if(isChecked){
+            databaseReference.child("statusOrdered").setValue("Complete");
+        }
+        else{
+            databaseReference.child("statusOrdered").setValue("Serving...");
+        }
     }
 
     @Override

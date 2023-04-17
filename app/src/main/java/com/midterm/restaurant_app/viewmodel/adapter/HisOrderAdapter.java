@@ -5,34 +5,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
-import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
-import com.midterm.restaurant_app.databinding.ItemOrderBinding;
+import com.midterm.restaurant_app.databinding.ItemHisOrderBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Order;
-import com.midterm.restaurant_app.model.Table;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHolder>{
+public class HisOrderAdapter extends RecyclerView.Adapter<HisOrderAdapter.ViewHolder>{
     private List<Order> orderList = new ArrayList<>();
     private LayoutInflater layoutInflater;
-    private ItemOrderBinding bindingOrder;
-    private HashMap<String, Table> tableHashMap;
+    private ItemHisOrderBinding bindingHisOrder;
+    private HashMap<String, Account> hashMapAccount;
 
-    public AccountAdapter(Context context,HashMap<String, Table> tableHashMap) {
+    public HisOrderAdapter(Context context, HashMap<String, Account> hashMapAccount) {
         layoutInflater = LayoutInflater.from(context);
-        this.tableHashMap =tableHashMap;
+        this.hashMapAccount =hashMapAccount;
     }
 
     public void setData(List<Order> orderList) {
@@ -42,23 +38,22 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        bindingOrder = ItemOrderBinding.inflate(layoutInflater, parent, false);
-        return new ViewHolder(bindingOrder);
+        bindingHisOrder = ItemHisOrderBinding.inflate(layoutInflater, parent, false);
+        return new ViewHolder(bindingHisOrder);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.bindingOrder.setOrder(orderList.get(position));
+        holder.bindingHisOrder.setOrder(order);
 
-        for (Map.Entry<String, Table> entry : tableHashMap.entrySet()) {
-            String s = order.getIdTable();
-            if(order.getIdTable().equals(entry.getKey())){
-                holder.bindingOrder.tvNametable.setText(entry.getValue().getNameTable().toString());
+        for (Map.Entry<String, Account> entry : hashMapAccount.entrySet()) {
+            if(order.getIdAcc().equals(entry.getKey())){
+                holder.bindingHisOrder.tvNamecus.setText(entry.getValue().getNameUser().toString().trim());
             }
         }
 
-        holder.bindingOrder.llTableitem.setOnClickListener(new View.OnClickListener() {
+        holder.bindingHisOrder.llTableitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
@@ -74,11 +69,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final ItemOrderBinding bindingOrder;
+        private final ItemHisOrderBinding bindingHisOrder;
 
-        public ViewHolder(@NonNull ItemOrderBinding binding) {
+        public ViewHolder(@NonNull ItemHisOrderBinding binding) {
             super(binding.getRoot());
-            this.bindingOrder = binding;
+            this.bindingHisOrder = binding;
         }
     }
 }
