@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/bg_blue_corner_16_tp_left_top_right"
+        android:background="@drawable/edittext_border_green"
         android:orientation="vertical">
 
 

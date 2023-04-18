@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentServeBinding;
@@ -67,6 +68,13 @@ public class ServeFragment extends Fragment {
         orderViewModel = new OrderViewModel();
         MainActivity mainActivity = new MainActivity();
         Account account = mainActivity.accountSignIn;
+        if(account.getUrlAvatar()!= ""){
+            Glide.with(getContext())
+                    .load(account.getUrlAvatar())
+                    .centerCrop()
+                    .placeholder(R.drawable.initialimage)
+                    .into(binding.myAvatar);
+        }
         orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {

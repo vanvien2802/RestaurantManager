@@ -4,10 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8E3D7"
-    tools:context=".view.ServeFragment"
+    android:background="@color/green_bg"
     app:defaultNavHost="true"
-    >
+    tools:context=".view.ServeFragment">
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_menu_24" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -18,21 +28,22 @@
         android:fontFamily="@font/saira_stencil_one"
         android:gravity="center"
         android:hint="All Order"
-        android:textColor="#f36155"
-        android:textColorHint="#f36155"
+        android:text="All Table"
+        android:textColor="@color/white"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/my_image_view3"
+        android:id="@+id/my_avatar"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:layout_weight="0"
-        android:src="@drawable/mypic"
+        android:src=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -56,6 +67,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
+        android:background="@color/blue"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,10 +93,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="Home"
-                android:fontFamily="@font/abril_fatface"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -109,10 +121,10 @@
                 android:layout_height="32dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_bottom"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="Serve"
-                android:fontFamily="@font/abril_fatface"
-                android:textColor="#ff3131"
+                android:textColor="@color/green"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -136,10 +148,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="History Order"
-                android:textColor="@color/black"
-                android:fontFamily="@font/abril_fatface"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -163,10 +175,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="Account"
-                android:fontFamily="@font/abril_fatface"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

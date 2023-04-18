@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/bg_blue_corner_16_tp_left_top_right"
+        android:background="@drawable/edittext_border_green"
         android:orientation="vertical">
 
         <TextView
@@ -141,15 +141,28 @@
                             android:textColor="@color/black"
                             android:textSize="15sp" />
 
-                        <Spinner
-                            android:id="@+id/list_table"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:foregroundGravity="center"
-                            android:gravity="center"
-                            android:textAlignment="center" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/edittext_border_pink"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <Spinner
+                                android:id="@+id/list_table"
+                                android:layout_width="110dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.304"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>
 

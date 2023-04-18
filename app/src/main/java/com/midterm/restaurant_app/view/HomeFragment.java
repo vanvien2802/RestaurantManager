@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -178,6 +179,13 @@ public class HomeFragment extends Fragment {
             public void onChanged(List<Account> accounts) {
                 for(Account account : accounts){
                     if(account.getEmail().equals(Gmail)){
+                        if(account.getUrlAvatar()!= null){
+                            Glide.with(getContext())
+                                    .load(account.getUrlAvatar())
+                                    .centerCrop()
+                                    .placeholder(R.drawable.initialimage)
+                                    .into(bindingHome.myAvatar);
+                        }
                         if(account.getIdRole() == 0){
                             linearAction.removeView(linearMenu);
                         }

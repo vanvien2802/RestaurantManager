@@ -67,4 +67,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
+
+    implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
 }

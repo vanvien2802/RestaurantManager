@@ -120,7 +120,7 @@ public class HisDetailOrder extends Fragment {
             }
         });
 
-        binding.tvNameOrder.setText(nameUser);
+        binding.tvNameOrdered.setText(nameUser);
 
         navHome = view.findViewById(R.id.nav_home);
         navSer = view.findViewById(R.id.nav_serve);
