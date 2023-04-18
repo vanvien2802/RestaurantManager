@@ -17,7 +17,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/green_bg">
 
             <EditText
                 android:id="@+id/search_edit_text"
@@ -53,7 +54,7 @@
                 android:layout_marginTop="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/iconmenus" />
+                app:srcCompat="@drawable/baseline_menu_24" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -72,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/saira_medium"
                     android:text="Find and order"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
@@ -81,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/saira_stencil_one"
                     android:text="Food for you"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="34sp" />
 
             </LinearLayout>
@@ -103,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bevan"
                     android:text="Popular"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <ImageButton
@@ -111,9 +112,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:background="#F8E3D7"
-                    app:srcCompat="@drawable/ic_baseline_navigate_next_24"
-                    android:contentDescription="imagebutton5"/>
+                    android:background="@color/green_bg"
+                    android:contentDescription="imagebutton5"
+                    app:srcCompat="@drawable/ic_baseline_navigate_next_24" />
 
             </LinearLayout>
 
@@ -141,7 +142,7 @@
                 android:layout_marginLeft="40dp"
                 android:fontFamily="@font/bevan"
                 android:text="Restaurant"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
@@ -166,7 +167,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="70dp"
-                android:background="#F8E3D7"
+                android:background="@color/blue"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,7 +196,7 @@
                         android:fontFamily="@font/abril_fatface"
                         android:gravity="center"
                         android:text="Home"
-                        android:textColor="#ff3131"
+                        android:textColor="@color/green"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -223,7 +224,7 @@
                         android:fontFamily="@font/abril_fatface"
                         android:gravity="center"
                         android:text="Serve"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -250,7 +251,7 @@
                         android:fontFamily="@font/abril_fatface"
                         android:gravity="center"
                         android:text="History Order"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -277,7 +278,7 @@
                         android:fontFamily="@font/abril_fatface"
                         android:gravity="center"
                         android:text="Account"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -288,9 +289,9 @@
             android:id="@+id/navigationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:background="#205776"
             android:layout_gravity="start"
+            android:layout_marginTop="30dp"
+            android:background="@color/green_bg"
             android:fitsSystemWindows="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -353,7 +354,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_weight="0"
-                            android:src="@drawable/ic_baseline_account_circle_24" />
+                            app:srcCompat="@drawable/baseline_account_circle_24" />
 
                         <TextView
                             android:id="@+id/textView6"

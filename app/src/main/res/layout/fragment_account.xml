@@ -14,16 +14,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F8E3D7"
-        tools:context=".view.AccountFragment"
-        >
+        android:background="@color/green_bg"
+        tools:context=".view.AccountFragment">
 
         <LinearLayout
             android:id="@+id/linearLayout7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="#F8E3D7"
+            android:background="@color/green_bg"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +76,8 @@
                         android:gravity="center|center_vertical"
                         android:hint="Nguyễn Văn Viên"
                         android:text="@{Account.getNameUser()}"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -90,7 +90,7 @@
                     android:fontFamily="sans-serif-black"
                     android:gravity="center|center_vertical"
                     android:text="My Profile"
-                    android:textColor="#000"
+                    android:textColor="@color/white"
                     android:textSize="40sp" />
 
 
@@ -111,8 +111,9 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-black"
                     android:text="ID"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textColor="#a4f4f7"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -171,8 +172,9 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Name Account"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textColor="#a4f4f7"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -187,8 +189,8 @@
 
                     <EditText
                         android:id="@+id/edit_name_acc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="193dp"
+                        android:layout_height="47dp"
                         android:background="@drawable/edittext_border_pink"
                         android:clipChildren="true"
                         android:enabled="false"
@@ -233,7 +235,7 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Address"
-                    android:textColor="@color/black"
+                    android:textColor="#a4f4f7"
                     android:textSize="15sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -248,8 +250,8 @@
 
                     <EditText
                         android:id="@+id/edit_address"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="193dp"
+                        android:layout_height="47dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/edittext_border_pink"
                         android:enabled="false"
@@ -294,7 +296,7 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Phone number"
-                    android:textColor="@color/black"
+                    android:textColor="#a4f4f7"
                     android:textSize="15sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -309,8 +311,8 @@
 
                     <EditText
                         android:id="@+id/edit_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="193dp"
+                        android:layout_height="47dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/edittext_border_pink"
                         android:enabled="false"
@@ -355,7 +357,7 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Email"
-                    android:textColor="@color/black"
+                    android:textColor="#a4f4f7"
                     android:textSize="15sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -370,8 +372,8 @@
 
                     <EditText
                         android:id="@+id/edit_Mail"
-                        android:layout_width="225dp"
-                        android:layout_height="55dp"
+                        android:layout_width="193dp"
+                        android:layout_height="47dp"
                         android:layout_margin="5dp"
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/edittext_border_pink"
@@ -416,7 +418,7 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="sans-serif-black"
                     android:text="Password"
-                    android:textColor="@color/black"
+                    android:textColor="#a4f4f7"
                     android:textSize="15sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -431,8 +433,8 @@
 
                     <EditText
                         android:id="@+id/edit_pass"
-                        android:layout_width="0dp"
-                        android:layout_height="51dp"
+                        android:layout_width="193dp"
+                        android:layout_height="47dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/edittext_border_pink"
                         android:enabled="false"
@@ -470,7 +472,7 @@
             android:id="@+id/linearLayout8"
             android:layout_width="0dp"
             android:layout_height="70dp"
-            android:background="#F8E3D7"
+            android:background="@color/blue"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -499,7 +501,7 @@
                     android:fontFamily="@font/abril_fatface"
                     android:gravity="center"
                     android:text="Home"
-                    android:textColor="@color/black"
+                    android:textColor="@color/design_default_color_on_primary"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -527,7 +529,7 @@
                     android:fontFamily="@font/abril_fatface"
                     android:gravity="center"
                     android:text="Serve"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -555,7 +557,7 @@
                     android:fontFamily="@font/abril_fatface"
                     android:gravity="center"
                     android:text="History Order"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -572,7 +574,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingTop="5dp"
-                    app:srcCompat="@drawable/baseline_account_circle_24" />
+                    app:srcCompat="@drawable/baseline_account_circle_green" />
 
                 <TextView
                     android:id="@+id/textView21"
@@ -583,7 +585,7 @@
                     android:fontFamily="@font/abril_fatface"
                     android:gravity="center"
                     android:text="Account"
-                    android:textColor="@color/black"
+                    android:textColor="@color/green"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
@@ -592,12 +594,13 @@
             android:id="@+id/btn_save"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/teal_700"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_border_green"
             android:fontFamily="@font/abril_fatface"
             android:text="Save"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
             app:layout_constraintEnd_toEndOf="parent"></Button>
 

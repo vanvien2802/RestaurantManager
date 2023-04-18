@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linear_chatItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linear_chatItem">
+    android:background="@drawable/edittext_border_pink">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/chat_item"
         android:layout_width="match_parent"
         android:layout_height="90dp"
+        android:background="#FFFFFF"
         app:cardCornerRadius="5dp"
         app:cardElevation="1dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#FFFFFF">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- ImageView cho avatar -->
         <ImageView
@@ -34,9 +36,9 @@
             android:layout_marginStart="75dp"
             android:layout_marginTop="16dp"
             android:text="User Name"
+            android:textColor="#555555"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#555555"/>
+            android:textStyle="bold" />
 
         <!-- TextView cho tin nhắn mới nhất -->
         <TextView

@@ -57,7 +57,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:background="#205776"
+        android:background="@color/blue"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,27 +173,28 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="412dp"
-        android:layout_height="543dp"
+        android:layout_width="411dp"
+        android:layout_height="646dp"
         android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list_food"
-            android:layout_width="391dp"
-            android:layout_height="539dp"
+            android:layout_width="393dp"
+            android:layout_height="543dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.102" />
 
         <Button
             android:id="@+id/but_Add"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="100dp"
             android:background="@drawable/circle_button_green"
             android:gravity="center"
             android:text="+"

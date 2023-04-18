@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8E3D7"
+    android:background="@color/green_bg"
     app:defaultNavHost="true"
     tools:context=".view.HisDetailOrder">
 
@@ -17,7 +17,7 @@
         android:layout_weight="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iconmenus" />
+        app:srcCompat="@drawable/baseline_menu_24" />
 
 
     <TextView
@@ -26,10 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_weight="0"
+        android:fontFamily="@font/bevan"
         android:gravity="center"
         android:text="Huong Trinh"
-        android:fontFamily="@font/bevan"
-        android:textColor="#f36155"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/my_image_view3"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
@@ -43,7 +43,7 @@
         android:layout_weight="0"
         android:gravity="center"
         android:text="order list"
-        android:textColor="#f36155"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/my_image_view3"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
@@ -57,14 +57,13 @@
         android:layout_weight="0"
         android:gravity="center"
         android:text="TOTAL: "
-        android:textStyle="bold"
-        android:textColor="#000"
+        android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/my_image_view3"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -81,8 +80,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_his_detail_ordered"
-        android:layout_width="411dp"
-        android:layout_height="491dp"
+        android:layout_width="396dp"
+        android:layout_height="573dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
@@ -95,10 +94,10 @@
         android:layout_height="70dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
+        android:background="@color/blue"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#F8E3D7"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
@@ -121,10 +120,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="Home"
-                android:textColor="@color/black"
-                android:fontFamily="@font/abril_fatface"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -149,10 +148,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="Serve"
-                android:fontFamily="@font/abril_fatface"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -177,11 +176,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
+                android:background="@drawable/border_bottom"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="History Order"
-                android:textColor="#ff3131"
-                android:fontFamily="@font/abril_fatface"
-                android:background="@drawable/border_bottom"
+                android:textColor="@color/green"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -205,10 +204,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/abril_fatface"
                 android:gravity="center"
                 android:text="Account"
-                android:fontFamily="@font/abril_fatface"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

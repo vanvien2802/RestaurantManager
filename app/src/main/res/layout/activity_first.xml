@@ -45,13 +45,16 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
+        android:layout_width="241dp"
+        android:layout_height="71dp"
         android:layout_marginTop="-140dp"
-        android:backgroundTint="#f36155"
+        android:backgroundTint="@color/green"
         android:fontFamily="@font/bevan"
+        android:shadowColor="#bcfefe"
+        android:shadowRadius="20"
         android:text="Login"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +62,8 @@
 
     <Button
         android:id="@+id/btn_snUp"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
+        android:layout_width="241dp"
+        android:layout_height="71dp"
         android:layout_marginTop="-30dp"
         android:backgroundTint="#0d2640"
         android:fontFamily="@font/bevan"
