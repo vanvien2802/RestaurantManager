@@ -29,7 +29,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     private List<Order> orderList = new ArrayList<>();
     private LayoutInflater layoutInflater;
-    private ItemOrderBinding bindingOrder;
+        private ItemOrderBinding bindingOrder;
 
     public OrderAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
