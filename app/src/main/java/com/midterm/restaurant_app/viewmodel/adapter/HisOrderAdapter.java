@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemHisOrderBinding;
 import com.midterm.restaurant_app.model.Account;

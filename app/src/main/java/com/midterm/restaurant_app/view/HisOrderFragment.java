@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentHisOrderBinding;
@@ -64,6 +65,13 @@ public class HisOrderFragment extends Fragment {
         accountViewModel = new AccountViewModel();
         MainActivity mainActivity = new MainActivity();
         Account account = mainActivity.accountSignIn;
+        if(account.getUrlAvatar()!= null){
+            Glide.with(getContext())
+                    .load(account.getUrlAvatar())
+                    .centerCrop()
+                    .placeholder(R.drawable.initialimage)
+                    .into(binding.myAvatar);
+        }
 
         hashMapAccount = new HashMap<>();
 
