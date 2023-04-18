@@ -79,12 +79,7 @@ public class HomeFragment extends Fragment {
         mainActivity = new MainActivity();
 
 
-        linearMenu = bindingHome.linearMenu;
-        linearAction = bindingHome.linearAction;
-
         Gmail = mainActivity.GMAIL;
-
-        setViewUser();
 
         itemsAdapter = new itemsProductAdapter(view.getContext());
 
@@ -126,41 +121,6 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
             }
         });
-        navChat = bindingHome.linearChat;
-        navChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ChatMain.class);
-                startActivity(intent);
-            }
-        });
-
-        navMenu = bindingHome.linearMenu;
-        navMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.menuFoodFragment, savedInstanceState);
-            }
-        });
-
-        drawerLayout = bindingHome.drawerLayout;
-        ivSideMenu = bindingHome.ivSidemenu;
-        ivSideMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        flbtnLogout = bindingHome.flbtnLogout;
-        flbtnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), FirstActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
 
 
     }
@@ -170,29 +130,5 @@ public class HomeFragment extends Fragment {
         bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
 
         return bindingHome.getRoot();
-    }
-
-    private void setViewUser() {
-        AccountViewModel accountViewModel = new AccountViewModel();
-        accountViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Account>>() {
-            @Override
-            public void onChanged(List<Account> accounts) {
-                for(Account account : accounts){
-                    if(account.getEmail().equals(Gmail)){
-                        if(account.getUrlAvatar()!= null){
-                            Glide.with(getContext())
-                                    .load(account.getUrlAvatar())
-                                    .centerCrop()
-                                    .placeholder(R.drawable.initialimage)
-                                    .into(bindingHome.myAvatar);
-                        }
-                        if(account.getIdRole() == 0){
-                            linearAction.removeView(linearMenu);
-                        }
-                        break;
-                    }
-                }
-            }
-        });
     }
 }
