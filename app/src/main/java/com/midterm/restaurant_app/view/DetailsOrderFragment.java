@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,8 +29,11 @@ import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DetailsOrderFragment extends Fragment {
@@ -40,37 +44,22 @@ public class DetailsOrderFragment extends Fragment {
     private LinearLayout navHis;
     private LinearLayout navAccount;
     private String nameTable;
-    private static List<DetailOrder> lstDetailOrder;
+    private DetailOrderViewModel detailOrderViewModel;
+    private List<DetailOrder> lstDetailOrder;
+    private HashMap<String, Product> hashMapProduct;
+    private ProductViewModel productViewModel;
 
     private FragmentDetailServeBinding bindingDetailServe;
-
-    private DatabaseReference databaseReference;
+    private String idOrder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-//        lstDetailOrder = new ArrayList<>();
-//        databaseReference = FirebaseDatabase.getInstance().getReference("DetailOrder");
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    DetailOrder detailOrder = dataSnapshot.getValue(DetailOrder.class);
-//                    lstDetailOrder.add(detailOrder);
-//                }
-//                productsOrAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
         Bundle bundle = getArguments();
         if (bundle != null) {
-            nameTable = bundle.getString("nameTable");
+            idOrder = bundle.getString("idOrder");
+            Log.d("idOrder",idOrder);
         }
 
     }
@@ -87,13 +76,33 @@ public class DetailsOrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerListFoods = view.findViewById(R.id.rv_detailtable);
-        productsOrAdapter = new ProductOrderAdapter(view.getContext());
+        productViewModel = new ProductViewModel();
+        hashMapProduct = new HashMap<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerListFoods.VERTICAL,false);
         recyclerListFoods.setLayoutManager(linearLayoutManager);
 
-        productsOrAdapter.setData(lstDetailOrder);
-        recyclerListFoods.setAdapter(productsOrAdapter);
+        detailOrderViewModel = new DetailOrderViewModel();
+        detailOrderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<DetailOrder>>() {
+            @Override
+            public void onChanged(List<DetailOrder> detailOrders) {
+                lstDetailOrder =new ArrayList<>();
+                for (DetailOrder detailOrder : detailOrders){
+                    productViewModel.getById(detailOrder.getIdProduct()).observe(getViewLifecycleOwner(), new Observer<Product>() {
+                        @Override
+                        public void onChanged(Product product) {
+                            if(idOrder.equals(detailOrder.getIdOrder())){
+                                hashMapProduct.put(detailOrder.getIdProduct(),product);
+                                lstDetailOrder.add(detailOrder);
+                                productsOrAdapter = new ProductOrderAdapter(view.getContext(),hashMapProduct);
+                                productsOrAdapter.setData(lstDetailOrder);
+                                recyclerListFoods.setAdapter(productsOrAdapter);
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         navHis = view.findViewById(R.id.nav_his);
         navHis.setOnClickListener(new View.OnClickListener() {

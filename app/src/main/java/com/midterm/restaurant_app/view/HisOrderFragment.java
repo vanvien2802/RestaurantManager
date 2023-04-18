@@ -8,25 +8,36 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentHisOrderBinding;
 import com.midterm.restaurant_app.model.Account;
-import com.midterm.restaurant_app.viewmodel.adapter.AccountAdapter;
+import com.midterm.restaurant_app.model.Order;
+import com.midterm.restaurant_app.viewmodel.adapter.HisOrderAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.AccountViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class HisOrderFragment extends Fragment {
     private RecyclerView recyclerHisOrder;
-    private AccountAdapter cusOrderedAdapter;
+    private HisOrderAdapter hisOrderAdapter;
     private LinearLayout navHome;
     private LinearLayout navSer;
     private LinearLayout navAcc;
-    private String nameTable;
+    private OrderViewModel orderViewModel;
+    private AccountViewModel accountViewModel;
+    private HashMap<String, Account> hashMapAccount;
+    private List<Order> lstOrders;
+    private FragmentHisOrderBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,11 +55,49 @@ public class HisOrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerHisOrder =view.findViewById(R.id.rv_allHisOrderedTable);
-        cusOrderedAdapter = new AccountAdapter(view.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerHisOrder.VERTICAL,false);
         recyclerHisOrder.setLayoutManager(linearLayoutManager);
-        cusOrderedAdapter.setData(getListItem());
-        recyclerHisOrder.setAdapter(cusOrderedAdapter);
+
+        orderViewModel = new OrderViewModel();
+        accountViewModel = new AccountViewModel();
+        MainActivity mainActivity = new MainActivity();
+        Account account = mainActivity.accountSignIn;
+
+        hashMapAccount = new HashMap<>();
+
+        lstOrders = new ArrayList<>();
+        orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
+            @Override
+            public void onChanged(List<Order> orders) {
+                for (Order order : orders){
+                    if(order.getStatusOrdered().equals("Complete")){
+                        accountViewModel.getById(order.getIdAcc()).observe(getViewLifecycleOwner(), new Observer<Account>() {
+                            @Override
+                            public void onChanged(Account t_account) {
+                                hashMapAccount.put(order.getIdAcc(),t_account);
+                                hisOrderAdapter = new HisOrderAdapter(view.getContext(),hashMapAccount);
+                                if(account.getIdRole() == 1){
+                                    setAdapterDb();
+                                }
+                                else {
+                                    binding.tvTitle.setText("Your Ordered");
+                                    if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Complete")){
+                                        setAdapterDb();
+                                    }
+                                }
+                                recyclerHisOrder.setAdapter(hisOrderAdapter);
+                            }
+
+                            private void setAdapterDb() {
+                                lstOrders.add(order);
+                                hisOrderAdapter.setData(lstOrders);
+                                hisOrderAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
         navSer = view.findViewById(R.id.nav_serve);
         navSer.setOnClickListener(new View.OnClickListener() {
@@ -71,16 +120,5 @@ public class HisOrderFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
             }
         });
-    }
-
-    private List<Account> getListItem(){
-
-        List<Account> list = new ArrayList<>();
-//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
-//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
-//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
-//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
-//        list.add(new Account("Huong Trinh","250,9","28/02/2023"));
-        return list;
     }
 }

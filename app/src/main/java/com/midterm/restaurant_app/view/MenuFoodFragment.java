@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -337,18 +338,23 @@ public class MenuFoodFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUESR && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             avatarUri = data.getData();
-//            Picasso.with(this.getContext()).load(avatarUri).into(bindingMenu.imgFood);
+            Picasso.get().load(avatarUri).into(bindingMenu.imgFood);
         }
     }
 
     private String getIdPush() {
         String id = "";
         int i = 1;
-        for (Product product:lstProduct) {
-            if (i < 10) id = "Pd0" + i;
-            else if (i >= 10) id = "Pd" + i;
-            if (!product.getIdProduct().toString().trim().equals(id)) {
-                break;
+        boolean check = false;
+        while(!check){
+            check = true;
+            if (i < 10) id = "Pd0" + (i+1);
+            else if (i >= 10) id = "Pd" + (i+1);
+            for (Product product:lstProduct) {
+                if (product.getIdProduct().toString().trim().equals(id)) {
+                    check = false;
+                    break;
+                }
             }
             i++;
         }

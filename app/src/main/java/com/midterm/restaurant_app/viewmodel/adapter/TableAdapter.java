@@ -34,7 +34,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_details_product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_details_order,parent,false);
 
         return new ViewHolder(view);
     }

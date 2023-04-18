@@ -23,8 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.R;
@@ -79,35 +77,14 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerPopular.HORIZONTAL,false);
         recyclerPopular.setLayoutManager(linearLayoutManager);
-        productViewModel= new ProductViewModel();
-        //get all with view model
+        ProductViewModel productViewModel = new ProductViewModel();
         productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
                 itemsAdapter.setData(products);
+                recyclerPopular.setAdapter(itemsAdapter);
             }
         });
-
-        // get by id example
-
-        productViewModel.getById("Pd02").observe(getViewLifecycleOwner(), new Observer<Product>() {
-            @Override
-            public void onChanged(Product product) {
-                Log.d("DEBUG", product.getNameProduct());
-            }
-        });
-
-        // delete by id example
-
-//        productViewModel.delete("Pd07");
-
-        // update by id
-
-        productViewModel.update("Pd08", new Product("Pd08", "ajdf", "adsjf", 1.2, "haha", 1));
-
-
-        recyclerPopular.setAdapter(itemsAdapter);
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 3); // số 2 ở đây là số cột hiển thị
         recyclerFoods.setLayoutManager(gridLayoutManager);
 
@@ -176,19 +153,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
-//        myAvatar = bindingHome.myImageAvatar;
-//        MainActivity mainAct = new MainActivity();
-//        accountHome = mainAct.accountSignIn;
-//        bindingHome.setAccount(accountHome);
-//        if(accountHome.getUrlAvatar()!= null){
-//            Glide.with(getContext())
-//                    .load(accountHome.getUrlAvatar())
-//                    .centerCrop()
-//                    .placeholder(R.drawable.initialimage)
-//                    .into(myAvatar);
-//        }
         return bindingHome.getRoot();
     }
 }
