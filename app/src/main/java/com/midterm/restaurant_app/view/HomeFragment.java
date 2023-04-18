@@ -21,15 +21,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.FirstActivity;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.AccountViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
@@ -48,12 +51,13 @@ public class HomeFragment extends Fragment {
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
-    private CircleImageView myAvatar;
-    private ProductViewModel productViewModel;
     private FragmentHomeBinding bindingHome;
     List<Product> lstProduct;
+    private LinearLayout linearMenu;
+    private LinearLayout linearAction;
 
-    private Account accountHome;
+    private MainActivity mainActivity;
+    private String Gmail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +72,18 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerPopular = view.findViewById(R.id.rv_popular);
-        recyclerFoods = view.findViewById(R.id.rv_foods);
+        recyclerPopular = bindingHome.rvPopular;
+        recyclerFoods = bindingHome.rvFoods;
+
+        mainActivity = new MainActivity();
+
+
+        linearMenu = bindingHome.linearMenu;
+        linearAction = bindingHome.linearAction;
+
+        Gmail = mainActivity.GMAIL;
+
+        setViewUser();
 
         itemsAdapter = new itemsProductAdapter(view.getContext());
 
@@ -90,8 +104,8 @@ public class HomeFragment extends Fragment {
 
         recyclerFoods.setAdapter(itemsAdapter);
 
-        navSer = view.findViewById(R.id.nav_serve);
-        navHis = view.findViewById(R.id.nav_his);
+        navSer = bindingHome.navServe;
+        navHis = bindingHome.navHis;
         navSer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,14 +118,14 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
             }
         });
-        navAccount = view.findViewById(R.id.nav_account);
+        navAccount = bindingHome.navAccount;
         navAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
             }
         });
-        navChat = view.findViewById(R.id.linear_chat);
+        navChat = bindingHome.linearChat;
         navChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +134,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        navMenu = view.findViewById(R.id.linear_menu);
+        navMenu = bindingHome.linearMenu;
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,8 +142,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        drawerLayout = view.findViewById(R.id.drawerLayout);
-        ivSideMenu = view.findViewById(R.id.iv_sidemenu);
+        drawerLayout = bindingHome.drawerLayout;
+        ivSideMenu = bindingHome.ivSidemenu;
         ivSideMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +151,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        flbtnLogout = view.findViewById(R.id.flbtn_logout);
+        flbtnLogout = bindingHome.flbtnLogout;
         flbtnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,11 +163,28 @@ public class HomeFragment extends Fragment {
 
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
+
         return bindingHome.getRoot();
+    }
+
+    private void setViewUser() {
+        AccountViewModel accountViewModel = new AccountViewModel();
+        accountViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Account>>() {
+            @Override
+            public void onChanged(List<Account> accounts) {
+                for(Account account : accounts){
+                    if(account.getEmail().equals(Gmail)){
+                        if(account.getIdRole() == 0){
+                            linearAction.removeView(linearMenu);
+                        }
+                        break;
+                    }
+                }
+            }
+        });
     }
 }

@@ -79,6 +79,7 @@ public class ServeFragment extends Fragment {
                                 hashMapTable.put(order.getIdTable(),table);
                                 orderAdapter = new OrderAdapter(view.getContext(),hashMapTable);
                                 if(account.getIdRole() == 1){
+                                    binding.tvTitle.setText("All Order");
                                     setAdapterOrder();
                                 }
                                 else {

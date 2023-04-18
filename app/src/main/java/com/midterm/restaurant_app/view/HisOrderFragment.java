@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentHisOrderBinding;
+import com.midterm.restaurant_app.databinding.FragmentServeBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.viewmodel.adapter.HisOrderAdapter;
@@ -48,7 +49,8 @@ public class HisOrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_his_order, container, false);
+        binding = FragmentHisOrderBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -65,10 +67,10 @@ public class HisOrderFragment extends Fragment {
 
         hashMapAccount = new HashMap<>();
 
-        lstOrders = new ArrayList<>();
         orderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
+                lstOrders = new ArrayList<>();
                 for (Order order : orders){
                     if(order.getStatusOrdered().equals("Complete")){
                         accountViewModel.getById(order.getIdAcc()).observe(getViewLifecycleOwner(), new Observer<Account>() {
@@ -77,6 +79,7 @@ public class HisOrderFragment extends Fragment {
                                 hashMapAccount.put(order.getIdAcc(),t_account);
                                 hisOrderAdapter = new HisOrderAdapter(view.getContext(),hashMapAccount);
                                 if(account.getIdRole() == 1){
+                                    binding.tvTitle.setText("His Ordered");
                                     setAdapterDb();
                                 }
                                 else {

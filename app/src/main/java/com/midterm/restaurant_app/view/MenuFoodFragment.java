@@ -61,6 +61,7 @@ public class MenuFoodFragment extends Fragment {
     private RecyclerView recyclerFoods;
     private itemsMenuProductAdapter itemsAdapter;
     private LinearLayout navSer;
+    private LinearLayout navHome;
     private LinearLayout navHis;
     private LinearLayout navAccount;
     private Button Add_Button;
@@ -126,6 +127,14 @@ public class MenuFoodFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerFoods.setLayoutManager(layoutManager);
         recyclerFoods.setAdapter(itemsAdapter);
+
+        navHome = view .findViewById(R.id.nav_home);
+        navHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
+            }
+        });
 
         navSer = view.findViewById(R.id.nav_serve);
         navHis = view.findViewById(R.id.nav_his);

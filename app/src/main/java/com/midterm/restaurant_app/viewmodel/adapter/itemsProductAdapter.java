@@ -57,6 +57,9 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     private List<Table> lstTable;
     private List<DetailOrder> lstDetailOrder;
     private Table tableSelect;
+    private Account account;
+    private MainActivity mainActivity;
+    private List<Order> listAllOrder;
 
     public itemsProductAdapter(Context context) {
         this.context = context;
@@ -70,13 +73,13 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
-
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_products,
                 parent,
                 false
         );
+        mainActivity = new MainActivity();
+        account = mainActivity.accountSignIn;
 
         return new ViewHolder(binding);
     }
@@ -85,6 +88,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productItems.get(position);
         holder.binding.setProduct(productItems.get(position));
+
         if(product.getUrlProduct()!= ""){
             Glide.with(this.context)
                     .load(product.getUrlProduct())
@@ -103,6 +107,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 final Dialog dialog = new Dialog (context);
 
                 bindingDialog = LayoutDialogAddFoodForTableBinding.inflate(LayoutInflater.from(context));
+                bindingDialog.setProduct(product);
 
                 handleCheckOrderExist();
                 getAllDetailOrder();
@@ -135,23 +140,35 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                             .into(bindingDialog.ivImageAddProduct);
                 }
 
-                lstItemTable = new ArrayList<>();
-                lstTable = new ArrayList<>();
                 FirebaseDatabase.getInstance().getReference("Table").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        lstItemTable = new ArrayList<>();
+                        lstTable = new ArrayList<>();
                         for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                             Table table = childSnapshot.getValue(Table.class);
                             lstTable.add(table);
-                                if(table.getStatusTb().equals("0")){
-                                    lstItemTable.add(table.getNameTable());
-                                    // Tạo một ArrayAdapter để hiển thị danh sách chuỗi
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context.getApplicationContext(), R.layout.style_spinner, lstItemTable);
-                                    adapter.notifyDataSetChanged();
-                                    bindingDialog.listTable.setAdapter(adapter);
+                            if (account.getIdRole() == 0){
+                                if(bindingDialog.btnAdd.getText().equals("ADD TO YOUR ORDER")){
+                                    if(table.getIdTable().equals(idTable)){
+                                        setAdapterSpiner(table);
+                                        break;
+                                    }
                                 }
+                                else{
+                                    setAdapterSpiner(table);
+                                }
+                            }
+                            else setAdapterSpiner(table);
 
                         }
+                    }
+
+                    private void setAdapterSpiner(Table table){
+                        lstItemTable.add(table.getNameTable());
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context.getApplicationContext(), R.layout.style_spinner, lstItemTable);
+                        adapter.notifyDataSetChanged();
+                        bindingDialog.listTable.setAdapter(adapter);
                     }
 
                     @Override
@@ -262,14 +279,14 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
     private String createNewId(String firstId){
             String id = "";
-            int i = 1;
+            int i = 0;
             boolean check = false;
             while(!check){
                 check = true;
-                if (i < 10) id = firstId+"0" + (i+1);
+                if (i < 9) id = firstId+"0" + (i+1);
                 else if (i >= 10) id = firstId + (i+1);
                 if(firstId.equals("Ord")){
-                    for (Order order : lstOrder) {
+                    for (Order order : listAllOrder) {
                         if (order.getIdOrder().toString().trim().equals(id)) {
                             check = false;
                             break;
@@ -309,21 +326,27 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
         });
     }
 
+    private String idTable;
+
     private void handleCheckOrderExist(){
-        MainActivity mainActivity = new MainActivity();
-        Account account = mainActivity.accountSignIn;
+        account = mainActivity.accountSignIn;
         idAccount = account.getIdAcc();
-        lstOrder = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("Order").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean CHECK = false;
+                lstOrder = new ArrayList<>();
+                listAllOrder = new ArrayList<>();
                 for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                     Order order = childSnapshot.getValue(Order.class);
-                    lstOrder.add(order);
-                    if(order.getIdAcc().equals(idAccount)){
-                        CHECK = true;
-                        break;
+                    listAllOrder.add(order);
+                    if(order.getStatusOrdered().equals("Serving...")){
+                        lstOrder.add(order);
+                        if(order.getIdAcc().equals(idAccount)){
+                            CHECK = true;
+                            idTable = order.getIdTable();
+                            break;
+                        }
                     }
                 }
                 if(CHECK){

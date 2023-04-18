@@ -9,17 +9,6 @@
     app:defaultNavHost="true"
     >
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_weight="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/iconmenus" />
-
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
@@ -28,7 +17,8 @@
         android:layout_weight="0"
         android:fontFamily="@font/saira_stencil_one"
         android:gravity="center"
-        android:text="His Ordered"
+        android:hint="His Ordered"
+        android:textColorHint="#f36155"
         android:textColor="#f36155"
         android:textSize="30sp"
         android:textStyle="bold"

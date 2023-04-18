@@ -47,18 +47,21 @@ public class HisOrderAdapter extends RecyclerView.Adapter<HisOrderAdapter.ViewHo
         Order order = orderList.get(position);
         holder.bindingHisOrder.setOrder(order);
 
+        String nameCustomer = "";
         for (Map.Entry<String, Account> entry : hashMapAccount.entrySet()) {
             if(order.getIdAcc().equals(entry.getKey())){
+                nameCustomer = entry.getValue().getNameUser().toString().trim();
                 holder.bindingHisOrder.tvNamecus.setText(entry.getValue().getNameUser().toString().trim());
             }
         }
 
+        String finalNameCustomer = nameCustomer;
         holder.bindingHisOrder.llTableitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("idOrder", order.getIdOrder().toString());
-                Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
+                bundle.putString("idOrder", order.getIdOrder().toString() + " 1 " + finalNameCustomer);
+                Navigation.findNavController(view).navigate(R.id.action_hisOrderFragment_to_detailHisOrderFragment, bundle);
             }
         });
     }

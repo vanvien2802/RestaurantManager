@@ -66,7 +66,7 @@
         android:id="@+id/detailHisOrderFragment"
         android:name="com.midterm.restaurant_app.view.HisDetailOrder"
         android:label="fragment_detail_his_order"
-        tools:layout="@layout/fragment_his_detail_order" >
+        tools:layout="@layout/fragment_detail_his_order" >
         <action
             android:id="@+id/action_detailHisOrderFragment_to_hisOrderFragment"
             app:destination="@id/hisOrderFragment" />

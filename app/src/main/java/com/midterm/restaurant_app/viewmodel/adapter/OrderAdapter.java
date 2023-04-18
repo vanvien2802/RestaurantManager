@@ -86,7 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             checkBoxAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    updateStatus(order.getIdOrder(),isChecked);
+                    updateStatus(order,isChecked);
                 }
             });
         }
@@ -103,20 +103,43 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("idOrder", order.getIdOrder().toString());
+                bundle.putString("idOrder", order.getIdOrder().toString() + " 0");
                 Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
             }
         });
     }
 
-    private void updateStatus(String idOrder, boolean isChecked){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(idOrder);
+    private void updateStatus(Order order, boolean isChecked){
+
+        Table table = getTableById(order);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(order.getIdOrder());
         if(isChecked){
             databaseReference.child("statusOrdered").setValue("Complete");
+            setStatusTable(table,"0");
         }
         else{
             databaseReference.child("statusOrdered").setValue("Serving...");
+            setStatusTable(table,"1");
         }
+    }
+
+    private void setStatusTable(Table table,String status){
+        FirebaseDatabase.getInstance()
+                .getReference("Table")
+                .child(table.getIdTable())
+                .child("statusTB")
+                .setValue(status);
+    }
+
+    private Table getTableById(Order order){
+        for (Map.Entry<String, Table> entry : tableHashMap.entrySet()) {
+            String s = order.getIdTable();
+            if(order.getIdTable().equals(entry.getKey())){
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     @Override

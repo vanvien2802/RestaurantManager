@@ -51,6 +51,7 @@ public class DetailsOrderFragment extends Fragment {
 
     private FragmentDetailServeBinding bindingDetailServe;
     private String idOrder;
+    private int status;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,8 @@ public class DetailsOrderFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            idOrder = bundle.getString("idOrder");
-            Log.d("idOrder",idOrder);
+            idOrder = bundle.getString("idOrder").toString().split(" ")[0];
+            status = Integer.parseInt(bundle.getString("idOrder").toString().split(" ")[1]);
         }
 
     }
@@ -94,7 +95,7 @@ public class DetailsOrderFragment extends Fragment {
                             if(idOrder.equals(detailOrder.getIdOrder())){
                                 hashMapProduct.put(detailOrder.getIdProduct(),product);
                                 lstDetailOrder.add(detailOrder);
-                                productsOrAdapter = new ProductOrderAdapter(view.getContext(),hashMapProduct);
+                                productsOrAdapter = new ProductOrderAdapter(view.getContext(),hashMapProduct,status);
                                 productsOrAdapter.setData(lstDetailOrder);
                                 recyclerListFoods.setAdapter(productsOrAdapter);
                             }
