@@ -1,8 +1,6 @@
 package com.midterm.restaurant_app.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,44 +9,26 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.midterm.restaurant_app.FirstActivity;
 import com.midterm.restaurant_app.MainActivity;
-import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
-import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
-import com.midterm.restaurant_app.viewmodel.modelView.AccountViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
     private RecyclerView recyclerFoods;
     private itemsProductAdapter itemsAdapter;
-    private LinearLayout navSer;
-    private LinearLayout navHis;
-    private LinearLayout navAccount;
-    private LinearLayout navChat, navMenu;
     private ImageView ivSideMenu;
     private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
@@ -100,35 +80,12 @@ public class HomeFragment extends Fragment {
 
         recyclerFoods.setAdapter(itemsAdapter);
 
-        navSer = bindingHome.navServe;
-        navHis = bindingHome.navHis;
-        navSer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
-            }
-        });
-        navHis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
-            }
-        });
-        navAccount = bindingHome.navAccount;
-        navAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
-            }
-        });
-
 
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bindingHome = FragmentHomeBinding.inflate(inflater, container, false);
-
         return bindingHome.getRoot();
     }
 }

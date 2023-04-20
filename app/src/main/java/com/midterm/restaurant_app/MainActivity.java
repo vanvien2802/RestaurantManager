@@ -4,16 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,16 +21,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
+import com.midterm.restaurant_app.databinding.ActivityMainBinding;
 import com.midterm.restaurant_app.model.Account;
-import com.midterm.restaurant_app.model.Order;
-import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.view.ChatMain;
-import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
-import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static String GMAIL;
@@ -42,11 +34,19 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout linearAction;
     private ImageView ivSideMenu;
     private LinearLayout navChat, navMenu;
+    private LinearLayout navSer;
+    private LinearLayout navHome;
+    private LinearLayout navHis;
+    private LinearLayout navAccount;
+    private ActivityMainBinding mainBinding;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = mainBinding.getRoot();
+        setContentView(view);
 
         GMAIL = getIntent().getStringExtra("GMAIL");
 
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Account");
         MainActivity mainActivity = new MainActivity();
         String gmail = mainActivity.GMAIL;
-        ImageView imageView = findViewById(R.id.my_image_view);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,15 +66,23 @@ public class MainActivity extends AppCompatActivity {
                             linearAction.removeView(linearMenu);
                         }
                         if(accountSignIn.getUrlAvatar()!= null){
-                            Glide.with(getApplicationContext())
-                                    .load(accountSignIn.getUrlAvatar())
-                                    .centerCrop()
-                                    .placeholder(R.drawable.initialimage)
-                                    .into(imageView);
+                            ImageView imageView = mainBinding.myImageView;
+                            ImageView imageView1 = mainBinding.myAvatar;
+                            mainBinding.tvName.setText(accountSignIn.getNameUser());
+                            mainBinding.tvGmail.setText(accountSignIn.getEmail());
+                            setImageAvatar(imageView);
+                            setImageAvatar(imageView1);
                         }
                         break;
                     }
                 }
+            }
+            private void setImageAvatar(ImageView image){
+                Glide.with(getApplicationContext())
+                        .load(accountSignIn.getUrlAvatar())
+                        .centerCrop()
+                        .placeholder(R.drawable.initialimage)
+                        .into(image);
             }
 
             @Override
@@ -97,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.menuFoodFragment, savedInstanceState);
+                navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
+                navController.navigate(R.id.menuFoodFragment);
             }
         });
 
@@ -119,5 +127,87 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        navHome = mainBinding.navHome;
+        navHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
+                navController.navigate(R.id.homenav);
+                setBgTv(0, R.drawable.ic_baseline_home_24,getResources().getColor(R.color.green), R.drawable.border_bottom_green);
+                setBgTv(1, R.drawable.ic_baseline_local_grocery_store_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(2, R.drawable.ic_baseline_restore_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(3, R.drawable.ic_baseline_account_circle_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+            }
+        });
+
+        navSer = mainBinding.navServe;
+        navSer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
+                navController.navigate(R.id.serveFragment);
+                setBgTv(0, R.drawable.ic_baseline_home_ser,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(1, R.drawable.ic_baseline_local_grocery_store_ser,getResources().getColor(R.color.green), R.drawable.border_bottom_green);
+                setBgTv(2, R.drawable.ic_baseline_restore_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(3, R.drawable.ic_baseline_account_circle_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+            }
+        });
+
+        navHis = mainBinding.navHis;
+        navHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
+                navController.navigate(R.id.hisOrderFragment);
+                setBgTv(0, R.drawable.ic_baseline_home_ser,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(1, R.drawable.ic_baseline_local_grocery_store_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(2, R.drawable.ic_baseline_restore_his,getResources().getColor(R.color.green), R.drawable.border_bottom_green);
+                setBgTv(3, R.drawable.ic_baseline_account_circle_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+            }
+        });
+        navAccount = mainBinding.navAccount;
+        navAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
+                navController.navigate(R.id.accountFragment);
+                setBgTv(0, R.drawable.ic_baseline_home_ser,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(1, R.drawable.ic_baseline_local_grocery_store_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(2, R.drawable.ic_baseline_restore_24,getResources().getColor(R.color.white),R.drawable.border_bottom_blue);
+                setBgTv(3, R.drawable.baseline_account_circle_green,getResources().getColor(R.color.green), R.drawable.border_bottom_green);
+            }
+        });
     }
+
+    private void setBgTv(int position, int icon, int color, int background) {
+        ImageView imageView;
+        TextView textView;
+
+        switch (position) {
+            case 0:
+                imageView = mainBinding.imvHome;
+                textView = mainBinding.tvHome;
+                break;
+            case 1:
+                imageView = mainBinding.imvServe;
+                textView = mainBinding.tvServe;
+                break;
+            case 2:
+                imageView = mainBinding.imvOrdered;
+                textView = mainBinding.tvOrdered;
+                break;
+            case 3:
+                imageView = mainBinding.imvAcc;
+                textView = mainBinding.tvAcc;
+                break;
+            default:
+                return;
+        }
+
+        imageView.setImageResource(icon);
+        textView.setTextColor(color);
+        textView.setBackgroundResource(background);
+    }
+
 }

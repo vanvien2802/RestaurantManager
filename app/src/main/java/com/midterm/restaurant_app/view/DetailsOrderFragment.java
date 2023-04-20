@@ -10,23 +10,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.telecom.Call;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentDetailServeBinding;
-import com.midterm.restaurant_app.databinding.FragmentHomeBinding;
 import com.midterm.restaurant_app.model.DetailOrder;
-import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
@@ -40,10 +29,6 @@ public class DetailsOrderFragment extends Fragment {
 
     private RecyclerView recyclerListFoods;
     private static ProductOrderAdapter productsOrAdapter;
-    private LinearLayout navHome;
-    private LinearLayout navHis;
-    private LinearLayout navAccount;
-    private String nameTable;
     private DetailOrderViewModel detailOrderViewModel;
     private List<DetailOrder> lstDetailOrder;
     private HashMap<String, Product> hashMapProduct;
@@ -102,28 +87,6 @@ public class DetailsOrderFragment extends Fragment {
                         }
                     });
                 }
-            }
-        });
-
-        navHis = view.findViewById(R.id.nav_his);
-        navHis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
-            }
-        });
-        navAccount = view.findViewById(R.id.nav_account);
-        navAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
-            }
-        });
-        navHome = view.findViewById(R.id.nav_home);
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
             }
         });
     }

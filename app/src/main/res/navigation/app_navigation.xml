@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_homenav_to_account"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_homenav_to_menuFoodFragment"
+            app:destination="@id/menuFoodFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -75,5 +78,9 @@
         android:id="@+id/menuFoodFragment"
         android:name="com.midterm.restaurant_app.view.MenuFoodFragment"
         android:label="fragment_menu_food"
-        tools:layout="@layout/fragment_menu_food" />
+        tools:layout="@layout/fragment_menu_food" >
+        <action
+            android:id="@+id/action_menuFoodFragment_to_homenav"
+            app:destination="@id/homenav" />
+    </fragment>
 </navigation>

@@ -19,9 +19,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout7"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:background="@color/green_bg"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +35,7 @@
 
                 <LinearLayout
                     android:layout_width="180dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -82,16 +81,25 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-black"
-                    android:gravity="center|center_vertical"
-                    android:text="My Profile"
-                    android:textColor="@color/white"
-                    android:textSize="40sp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/edittext_border_green"
+                        android:fontFamily="@font/abril_fatface"
+                        android:text="Save"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"></Button>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </LinearLayout>
@@ -467,142 +475,6 @@
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout8"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:background="@color/blue"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:id="@+id/nav_home"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@drawable/ic_baseline_home_ser" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/abril_fatface"
-                    android:gravity="center"
-                    android:text="Home"
-                    android:textColor="@color/design_default_color_on_primary"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nav_serve"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@drawable/ic_baseline_local_grocery_store_24" />
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="match_parent"
-                    android:layout_height="29dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/abril_fatface"
-                    android:gravity="center"
-                    android:text="Serve"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nav_his"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView19"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-
-                    android:layout_weight="1"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@drawable/ic_baseline_restore_24" />
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="31dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/abril_fatface"
-                    android:gravity="center"
-                    android:text="History Order"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nav_account"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@drawable/baseline_account_circle_green" />
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="match_parent"
-                    android:layout_height="29dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_bottom"
-                    android:fontFamily="@font/abril_fatface"
-                    android:gravity="center"
-                    android:text="Account"
-                    android:textColor="@color/green"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/edittext_border_green"
-            android:fontFamily="@font/abril_fatface"
-            android:text="Save"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
-            app:layout_constraintEnd_toEndOf="parent"></Button>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

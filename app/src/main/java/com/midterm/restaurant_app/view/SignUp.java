@@ -129,7 +129,6 @@ public class SignUp extends AppCompatActivity {
             return;
         }
         String idAcount = idAccount();
-//        Log.d("vvvvvvvv", idAcount);
 
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(edtEmail.getText().toString().trim(),edtPass.getText().toString().trim())
