@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         navChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent intent = new Intent(MainActivity.this, ChatMain.class);
                 startActivity(intent);
             }
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         navMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drawerLayout.closeDrawer(GravityCompat.START);
                 navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
                 navController.navigate(R.id.menuFoodFragment);
             }

@@ -29,13 +29,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
     private RecyclerView recyclerFoods;
     private itemsProductAdapter itemsAdapter;
-    private ImageView ivSideMenu;
-    private DrawerLayout drawerLayout;
     private FloatingActionButton flbtnLogout;
     private FragmentHomeBinding bindingHome;
     List<Product> lstProduct;
-    private LinearLayout linearMenu;
-    private LinearLayout linearAction;
 
     private MainActivity mainActivity;
     private String Gmail;

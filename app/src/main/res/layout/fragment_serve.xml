@@ -16,7 +16,6 @@
         android:fontFamily="@font/saira_stencil_one"
         android:gravity="center"
         android:hint="All Order"
-        android:text="All Table"
         android:textColor="@color/white"
         android:textSize="34sp"
         android:textStyle="bold"

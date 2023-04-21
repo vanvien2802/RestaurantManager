@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green_bg">#205776</color>
     <color name="red">#B14A4A</color>
+    <color name="redlight">#FF0000</color>
     <color name="gray">#887F7F</color>
     <color name="bg_app">#F8E3D7</color>
     <color name="green">#59af50</color>

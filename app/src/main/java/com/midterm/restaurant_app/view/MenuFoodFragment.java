@@ -62,7 +62,6 @@ public class MenuFoodFragment extends Fragment {
     private StorageReference storageReference;
     private StorageTask storageTask;
     private DatabaseReference databaseReference;
-    private ImageView ivUpload;
     private LayoutDialogAddFoodForMenuBinding bindingMenu;
 
     @Override
@@ -88,7 +87,7 @@ public class MenuFoodFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Product");
 
-        itemsAdapter = new itemsMenuProductAdapter(view.getContext());
+        itemsAdapter = new itemsMenuProductAdapter(view.getContext(), this);
 
         lstProduct = new ArrayList<>();
 
@@ -303,6 +302,7 @@ public class MenuFoodFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -311,6 +311,10 @@ public class MenuFoodFragment extends Fragment {
                 && data != null && data.getData() != null) {
             avatarUri = data.getData();
             Picasso.get().load(avatarUri).into(bindingMenu.imgFood);
+        }
+        else {
+            avatarUri = data.getData();
+            itemsAdapter.setUrl(avatarUri);
         }
     }
 

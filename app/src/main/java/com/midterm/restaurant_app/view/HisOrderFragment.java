@@ -1,4 +1,7 @@
 package com.midterm.restaurant_app.view;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +18,11 @@ import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentHisOrderBinding;
 import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.viewmodel.adapter.HisOrderAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.AccountViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
 
 import java.util.ArrayList;
@@ -33,12 +38,14 @@ public class HisOrderFragment extends Fragment {
     private HashMap<String, Account> hashMapAccount;
     private List<Order> lstOrders;
     private FragmentHisOrderBinding binding;
+    private DetailOrderViewModel detailOrderViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,8 +57,8 @@ public class HisOrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerHisOrder =view.findViewById(R.id.rv_allHisOrderedTable);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerHisOrder.VERTICAL,false);
+        recyclerHisOrder = view.findViewById(R.id.rv_allHisOrderedTable);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), recyclerHisOrder.VERTICAL, false);
         recyclerHisOrder.setLayoutManager(linearLayoutManager);
 
         orderViewModel = new OrderViewModel();
@@ -65,20 +72,19 @@ public class HisOrderFragment extends Fragment {
             @Override
             public void onChanged(List<Order> orders) {
                 lstOrders = new ArrayList<>();
-                for (Order order : orders){
-                    if(order.getStatusOrdered().equals("Complete")){
+                for (Order order : orders) {
+                    if (order.getStatusOrdered().equals("Complete")) {
                         accountViewModel.getById(order.getIdAcc()).observe(getViewLifecycleOwner(), new Observer<Account>() {
                             @Override
                             public void onChanged(Account t_account) {
-                                hashMapAccount.put(order.getIdAcc(),t_account);
-                                hisOrderAdapter = new HisOrderAdapter(view.getContext(),hashMapAccount);
-                                if(account.getIdRole() == 1){
+                                hashMapAccount.put(order.getIdAcc(), t_account);
+                                hisOrderAdapter = new HisOrderAdapter(view.getContext(), hashMapAccount);
+                                if (account.getIdRole() == 1) {
                                     binding.tvTitle.setText("His Ordered");
                                     setAdapterDb();
-                                }
-                                else {
+                                } else {
                                     binding.tvTitle.setText("Your Ordered");
-                                    if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Complete")){
+                                    if (order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Complete")) {
                                         setAdapterDb();
                                     }
                                 }
@@ -93,6 +99,55 @@ public class HisOrderFragment extends Fragment {
                         });
                     }
                 }
+            }
+        });
+
+        List<DetailOrder> lstDetailOrder = new ArrayList<>();
+
+        detailOrderViewModel = new DetailOrderViewModel();
+        detailOrderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<DetailOrder>>() {
+            @Override
+            public void onChanged(List<DetailOrder> detailOrders) {
+                for (DetailOrder detailOrder : detailOrders){
+                    lstDetailOrder.add(detailOrder);
+                }
+            }
+        });
+
+        binding.imvDelAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Bạn có chắc chắn muốn xoá dữ liệu này không?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for (Order order : lstOrders) {
+                            for (DetailOrder detailOrder : lstDetailOrder){
+                                if(detailOrder.getIdOrder().equals(order.getIdOrder())){
+                                    if (account.getIdRole() == 1) {
+                                        detailOrderViewModel.delete(detailOrder.getIdDetailOrder());
+                                        orderViewModel.delete(order.getIdOrder());
+                                    } else {
+                                        if(order.getIdAcc().equals(account.getIdAcc())){
+                                            detailOrderViewModel.delete(detailOrder.getIdDetailOrder());
+                                            orderViewModel.delete(order.getIdOrder());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        hisOrderAdapter.setData(lstOrders);
+                        hisOrderAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Không thực hiện hành động xoá dữ liệu
+                    }
+                });
+                builder.show();
             }
         });
     }

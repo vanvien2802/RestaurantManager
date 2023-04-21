@@ -178,6 +178,18 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             }
         });
 
+        DetailOrderViewModel detailOrderViewModel = new DetailOrderViewModel();
+
+        Button btnDelete = dialog.findViewById(R.id.btn_del);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detailOrderViewModel.delete(detailOrder.getIdDetailOrder());
+                dialog.dismiss();
+                notifyDataSetChanged();
+            }
+        });
+
         if(Gravity.BOTTOM == gravity){
             dialog.setCancelable(true);
         }
