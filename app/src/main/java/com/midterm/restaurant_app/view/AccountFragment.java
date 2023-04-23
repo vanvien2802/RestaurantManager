@@ -1,11 +1,11 @@
 package com.midterm.restaurant_app.view;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,16 +22,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -40,18 +40,10 @@ import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentAccountBinding;
 import com.midterm.restaurant_app.model.Account;
-import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.model.Upload;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountFragment extends Fragment {
-    private LinearLayout  navSer, navHis, navHome;
-
     private static final int PICK_IMAGE_REQUESR = 1;
     private ImageView ivUpload;
     private CircleImageView ivAvatar;
@@ -100,29 +92,6 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                     updateAccount();
-            }
-        });
-
-
-        navSer = view.findViewById(R.id.nav_serve);
-        navSer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
-            }
-        });
-        navHis = view.findViewById(R.id.nav_his);
-        navHis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
-            }
-        });
-        navHome = view.findViewById(R.id.nav_home);
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
             }
         });
 
@@ -258,12 +227,30 @@ public class AccountFragment extends Fragment {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
+    private void updatePass(String newPass){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        user.updatePassword(newPass)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User password updated.");
+                        } else {
+                            Log.d(TAG, "User password update failed.");
+                        }
+                    }
+                });
+    }
+
     private void updateAccount(){
         databaseReference.child(account.getIdAcc()).child("nameAcc").setValue(edtNameAcc.getText().toString());
         databaseReference.child(account.getIdAcc()).child("address").setValue(edtAddress.getText().toString());
         databaseReference.child(account.getIdAcc()).child("phoneNumber").setValue(edtPhone.getText().toString());
         databaseReference.child(account.getIdAcc()).child("email").setValue(edtEmail.getText().toString());
         databaseReference.child(account.getIdAcc()).child("password").setValue(edtPass.getText().toString());
+        updatePass(edtPass.getText().toString());
 
         if(avatarUri != null){
             storageReference = FirebaseStorage.getInstance().getReference("avatarAcc");

@@ -1,32 +1,24 @@
 package com.midterm.restaurant_app.view;
 
-import android.media.audiofx.AcousticEchoCanceler;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
 import com.midterm.restaurant_app.MainActivity;
-import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentServeBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.Order;
-import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.viewmodel.adapter.OrderAdapter;
-import com.midterm.restaurant_app.viewmodel.adapter.itemsProductAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
-import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
@@ -53,7 +45,6 @@ public class ServeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Get the reference to the RecyclerView using data binding
         RecyclerView recyclerAllTable = binding.rvAlltable;
 
         hashMapTable = new HashMap<>();
@@ -79,6 +70,7 @@ public class ServeFragment extends Fragment {
                                 hashMapTable.put(order.getIdTable(),table);
                                 orderAdapter = new OrderAdapter(view.getContext(),hashMapTable);
                                 if(account.getIdRole() == 1){
+                                    binding.tvTitle.setText("All Order");
                                     setAdapterOrder();
                                 }
                                 else {
@@ -98,30 +90,6 @@ public class ServeFragment extends Fragment {
                         });
                     }
                 }
-            }
-        });
-
-
-
-        // Set up the onClickListeners for the navigation buttons
-        binding.navHis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrderFragment);
-            }
-        });
-
-        binding.navAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.accountFragment);
-            }
-        });
-
-        binding.navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.homenav);
             }
         });
     }

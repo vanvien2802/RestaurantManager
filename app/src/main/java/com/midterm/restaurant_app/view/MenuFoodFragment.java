@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,14 +20,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,15 +57,11 @@ public class MenuFoodFragment extends Fragment {
     List<Product> lstProduct;
     private RecyclerView recyclerFoods;
     private itemsMenuProductAdapter itemsAdapter;
-    private LinearLayout navSer;
-    private LinearLayout navHis;
-    private LinearLayout navAccount;
     private Button Add_Button;
     private Uri avatarUri;
     private StorageReference storageReference;
     private StorageTask storageTask;
     private DatabaseReference databaseReference;
-    private ImageView ivUpload;
     private LayoutDialogAddFoodForMenuBinding bindingMenu;
 
     @Override
@@ -94,7 +87,7 @@ public class MenuFoodFragment extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Product");
 
-        itemsAdapter = new itemsMenuProductAdapter(view.getContext());
+        itemsAdapter = new itemsMenuProductAdapter(view.getContext(), this);
 
         lstProduct = new ArrayList<>();
 
@@ -126,28 +119,6 @@ public class MenuFoodFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerFoods.setLayoutManager(layoutManager);
         recyclerFoods.setAdapter(itemsAdapter);
-
-        navSer = view.findViewById(R.id.nav_serve);
-        navHis = view.findViewById(R.id.nav_his);
-        navSer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
-            }
-        });
-        navHis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.hisOrderFragment, savedInstanceState);
-            }
-        });
-        navAccount = view.findViewById(R.id.nav_account);
-        navAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
-            }
-        });
 
         Add_Button = view.findViewById(R.id.but_Add);
         updateAddButton(false, "+ Add");
@@ -331,6 +302,7 @@ public class MenuFoodFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -339,6 +311,10 @@ public class MenuFoodFragment extends Fragment {
                 && data != null && data.getData() != null) {
             avatarUri = data.getData();
             Picasso.get().load(avatarUri).into(bindingMenu.imgFood);
+        }
+        else {
+            avatarUri = data.getData();
+            itemsAdapter.setUrl(avatarUri);
         }
     }
 

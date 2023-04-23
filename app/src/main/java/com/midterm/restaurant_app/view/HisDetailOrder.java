@@ -5,41 +5,63 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.databinding.FragmentDetailHisOrderBinding;
+import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
+import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class HisDetailOrder extends Fragment {
 
     private RecyclerView recyclerListFoods;
-    private ProductOrderAdapter foodsOrAdapter;
-    private LinearLayout navHome;
-    private LinearLayout navHis;
-    private LinearLayout navAcc;
-    private LinearLayout navSer;
-    private LinearLayout navAccount;
-    private String nameCustom;
+    private ProductOrderAdapter productOrderAdapter;
+    private FragmentDetailHisOrderBinding binding;
+    private DetailOrderViewModel detailOrderViewModel;
+    private List<DetailOrder> lstDetailOrder;
+    private HashMap<String, Product> hashMapProduct;
+    private ProductViewModel productViewModel;
+    List<String> getData;
+    private String idOrder;
+    private int status;
+    private String nameUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
+        getData = new ArrayList<>();
+        nameUser = "";
         if (bundle != null) {
-            nameCustom = bundle.getString("nameCustom");
+            getData = Arrays.asList(bundle.getString("idOrder").toString().split(" "));
+            for (int i = 0; i< getData.size();i++){
+                if(i == 0){
+                    idOrder = getData.get(i);
+                }
+                else if(i == 1){
+                    status = Integer.parseInt(getData.get(i));
+                }
+                else {
+                    nameUser += getData.get(i)+ " ";
+                }
+            }
         }
+        nameUser = nameUser.trim();
 
     }
 
@@ -47,45 +69,42 @@ public class HisDetailOrder extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_his_detail_order, container, false);
+        binding = FragmentDetailHisOrderBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerListFoods = view.findViewById(R.id.rv_his_detail_ordered);
-//        foodsOrAdapter = new ProductOrderAdapter(view.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),recyclerListFoods.VERTICAL,false);
         recyclerListFoods.setLayoutManager(linearLayoutManager);
-//        foodsOrAdapter.setData(getListItem());
-        recyclerListFoods.setAdapter(foodsOrAdapter);
 
-        TextView tvNameTable = view.findViewById(R.id.textView1);
-        tvNameTable.setText(nameCustom);
-
-        navHome = view.findViewById(R.id.nav_home);
-        navSer = view.findViewById(R.id.nav_serve);
-        navAccount = view.findViewById(R.id.nav_account);
-
-        navHome.setOnClickListener(new View.OnClickListener() {
+        detailOrderViewModel = new DetailOrderViewModel();
+        productViewModel = new ProductViewModel();
+        detailOrderViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<DetailOrder>>() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.homenav, savedInstanceState);
+            public void onChanged(List<DetailOrder> detailOrders) {
+                lstDetailOrder =new ArrayList<>();
+                hashMapProduct = new HashMap<>();
+                for (DetailOrder detailOrder : detailOrders){
+                    productViewModel.getById(detailOrder.getIdProduct()).observe(getViewLifecycleOwner(), new Observer<Product>() {
+                        @Override
+                        public void onChanged(Product product) {
+                            if(idOrder.equals(detailOrder.getIdOrder())){
+                                hashMapProduct.put(detailOrder.getIdProduct(),product);
+                                lstDetailOrder.add(detailOrder);
+                                productOrderAdapter = new ProductOrderAdapter(view.getContext(),hashMapProduct,status);
+                                productOrderAdapter.setData(lstDetailOrder);
+                                recyclerListFoods.setAdapter(productOrderAdapter);
+                            }
+                        }
+                    });
+                }
             }
         });
-        navSer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.serveFragment, savedInstanceState);
-            }
-        });
-        navAccount = view.findViewById(R.id.nav_account);
-        navAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.accountFragment, savedInstanceState);
-            }
-        });
+
+        binding.tvNameOrdered.setText(nameUser);
     }
 }

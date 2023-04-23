@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/green_bg"
     android:orientation="horizontal"
     tools:context=".view.ChatMain">
 
@@ -52,7 +52,7 @@
                     android:fontFamily="@font/saira_medium"
                     android:gravity="center"
                     android:text="Messenges"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -72,13 +72,13 @@
                     android:id="@+id/all_message_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="@color/green_bg"
                     android:elevation="0dp"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:text="All message"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/white" />
 
 
                 <Button
@@ -86,25 +86,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="@color/green_bg"
                     android:elevation="0dp"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:text="Read"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray" />
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/unread_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_blue_corner_16_tp_left_top_right"
                     android:elevation="0dp"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:text="Unread"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -115,7 +116,7 @@
             android:id="@+id/chat_main_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_blue_corner_top_left"
+            android:background="@drawable/edittext_border_pink"
             android:paddingLeft="10dp"
             android:paddingTop="30dp"
             android:paddingRight="10dp"

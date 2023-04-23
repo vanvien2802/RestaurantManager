@@ -21,9 +21,6 @@ public class Chat extends AppCompatActivity {
     ArrayList<String> messageList;
     private RecyclerView recyclerView;
     private ChatAdapter adapter;
-    private EditText messageEditText;
-    private Button btnBook;
-    private FloatingActionButton sendButton;
     private FloatingActionButton backButton;
 
     @Override
@@ -49,37 +46,5 @@ public class Chat extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnBook = findViewById(R.id.btnBookOnMessage);
-
-//        messageEditText = findViewById(R.id.chat_message_edit_text);
-//        sendButton = findViewById(R.id.btn_send_messenger);
-//        LinearLayout chatHeader = findViewById(R.id.chat_header);
-//
-//        ImageView chatAvatar = findViewById(R.id.user_avatar);
-//        chatAvatar.setImageResource(R.drawable.baseline_person_24); // set ảnh cho ImageView
-//
-//        TextView chatUsername = findViewById(R.id.chat_username);
-//        chatUsername.setText("John Doe"); // set tên cho TextView
-//
-//        ViewGroup chatLayout = findViewById(R.id.chat_layout);
-//        chatLayout.addView(chatHeader, 0); // Thêm chatHeader vào trước RecyclerView
-//
-//        sendButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String message = messageEditText.getText().toString();
-//                if (!TextUtils.isEmpty(message)) {
-//                    adapter.addMessage(message);
-//                    messageEditText.setText("");
-//                }
-//            }
-//        });
-//
-//        // Inflate message item layout
-//        LayoutInflater inflater = getLayoutInflater();
-//        View messageItem = inflater.inflate(R.layout.item_chat_message, chatLayout, false);
-//
-//        // Add message item to chat layout
-//        chatLayout.addView(messageItem);
         }
 }

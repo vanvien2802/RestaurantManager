@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,9 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,8 +33,6 @@ import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.view.ServeFragment;
-import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
-import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,12 +52,16 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     private List<Table> lstTable;
     private List<DetailOrder> lstDetailOrder;
     private Table tableSelect;
+    private Account account;
+    private MainActivity mainActivity;
+    private List<Order> listAllOrder;
+    private String idTable;
 
     public itemsProductAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<Product> items){
+    public void setData(List<Product> items) {
         this.productItems = items;
         notifyDataSetChanged();
     }
@@ -70,13 +69,13 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_products,parent,false);
-
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_products,
                 parent,
                 false
         );
+        mainActivity = new MainActivity();
+        account = mainActivity.accountSignIn;
 
         return new ViewHolder(binding);
     }
@@ -85,7 +84,8 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productItems.get(position);
         holder.binding.setProduct(productItems.get(position));
-        if(product.getUrlProduct()!= ""){
+
+        if (product.getUrlProduct() != "") {
             Glide.with(this.context)
                     .load(product.getUrlProduct())
                     .centerCrop()
@@ -99,10 +99,11 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 openFeedbackDialog(Gravity.CENTER);
             }
 
-            private void openFeedbackDialog(int gravity){
-                final Dialog dialog = new Dialog (context);
+            private void openFeedbackDialog(int gravity) {
+                final Dialog dialog = new Dialog(context);
 
                 bindingDialog = LayoutDialogAddFoodForTableBinding.inflate(LayoutInflater.from(context));
+                bindingDialog.setProduct(product);
 
                 handleCheckOrderExist();
                 getAllDetailOrder();
@@ -110,7 +111,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 dialog.setContentView(bindingDialog.getRoot());
 
                 Window window = dialog.getWindow();
-                if(window==null){
+                if (window == null) {
                     return;
                 }
 
@@ -118,16 +119,16 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 WindowManager.LayoutParams windowAttributes = window.getAttributes();
-                windowAttributes.gravity= gravity;
+                windowAttributes.gravity = gravity;
                 window.setAttributes(windowAttributes);
 
-                if(Gravity.BOTTOM == gravity){
+                if (Gravity.BOTTOM == gravity) {
                     dialog.setCancelable(true);
-                } else{
+                } else {
                     dialog.setCancelable(false);
                 }
 
-                if(product.getUrlProduct()!= ""){
+                if (product.getUrlProduct() != "") {
                     Glide.with(dialog.getContext())
                             .load(product.getUrlProduct())
                             .centerCrop()
@@ -135,23 +136,34 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                             .into(bindingDialog.ivImageAddProduct);
                 }
 
-                lstItemTable = new ArrayList<>();
-                lstTable = new ArrayList<>();
                 FirebaseDatabase.getInstance().getReference("Table").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                        lstItemTable = new ArrayList<>();
+                        lstTable = new ArrayList<>();
+                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                             Table table = childSnapshot.getValue(Table.class);
                             lstTable.add(table);
-                                if(table.getStatusTb().equals("0")){
-                                    lstItemTable.add(table.getNameTable());
-                                    // Tạo một ArrayAdapter để hiển thị danh sách chuỗi
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context.getApplicationContext(), R.layout.style_spinner, lstItemTable);
-                                    adapter.notifyDataSetChanged();
-                                    bindingDialog.listTable.setAdapter(adapter);
-                                }
+                            if (account.getIdRole() == 0) {
+                                    if (bindingDialog.btnAdd.getText().equals("ADD TO YOUR ORDER")) {
+                                        if (table.getIdTable().equals(idTable)) {
+                                            setAdapterSpiner(table);
+                                            break;
+                                        }
+                                    } else {
+                                        if (!checkTableIsUse(table))
+                                            setAdapterSpiner(table);
+                                    }
+                            } else setAdapterSpiner(table);
 
                         }
+                    }
+
+                    private void setAdapterSpiner(Table table) {
+                        lstItemTable.add(table.getNameTable());
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context.getApplicationContext(), R.layout.style_spinner, lstItemTable);
+                        adapter.notifyDataSetChanged();
+                        bindingDialog.listTable.setAdapter(adapter);
                     }
 
                     @Override
@@ -204,11 +216,10 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
                     @Override
                     public void onClick(View v) {
-                        if(bindingDialog.btnAdd.getText().equals("ADD TO NEW ORDER")){
+                        if (bindingDialog.btnAdd.getText().equals("ADD TO NEW ORDER")) {
                             handleAddProductToNewOrder(product);
                             setStatusTable();
-                        }
-                        else{
+                        } else {
                             handleAddProductToOrder(product);
                         }
                     }
@@ -218,17 +229,17 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                     }
                 });
                 //Lấy list table
-                ServeFragment getlistTable= new ServeFragment();
+                ServeFragment getlistTable = new ServeFragment();
                 ArrayList<String> tableNameList = new ArrayList<>();
                 dialog.show();
             }
         });
     }
 
-    private void handleAddProductToOrder(Product product){
-        for(Order order : lstOrder){
-            if(order.getIdAcc().equals(idAccount) && order.getStatusOrdered().equals("Serving...")){
-                DetailOrder detailOrder = new DetailOrder(createNewId("DO"),order.getIdOrder(),product.getIdProduct(),Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString().trim()),"Not Done");
+    private void handleAddProductToOrder(Product product) {
+        for (Order order : lstOrder) {
+            if (order.getIdAcc().equals(idAccount) && order.getStatusOrdered().equals("Serving...")) {
+                DetailOrder detailOrder = new DetailOrder(createNewId("DO"), order.getIdOrder(), product.getIdProduct(), Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString().trim()), "Not Done");
 
                 FirebaseDatabase.getInstance().getReference("DetailOrder").child(createNewId("DO")).setValue(detailOrder);
                 break;
@@ -236,23 +247,23 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
         }
     }
 
-    private void handleAddProductToNewOrder(Product product){
+    private void handleAddProductToNewOrder(Product product) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateTime = sdf.format(calendar.getTime());
         String idOrder = createNewId("Ord");
-        Order order = new Order(idOrder,idAccount,getIdTableByNameTable(selectedItem),"Serving...",45,dateTime);
+        Order order = new Order(idOrder, idAccount, getIdTableByNameTable(selectedItem), "Serving...", 45, dateTime);
         FirebaseDatabase.getInstance().getReference("Order").child(idOrder).setValue(order);
 
 
-        DetailOrder detailOrder = new DetailOrder(createNewId("DO"),idOrder,product.getIdProduct(),Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString().trim()),"Not Done");
+        DetailOrder detailOrder = new DetailOrder(createNewId("DO"), idOrder, product.getIdProduct(), Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString().trim()), "Not Done");
 
         FirebaseDatabase.getInstance().getReference("DetailOrder").child(createNewId("DO")).setValue(detailOrder);
     }
 
-    private String getIdTableByNameTable(String str){
-        for (Table table : lstTable){
-            if(table.getNameTable().equals(str)){
+    private String getIdTableByNameTable(String str) {
+        for (Table table : lstTable) {
+            if (table.getNameTable().equals(str)) {
                 tableSelect = table;
                 return table.getIdTable();
             }
@@ -260,43 +271,42 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
         return "";
     }
 
-    private String createNewId(String firstId){
-            String id = "";
-            int i = 1;
-            boolean check = false;
-            while(!check){
-                check = true;
-                if (i < 10) id = firstId+"0" + (i+1);
-                else if (i >= 10) id = firstId + (i+1);
-                if(firstId.equals("Ord")){
-                    for (Order order : lstOrder) {
-                        if (order.getIdOrder().toString().trim().equals(id)) {
+    private String createNewId(String firstId) {
+        String id = "";
+        int i = 0;
+        boolean check = false;
+        while (!check) {
+            check = true;
+            if (i < 9) id = firstId + "0" + (i + 1);
+            else if (i >= 10) id = firstId + (i + 1);
+            if (firstId.equals("Ord")) {
+                for (Order order : listAllOrder) {
+                    if (order.getIdOrder().toString().trim().equals(id)) {
+                        check = false;
+                        break;
+                    }
+                }
+            } else {
+                if (firstId.equals("DO")) {
+                    for (DetailOrder detailOrder : lstDetailOrder) {
+                        if (detailOrder.getIdDetailOrder().toString().trim().equals(id)) {
                             check = false;
                             break;
                         }
                     }
                 }
-                else{
-                    if(firstId.equals("DO")){
-                        for (DetailOrder detailOrder : lstDetailOrder) {
-                            if (detailOrder.getIdDetailOrder().toString().trim().equals(id)) {
-                                check = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-                i++;
             }
-            return id;
+            i++;
+        }
+        return id;
     }
 
-    private void getAllDetailOrder(){
+    private void getAllDetailOrder() {
         lstDetailOrder = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("DetailOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     DetailOrder detailOrder = childSnapshot.getValue(DetailOrder.class);
                     lstDetailOrder.add(detailOrder);
                 }
@@ -309,27 +319,39 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
         });
     }
 
-    private void handleCheckOrderExist(){
-        MainActivity mainActivity = new MainActivity();
-        Account account = mainActivity.accountSignIn;
+    private boolean checkTableIsUse(Table table) {
+        for (Order order : lstOrder) {
+            if (order.getStatusOrdered().equals("Serving...") && order.getIdTable().equals(table.getIdTable())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void handleCheckOrderExist() {
+        account = mainActivity.accountSignIn;
         idAccount = account.getIdAcc();
-        lstOrder = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("Order").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean CHECK = false;
-                for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                lstOrder = new ArrayList<>();
+                listAllOrder = new ArrayList<>();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Order order = childSnapshot.getValue(Order.class);
-                    lstOrder.add(order);
-                    if(order.getIdAcc().equals(idAccount)){
-                        CHECK = true;
-                        break;
+                    listAllOrder.add(order);
+                    if (order.getStatusOrdered().equals("Serving...")) {
+                        lstOrder.add(order);
+                        if (order.getIdAcc().equals(idAccount)) {
+                            CHECK = true;
+                            idTable = order.getIdTable();
+                            break;
+                        }
                     }
                 }
-                if(CHECK){
+                if (CHECK) {
                     bindingDialog.btnAdd.setText("ADD TO YOUR ORDER");
-                }
-                else {
+                } else {
                     bindingDialog.btnAdd.setText("ADD TO NEW ORDER");
                 }
             }
@@ -343,13 +365,13 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
     @Override
     public int getItemCount() {
-        if(productItems != null){
+        if (productItems != null) {
             return productItems.size();
         }
         return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ItemProductsBinding binding;
 

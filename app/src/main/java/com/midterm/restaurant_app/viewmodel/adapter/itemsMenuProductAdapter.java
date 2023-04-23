@@ -2,46 +2,31 @@ package com.midterm.restaurant_app.viewmodel.adapter;
 
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.common.io.Files.getFileExtension;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.ObjectKey;
-import com.google.android.gms.fido.fido2.api.common.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,11 +42,9 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ItemMenuProductsBinding;
-import com.midterm.restaurant_app.databinding.ItemProductsBinding;
-import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForTableBinding;
 import com.midterm.restaurant_app.databinding.LayoutDialogAddFoodForMenuBinding;
 import com.midterm.restaurant_app.model.Product;
-import com.midterm.restaurant_app.view.ServeFragment;
+import com.midterm.restaurant_app.view.MenuFoodFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,32 +52,29 @@ import java.util.List;
 
 public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProductAdapter.ViewHolder> {
 
+    public static final int PICK_IMAGE_REQUESR_Product = 2;
+    public Uri uri_img_food;
+    public Product product;
+    public LayoutDialogAddFoodForMenuBinding bindingDialog;
     private Context context;
     private List<Product> productItems;
     private ItemMenuProductsBinding binding;
-    public Uri uri_img_food;
-
     private StorageReference storageReference;
     private FirebaseDatabase database;
     private DatabaseReference productRef;
-    public Product product;
-    public StorageTask storageTask_product;
-    public static final int PICK_IMAGE_REQUESR_Product = 2;
-
-    public LayoutDialogAddFoodForMenuBinding bindingDialog;
+    private MenuFoodFragment menuFoodFragment;
     private StorageTask storageTask;
 
     private PreferenceManager.OnActivityResultListener listener;
 
 
-
-    public itemsMenuProductAdapter(Context context) {
-
+    public itemsMenuProductAdapter(Context context, MenuFoodFragment menuFoodFragment) {
+        this.menuFoodFragment = menuFoodFragment;
         this.context = context;
         setupFirebaseListener();
     }
 
-    public void setData(List<Product> items){
+    public void setData(List<Product> items) {
         this.productItems = items;
         notifyDataSetChanged();
     }
@@ -132,7 +112,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product productItem = productItems.get(position);
-        if(productItem.getUrlProduct()!= ""){
+        if (productItem.getUrlProduct() != "") {
             Glide.with(this.context)
                     .load(productItem.getUrlProduct())
                     .centerCrop()
@@ -208,16 +188,21 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                 Picasso.get().load(uri_img_food).into(bindingDialog.imgFood);
                 dialog.show();
 
+                bindingDialog.imbClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
                 bindingDialog.ivUpload.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                                Intent intent = new Intent();
-                                intent.setType("image/*");
-                                intent.setAction(Intent.ACTION_GET_CONTENT);
-                                ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUESR_Product);
-
-                        Picasso.get().load(uri_img_food).into(bindingDialog.imgFood);
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        menuFoodFragment.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUESR_Product);
                     }
                 });
                 bindingDialog.btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -283,32 +268,6 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                                         }
                                     });
                         }
-
-                        //==========================================================//
-                        else{
-                            Product product = new Product(
-                                    "",
-                                    prod.getIdProduct(),
-                                    bindingDialog.edtName.getText().toString().trim(),
-                                    Double.parseDouble(bindingDialog.edtPrice.getText().toString().trim()),
-                                    bindingDialog.edtIngredient.getText().toString().trim(),
-                                    4);
-                            FirebaseDatabase.getInstance().getReference("Product")
-                                    .child(prod.getIdProduct())
-                                    .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            bindingDialog.progressBar.setVisibility(View.GONE);
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(getContext(), "Update Successfully !", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(getContext(), "Update Fail !", Toast.LENGTH_SHORT).show();
-                                            }
-                                            dialog.dismiss();
-                                        }
-                                    });
-                        }
-                        //==========================================================//
                         dialog.dismiss();
 
                     }
@@ -316,13 +275,22 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
             }
         });
     }
+
+    public void setUrl(Uri url){
+        this.uri_img_food = url;
+        Picasso.get().load(url).into(bindingDialog.imgFood);
+    }
+
+
+
     @Override
     public int getItemCount() {
-        if(productItems != null){
+        if (productItems != null) {
             return productItems.size();
         }
         return 0;
     }
+
 
     @SuppressLint("Range")
     private String getFileExtension(Uri uri) {
@@ -345,7 +313,6 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
     }
 
 
-
     public Context getContext() {
         return context;
     }
@@ -354,7 +321,7 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
         this.context = context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ItemMenuProductsBinding binding;
 

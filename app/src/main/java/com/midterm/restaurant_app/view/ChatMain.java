@@ -20,11 +20,7 @@ import java.util.ArrayList;
 
 public class ChatMain extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private Button btnAllMessages;
-    private Button btnRead;
-    private Button btnUnread;
     private FloatingActionButton btnBack;
-    private LinearLayout linearItemChat;
 
     ArrayList<Conversation> chatItemList;
 
@@ -39,7 +35,6 @@ public class ChatMain extends AppCompatActivity {
         chatItemList = new ArrayList<Conversation>();
         adapter = new ChatMainAdapter(chatItemList);
         recyclerView.setAdapter(adapter);
-//        chatItemList.add(new Conversation(getDrawable(R.drawable.baseline_person_24), "Nguyen Xuan Hung", "Latest Message"));
         adapter.notifyDataSetChanged();
 
         btnBack = findViewById(R.id.btnBackMessager);
