@@ -107,6 +107,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
             }
         });
+
     }
 
     private void updateStatus(Order order, boolean isChecked){
@@ -122,6 +123,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             databaseReference.child("statusOrdered").setValue("Serving...");
             setStatusTable(table,"1");
         }
+
     }
 
     private void setStatusTable(Table table,String status){
@@ -130,6 +132,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 .child(table.getIdTable())
                 .child("statusTB")
                 .setValue(status);
+
     }
 
     private Table getTableById(Order order){
@@ -141,6 +144,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         }
         return null;
     }
+
+
+
 
     @Override
 
@@ -155,4 +161,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             this.bindingOrder = binding;
         }
     }
+
+
 }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.MainActivity;
@@ -235,13 +237,51 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
             }
         });
     }
+    private void setTotalBillOrder(String orderId) {
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(orderId);
+        DatabaseReference detailOrderRef = FirebaseDatabase.getInstance().getReference("DetailOrder");
+        detailOrderRef.orderByChild("idOrder").equalTo(orderId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final double[] totalBill = {0};
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String productId = snapshot.child("idProduct").getValue(String.class);
+                    int quantity = snapshot.child("quantity").getValue(Integer.class);
 
+                    DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Product").child(productId);
+                    productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            double price = dataSnapshot.child("pricesProduct").getValue(Double.class);
+                            totalBill[0] += (price * quantity);
+                            orderRef.child("totalBill").setValue(totalBill[0]);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("Error", "setTotalBillOrder: " + databaseError.getMessage());
+                        }
+                    });
+                }
+                // Set total bill to 0 if there are no products in the order
+                if (totalBill[0] == 0) {
+                    orderRef.child("totalBill").setValue(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Error", "setTotalBillOrder: " + databaseError.getMessage());
+            }
+        });
+    }
     private void handleAddProductToOrder(Product product) {
         for (Order order : lstOrder) {
             if (order.getIdAcc().equals(idAccount) && order.getStatusOrdered().equals("Serving...")) {
                 DetailOrder detailOrder = new DetailOrder(createNewId("DO"), order.getIdOrder(), product.getIdProduct(), Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString().trim()), "Not Done");
 
                 FirebaseDatabase.getInstance().getReference("DetailOrder").child(createNewId("DO")).setValue(detailOrder);
+                setTotalBillOrder(order.getIdOrder());
                 break;
             }
         }
@@ -252,7 +292,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateTime = sdf.format(calendar.getTime());
         String idOrder = createNewId("Ord");
-        Order order = new Order(idOrder, idAccount, getIdTableByNameTable(selectedItem), "Serving...", 45, dateTime);
+        Order order = new Order(idOrder, idAccount, getIdTableByNameTable(selectedItem), "Serving...", product.getPricesProduct() * Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString()), dateTime);
         FirebaseDatabase.getInstance().getReference("Order").child(idOrder).setValue(order);
 
 
