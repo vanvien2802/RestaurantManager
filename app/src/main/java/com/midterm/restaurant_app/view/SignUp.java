@@ -28,6 +28,7 @@ import com.google.firebase.ktx.Firebase;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.ActivitySignUpBinding;
 import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.model.Conversation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,6 +168,12 @@ public class SignUp extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void autoAddConversation(String idAcc){
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        String id = databaseRef.child("Conversation").push().getKey();
+        databaseRef.child("Conversation").child(id).setValue(new Conversation(id, "",new ArrayList<>() , null));
     }
 
     private String idAccount() {

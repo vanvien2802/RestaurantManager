@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/saira_stencil_one"
         android:gravity="center"
         android:text="MENU"
         android:textColor="#fff

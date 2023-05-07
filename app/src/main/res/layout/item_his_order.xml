@@ -36,9 +36,9 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/bevan"
+                android:fontFamily="@font/saira_medium"
                 android:gravity="center|center_horizontal"
                 android:text="Name"
                 android:textColor="@color/black" />

@@ -9,14 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.midterm.restaurant_app.R;
+import com.midterm.restaurant_app.model.Message;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
-    private ArrayList<String> messages;
+    private List<Message> messages;
 
-    public ChatAdapter(ArrayList<String> messages) {
+    public ChatAdapter(List<Message> messages) {
         this.messages = messages;
     }
 
@@ -29,7 +30,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        holder.messageTextView.setText(messages.get(position));
+        holder.messageTextView.setText(messages.get(position).getContent());
     }
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder {
@@ -46,8 +47,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         return messages.size();
     }
 
-    public void addMessage(String message) {
-        messages.add(message);
+    public void setData(List<Message> messages){
+        this.messages = messages;
         notifyDataSetChanged();
     }
 }

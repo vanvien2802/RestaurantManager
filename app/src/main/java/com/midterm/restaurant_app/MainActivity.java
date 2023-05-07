@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.midterm.restaurant_app.databinding.ActivityMainBinding;
 import com.midterm.restaurant_app.model.Account;
+import com.midterm.restaurant_app.view.Chat;
 import com.midterm.restaurant_app.view.ChatMain;
 
 public class MainActivity extends AppCompatActivity {
@@ -96,7 +97,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawer(GravityCompat.START);
-                Intent intent = new Intent(MainActivity.this, ChatMain.class);
+                Intent intent;
+                if(accountSignIn.getIdRole() == 0){
+                    intent = new Intent(MainActivity.this, Chat.class);
+                }
+                else {
+                    intent = new Intent(MainActivity.this, ChatMain.class);
+                }
                 startActivity(intent);
             }
         });
