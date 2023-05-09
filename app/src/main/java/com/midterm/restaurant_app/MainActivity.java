@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout navHome;
     private LinearLayout navHis;
     private LinearLayout navAccount;
+    private LinearLayout linearRequest;
     private ActivityMainBinding mainBinding;
     private NavController navController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         GMAIL = getIntent().getStringExtra("GMAIL");
+        String pass = getIntent().getStringExtra("Pass");
 
         linearMenu = findViewById(R.id.linear_menu);
         linearAction = findViewById(R.id.linear_action);
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     accountSignIn = dataSnapshot.getValue(Account.class);
                     if(accountSignIn.getEmail().equals(gmail)){
+                        FirebaseDatabase.getInstance().getReference("Account").child(accountSignIn.getIdAcc()).child("password").setValue(pass);
                         if(accountSignIn.getIdRole() == 0){
                             linearAction.removeView(linearMenu);
                         }
@@ -88,6 +92,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        linearRequest = mainBinding.linearRequest;
+        linearRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
+                navController.navigate(R.id.alertRequest);
             }
         });
 

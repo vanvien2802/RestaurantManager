@@ -93,7 +93,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
 
         for (Map.Entry<String, Table> entry : tableHashMap.entrySet()) {
-            String s = order.getIdTable();
             if(order.getIdTable().equals(entry.getKey())){
                 holder.bindingOrder.tvNametable.setText(entry.getValue().getNameTable().toString());
             }

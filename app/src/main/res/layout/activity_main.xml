@@ -41,7 +41,7 @@
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawerLayout"
             android:layout_width="match_parent"
-            android:layout_height="580dp">
+            android:layout_height="678dp">
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/fragmentContainerView"
@@ -55,12 +55,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:navGraph="@navigation/app_navigation" />
-
+<!--                android:layout_gravity="start"-->
                 <com.google.android.material.navigation.NavigationView
                     android:id="@+id/navigationView"
+                    android:layout_gravity="start"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="start"
                     android:background="@color/green_bg"
                     android:fitsSystemWindows="true">
 
@@ -150,7 +150,7 @@
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_weight="0"
-                                                    app:srcCompat="@drawable/chat" />
+                                                    app:srcCompat="@drawable/ic_baseline_chat_24" />
 
                                                 <TextView
                                                     android:layout_width="wrap_content"
@@ -190,6 +190,7 @@
                                         </LinearLayout>
 
                                         <LinearLayout
+                                            android:id="@+id/linearRequest"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="20dp"
@@ -199,7 +200,7 @@
                                                     android:layout_width="50dp"
                                                     android:layout_height="50dp"
                                                     android:layout_weight="0"
-                                                    app:srcCompat="@drawable/ic_baseline_settings_24" />
+                                                    app:srcCompat="@drawable/ic_baseline_add_alert_24" />
 
                                                 <TextView
                                                     android:layout_width="wrap_content"
@@ -208,7 +209,7 @@
                                                     android:layout_weight="1"
                                                     android:fontFamily="@font/saira_medium"
                                                     android:gravity="center_vertical"
-                                                    android:text="Setting"
+                                                    android:text="Message"
                                                     android:textColor="#fff"
                                                     android:textSize="24dp" />
                                         </LinearLayout>
@@ -285,6 +286,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_gravity="bottom"
                     android:orientation="vertical">
 
                         <ImageView

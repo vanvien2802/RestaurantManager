@@ -1,6 +1,8 @@
 package com.midterm.restaurant_app.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerPopular;
     private RecyclerView recyclerFoods;
     private itemsProductAdapter itemsAdapter;
-    private FloatingActionButton flbtnLogout;
+    private itemsProductAdapter itemsAdapterPopular;
     private FragmentHomeBinding bindingHome;
     List<Product> lstProduct;
 
@@ -58,6 +60,7 @@ public class HomeFragment extends Fragment {
         Gmail = mainActivity.GMAIL;
 
         itemsAdapter = new itemsProductAdapter(view.getContext());
+        itemsAdapterPopular = new itemsProductAdapter(view.getContext());
 
         lstProduct = new ArrayList<>();
 
@@ -67,15 +70,64 @@ public class HomeFragment extends Fragment {
         productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
-                itemsAdapter.setData(products);
-                recyclerPopular.setAdapter(itemsAdapter);
+                List<Product> lstPro = new ArrayList<>();
+                for (Product product : products){
+                    if(product.getRateProduct() >=4){
+                        lstPro.add(product);
+                        itemsAdapterPopular.setData(lstPro);
+                        recyclerPopular.setAdapter(itemsAdapterPopular);
+                    }
+                }
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 3); // số 2 ở đây là số cột hiển thị
         recyclerFoods.setLayoutManager(gridLayoutManager);
+        productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> products) {
+                itemsAdapter.setData(products);
+                recyclerFoods.setAdapter(itemsAdapter);
+            }
+        });
 
-        recyclerFoods.setAdapter(itemsAdapter);
+        bindingHome.searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchText = s.toString().toLowerCase().trim();
+                filterProductListByName(searchText);
+            }
+
+            private List<Product> lstFilter;
+
+            private void filterProductListByName(String searchText) {
+                productViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(List<Product> products) {
+                        lstFilter = new ArrayList<>();
+                        for (Product product : products) {
+                            if (product.getNameProduct().toLowerCase().contains(searchText)) {
+                                if(product.getRateProduct() >=4){
+                                    lstFilter.add(product);
+                                    itemsAdapterPopular.setData(lstFilter);
+                                    recyclerPopular.setAdapter(itemsAdapterPopular);
+                                }
+                                else{
+                                    lstFilter.add(product);
+                                    itemsAdapter.setData(lstFilter);
+                                    recyclerFoods.setAdapter(itemsAdapter);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
     }
     @Override

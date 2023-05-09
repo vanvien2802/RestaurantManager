@@ -14,6 +14,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -41,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapter.ViewHolder> {
+public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapter.ViewHolder>{
 
     private Context context;
     private List<Product> productItems;
@@ -58,6 +62,8 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     private MainActivity mainActivity;
     private List<Order> listAllOrder;
     private String idTable;
+    private String spinnerSlected = "";
+    private List<Product> filteredData;
 
     public itemsProductAdapter(Context context) {
         this.context = context;
@@ -65,6 +71,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
 
     public void setData(List<Product> items) {
         this.productItems = items;
+        this.filteredData = items;
         notifyDataSetChanged();
     }
 
@@ -86,6 +93,13 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productItems.get(position);
         holder.binding.setProduct(productItems.get(position));
+
+        for(int i=0; i<product.getRateProduct();i++){
+            ImageView imageViewRate = new ImageView(context);
+            imageViewRate.setImageResource(R.drawable.ic_baseline_star_rate_24);
+            imageViewRate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            binding.linearRate.addView(imageViewRate);
+        }
 
         if (product.getUrlProduct() != "") {
             Glide.with(this.context)
@@ -221,8 +235,11 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                         if (bindingDialog.btnAdd.getText().equals("ADD TO NEW ORDER")) {
                             handleAddProductToNewOrder(product);
                             setStatusTable();
-                        } else {
+                        } else if (bindingDialog.btnAdd.getText().equals("ADD TO NEW ORDER")){
                             handleAddProductToOrder(product);
+                        }
+                        else {
+                            handleAddProductForCustomer(product);
                         }
                     }
 
@@ -230,14 +247,11 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                         FirebaseDatabase.getInstance().getReference("Table").child(tableSelect.getIdTable()).child("statusTB").setValue("1");
                     }
                 });
-                //Lấy list table
-                ServeFragment getlistTable = new ServeFragment();
-                ArrayList<String> tableNameList = new ArrayList<>();
                 dialog.show();
             }
         });
     }
-    private void setTotalBillOrder(String orderId) {
+    public void setTotalBillOrder(String orderId) {
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(orderId);
         DatabaseReference detailOrderRef = FirebaseDatabase.getInstance().getReference("DetailOrder");
         detailOrderRef.orderByChild("idOrder").equalTo(orderId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -253,7 +267,8 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             double price = dataSnapshot.child("pricesProduct").getValue(Double.class);
-                            totalBill[0] += (price * quantity);
+                                totalBill[0] += (price * quantity);
+
                             orderRef.child("totalBill").setValue(totalBill[0]);
                         }
 
@@ -284,6 +299,26 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                 setTotalBillOrder(order.getIdOrder());
                 break;
             }
+        }
+    }
+
+    private void handleAddProductForCustomer(Product product){
+        String idTable = "";
+        for (Table table : lstTable){
+            if(table.getNameTable().equals(selectedItem)){
+                idTable = table.getIdTable();
+                break;
+            }
+        }
+        for (Order order : lstOrder) {
+            if(order.getIdTable().equals(idTable))
+                if (order.getStatusOrdered().equals("Serving...")) {
+                    DetailOrder detailOrder = new DetailOrder(createNewId("DO"), order.getIdOrder(), product.getIdProduct(), Integer.parseInt(bindingDialog.txtNumberOfDishes.getText().toString().trim()), "Not Done");
+
+                    FirebaseDatabase.getInstance().getReference("DetailOrder").child(createNewId("DO")).setValue(detailOrder);
+                    setTotalBillOrder(order.getIdOrder());
+                    break;
+                }
         }
     }
 
@@ -389,10 +424,13 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                         }
                     }
                 }
-                if (CHECK) {
+                if (CHECK && account.getIdRole() == 0) {
                     bindingDialog.btnAdd.setText("ADD TO YOUR ORDER");
-                } else {
+                } else if (!CHECK && account.getIdRole() == 0){
                     bindingDialog.btnAdd.setText("ADD TO NEW ORDER");
+                }
+                else {
+                    bindingDialog.btnAdd.setText("ADD TO TABLE");
                 }
             }
 

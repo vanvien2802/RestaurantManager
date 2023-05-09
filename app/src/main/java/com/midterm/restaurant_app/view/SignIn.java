@@ -134,6 +134,7 @@ public class SignIn extends AppCompatActivity {
                             Intent intentToHome = new Intent(SignIn.this, MainActivity.class);
                             intentToHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intentToHome.putExtra("GMAIL", email);
+                            intentToHome.putExtra("Pass", binding.edtPass.getText().toString());
                             startActivity(intentToHome);
                         }
                         else{

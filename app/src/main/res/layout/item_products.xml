@@ -79,52 +79,18 @@
                         android:layout_weight="0"
                         android:fontFamily="@font/abril_fatface"
                         android:hint="20"
+                        android:text="@{product.getPricesProduct().toString()}"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
+                    android:id="@+id/linear_rate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="8dp"
                     android:gravity="center|right"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_baseline_star_rate_24" />
-
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_baseline_star_rate_24" />
-
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_baseline_star_rate_24" />
-
-                    <ImageView
-                        android:id="@+id/imageView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_baseline_star_rate_24" />
-
-                    <ImageView
-                        android:id="@+id/imageView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/ic_baseline_star_rate_24" />
                 </LinearLayout>
 
             </LinearLayout>

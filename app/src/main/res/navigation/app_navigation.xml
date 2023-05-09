@@ -83,4 +83,13 @@
             android:id="@+id/action_menuFoodFragment_to_homenav"
             app:destination="@id/homenav" />
     </fragment>
+    <fragment
+        android:id="@+id/alertRequest"
+        android:name="com.midterm.restaurant_app.view.AlertRequest"
+        android:label="fragment_alert_request"
+        tools:layout="@layout/fragment_alert_request" >
+        <action
+            android:id="@+id/action_alertFragment_to_homenav"
+            app:destination="@id/homenav" />
+    </fragment>
 </navigation>

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +38,7 @@ import com.midterm.restaurant_app.databinding.DialogRemoveFoodBinding;
 import com.midterm.restaurant_app.databinding.ItemDetailsOrderBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.DetailOrder;
+import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
 
@@ -54,11 +58,13 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
     private HashMap<String,Product> productHashMap;
     private CheckBox checkBox;
     private int status;
+    private Order order;
 
-    public ProductOrderAdapter(Context context,HashMap<String,Product> productHashMap, int status) {
+    public ProductOrderAdapter(Context context,HashMap<String,Product> productHashMap, int status,Order order) {
         this.context = context;
         this.productHashMap = productHashMap;
         this.status = status;
+        this.order = order;
     }
 
     public void setData(List<DetailOrder> items){
@@ -107,7 +113,7 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             });
         }
 
-        setImage(detailOrder);
+        setImageAndgetTotalBill(detailOrder);
 
         holder.bindingDetailsOrder.imRemove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,10 +124,11 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
     }
 
-    private void setImage(DetailOrder detailOrder){
+    private void setImageAndgetTotalBill(DetailOrder detailOrder){
         for (Map.Entry<String, Product> entry : productHashMap.entrySet()) {
             if(detailOrder.getIdProduct().equals(entry.getKey())){
                 bindingDetailsOrder.tvNameProduct.setText(entry.getValue().getNameProduct());
+                bindingDetailsOrder.tvCostFood.setText(entry.getValue().getPricesProduct().toString());
                 if(entry.getValue().getUrlProduct()!= ""){
                     Glide.with(context)
                             .load(entry.getValue().getUrlProduct())
@@ -186,7 +193,16 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
             public void onClick(View view) {
                 detailOrderViewModel.delete(detailOrder.getIdDetailOrder());
                 dialog.dismiss();
-                notifyDataSetChanged();
+                for (Map.Entry<String, Product> entry : productHashMap.entrySet()) {
+                    if(detailOrder.getIdProduct().equals(entry.getKey())){
+                        Double totalBill = order.getTotalBill() - detailOrder.getQuantity()* entry.getValue().getPricesProduct();
+                        FirebaseDatabase.getInstance().getReference("Order")
+                                .child(detailOrder.getIdOrder())
+                                .child("totalBill")
+                                .setValue(totalBill);
+                        notifyDataSetChanged();
+                    }
+                }
             }
         });
 
@@ -199,6 +215,10 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
 
         dialog.show();
     }
+
+//    private void updateTotal(){
+//
+//    }
 
 
     private void updateStatus(String idDetailOrder, boolean isChecked){

@@ -16,9 +16,11 @@ import android.view.ViewGroup;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentDetailHisOrderBinding;
 import com.midterm.restaurant_app.model.DetailOrder;
+import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
 import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
 
 import java.util.ArrayList;
@@ -95,9 +97,15 @@ public class HisDetailOrder extends Fragment {
                             if(idOrder.equals(detailOrder.getIdOrder())){
                                 hashMapProduct.put(detailOrder.getIdProduct(),product);
                                 lstDetailOrder.add(detailOrder);
-                                productOrderAdapter = new ProductOrderAdapter(view.getContext(),hashMapProduct,status);
-                                productOrderAdapter.setData(lstDetailOrder);
-                                recyclerListFoods.setAdapter(productOrderAdapter);
+                                OrderViewModel orderViewModel = new OrderViewModel();
+                                orderViewModel.getById(idOrder).observe(getViewLifecycleOwner(), new Observer<Order>() {
+                                    @Override
+                                    public void onChanged(Order order) {
+                                        productOrderAdapter = new ProductOrderAdapter(view.getContext(),hashMapProduct,status,order);
+                                        productOrderAdapter.setData(lstDetailOrder);
+                                        recyclerListFoods.setAdapter(productOrderAdapter);
+                                    }
+                                });
                             }
                         }
                     });
