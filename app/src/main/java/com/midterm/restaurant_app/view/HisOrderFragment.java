@@ -82,13 +82,15 @@ public class HisOrderFragment extends Fragment {
                                 if (account.getIdRole() == 1) {
                                     binding.tvTitle.setText("His Ordered");
                                     setAdapterDb();
+                                    recyclerHisOrder.setAdapter(hisOrderAdapter);
                                 } else {
                                     binding.tvTitle.setText("Your Ordered");
                                     if (order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Complete")) {
                                         setAdapterDb();
+                                        recyclerHisOrder.setAdapter(hisOrderAdapter);
                                     }
                                 }
-                                recyclerHisOrder.setAdapter(hisOrderAdapter);
+
                             }
 
                             private void setAdapterDb() {

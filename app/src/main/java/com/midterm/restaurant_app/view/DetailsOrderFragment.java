@@ -4,24 +4,32 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.FirebaseDatabase;
+import com.midterm.restaurant_app.MainActivity;
 import com.midterm.restaurant_app.R;
 import com.midterm.restaurant_app.databinding.FragmentDetailServeBinding;
+import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.model.DetailOrder;
 import com.midterm.restaurant_app.model.Order;
 import com.midterm.restaurant_app.model.Product;
+import com.midterm.restaurant_app.model.Table;
 import com.midterm.restaurant_app.viewmodel.adapter.ProductOrderAdapter;
 import com.midterm.restaurant_app.viewmodel.modelView.DetailOrderViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.OrderViewModel;
 import com.midterm.restaurant_app.viewmodel.modelView.ProductViewModel;
+import com.midterm.restaurant_app.viewmodel.modelView.TableViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +43,13 @@ public class DetailsOrderFragment extends Fragment {
     private List<DetailOrder> lstDetailOrder;
     private HashMap<String, Product> hashMapProduct;
     private ProductViewModel productViewModel;
+    private TableViewModel tableViewModel;
 
     private FragmentDetailServeBinding bindingDetailServe;
     private String idOrder;
     private int status;
+    private String idTable;
+    private Table table;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,7 @@ public class DetailsOrderFragment extends Fragment {
         if (bundle != null) {
             idOrder = bundle.getString("idOrder").toString().split(" ")[0];
             status = Integer.parseInt(bundle.getString("idOrder").toString().split(" ")[1]);
+            idTable = bundle.getString("idOrder").toString().split(" ")[2];
         }
 
     }
@@ -95,6 +107,49 @@ public class DetailsOrderFragment extends Fragment {
                         }
                     });
                 }
+            }
+        });
+
+        MainActivity mainActivity = new MainActivity();
+        Account account = mainActivity.accountSignIn;
+        ConstraintLayout constraintLayout = bindingDetailServe.constraintDetailOrder;
+        if(account.getIdRole()==0){
+            constraintLayout.removeView(bindingDetailServe.btnTranfer);
+        }
+
+        tableViewModel = new TableViewModel();
+        tableViewModel.getById(idTable).observe(getViewLifecycleOwner(), new Observer<Table>() {
+            @Override
+            public void onChanged(Table table) {
+                if(table.getIs_tranfer_foods()==0)
+                {
+                    bindingDetailServe.btnTranfer.setText("YÊU CẦU VẬN CHUYỂN");
+                }
+                else if(table.getIs_tranfer_foods()==1)
+                {
+                    bindingDetailServe.btnTranfer.setText("VẬN CHUYỂN");
+                }
+                else if(table.getIs_tranfer_foods()==2)
+                {
+                    bindingDetailServe.btnTranfer.setText("ĐANG VẬN CHUYỂN");
+                }
+            }
+        });
+
+
+        bindingDetailServe.btnTranfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    if(bindingDetailServe.btnTranfer.getText().equals("YÊU CẦU VẬN CHUYỂN")){
+                        bindingDetailServe.btnTranfer.setText("VẬN CHUYỂN");
+                        FirebaseDatabase.getInstance().getReference("Table").child(idTable).child("is_tranfer_foods").setValue(1);
+                    }
+                    else if(bindingDetailServe.btnTranfer.getText().equals("VẬN CHUYỂN")){
+                        bindingDetailServe.btnTranfer.setText("ĐANG VẬN CHUYỂN");
+                        FirebaseDatabase.getInstance().getReference("Table").child(idTable).child("is_tranfer_foods").setValue(2);
+                    }
+
             }
         });
     }

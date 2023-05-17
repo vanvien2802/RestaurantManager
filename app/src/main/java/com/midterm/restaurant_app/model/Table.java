@@ -8,18 +8,20 @@ public class Table {
     private String time_rq;
     private int capacity;
     private int floor;
+    private int is_tranfer_foods;
 
-    public Table(String idTable, String nameTable, String statusTb, String status_rq, String time_rq, int capacity, int floor) {
+    public Table() {
+    }
+
+    public Table(String idTable, String nameTable, String statusTB, String status_rq, String time_rq, int capacity, int floor, int is_tranfer_foods) {
         this.idTable = idTable;
         this.nameTable = nameTable;
-        this.statusTB = statusTb;
+        this.statusTB = statusTB;
         this.status_rq = status_rq;
         this.time_rq = time_rq;
         this.capacity = capacity;
         this.floor = floor;
-    }
-
-    public Table() {
+        this.is_tranfer_foods = is_tranfer_foods;
     }
 
     public String getIdTable() {
@@ -38,12 +40,12 @@ public class Table {
         this.nameTable = nameTable;
     }
 
-    public String getStatusTb() {
+    public String getStatusTB() {
         return statusTB;
     }
 
-    public void setStatusTb(String statusTb) {
-        this.statusTB = statusTb;
+    public void setStatusTB(String statusTB) {
+        this.statusTB = statusTB;
     }
 
     public String getStatus_rq() {
@@ -76,5 +78,13 @@ public class Table {
 
     public void setFloor(int floor) {
         this.floor = floor;
+    }
+
+    public int getIs_tranfer_foods() {
+        return is_tranfer_foods;
+    }
+
+    public void setIs_tranfer_foods(int is_tranfer_foods) {
+        this.is_tranfer_foods = is_tranfer_foods;
     }
 }

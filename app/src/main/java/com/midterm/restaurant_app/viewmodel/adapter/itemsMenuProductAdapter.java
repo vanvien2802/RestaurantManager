@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -267,6 +268,21 @@ public class itemsMenuProductAdapter extends RecyclerView.Adapter<itemsMenuProdu
                                             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
+                        }
+                        else{
+                            String nameUpdate = bindingDialog.edtName.getText().toString();
+                            Double priceUpdate = Double.parseDouble(bindingDialog.edtPrice.getText().toString().trim());
+                            String ingredientUpdate = bindingDialog.edtIngredient.getText().toString();
+                            if(!nameUpdate.equals(""))
+                            {
+                                FirebaseDatabase.getInstance().getReference("Product").child(prod.getIdProduct()).child("nameProduct").setValue(nameUpdate);
+                            }
+                            if(!priceUpdate.equals("")){
+                                FirebaseDatabase.getInstance().getReference("Product").child(prod.getIdProduct()).child("pricesProduct").setValue(priceUpdate);
+                            }
+                            if(!ingredientUpdate.equals("")){
+                                FirebaseDatabase.getInstance().getReference("Product").child(prod.getIdProduct()).child("detailProduct").setValue(ingredientUpdate);
+                            }
                         }
                         dialog.dismiss();
 

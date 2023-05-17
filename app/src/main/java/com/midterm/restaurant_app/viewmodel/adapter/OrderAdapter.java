@@ -102,7 +102,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("idOrder", order.getIdOrder().toString() + " 0");
+                bundle.putString("idOrder", order.getIdOrder().toString() + " 0 " + order.getIdTable());
                 Navigation.findNavController(view).navigate(R.id.action_serveFragment_to_detailsOrderFragment, bundle);
             }
         });

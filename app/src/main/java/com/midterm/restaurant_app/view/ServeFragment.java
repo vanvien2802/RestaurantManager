@@ -72,14 +72,15 @@ public class ServeFragment extends Fragment {
                                 if(account.getIdRole() == 1){
                                     binding.tvTitle.setText("All Order");
                                     setAdapterOrder();
+                                    recyclerAllTable.setAdapter(orderAdapter);
                                 }
                                 else {
                                     binding.tvTitle.setText("Your Order");
                                     if(order.getIdAcc().equals(account.getIdAcc()) && order.getStatusOrdered().equals("Serving...")){
                                         setAdapterOrder();
+                                        recyclerAllTable.setAdapter(orderAdapter);
                                     }
                                 }
-                                recyclerAllTable.setAdapter(orderAdapter);
                             }
 
                             private void setAdapterOrder() {

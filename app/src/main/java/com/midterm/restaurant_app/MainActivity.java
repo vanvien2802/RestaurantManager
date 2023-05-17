@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         String pass = getIntent().getStringExtra("Pass");
 
         linearMenu = findViewById(R.id.linear_menu);
+        linearRequest = findViewById(R.id.linearRequest);
         linearAction = findViewById(R.id.linear_action);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Account");
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseDatabase.getInstance().getReference("Account").child(accountSignIn.getIdAcc()).child("password").setValue(pass);
                         if(accountSignIn.getIdRole() == 0){
                             linearAction.removeView(linearMenu);
+                            linearAction.removeView(linearRequest);
                         }
                         if(accountSignIn.getUrlAvatar()!= null){
                             ImageView imageView = mainBinding.myImageView;
