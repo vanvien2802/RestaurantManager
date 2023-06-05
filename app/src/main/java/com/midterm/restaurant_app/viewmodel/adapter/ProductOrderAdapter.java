@@ -97,6 +97,17 @@ public class ProductOrderAdapter extends RecyclerView.Adapter<ProductOrderAdapte
         }
         else checkBox.setChecked(false);
 
+        if(checkBox.isChecked()) {
+            bindingDetailsOrder.imRemove.setEnabled(false);
+            bindingDetailsOrder.imRemove.setClickable(false);
+            bindingDetailsOrder.imRemove.setAlpha(0.5f);
+        }
+        else {
+            bindingDetailsOrder.imRemove.setEnabled(true);
+            bindingDetailsOrder.imRemove.setClickable(true);
+            bindingDetailsOrder.imRemove.setAlpha(1f);
+        }
+
         if(status == 1){
             bindingDetailsOrder.llTableitem.removeView(bindingDetailsOrder.constrainAction);
         }

@@ -66,9 +66,11 @@ public class AlertRequest extends Fragment {
                 lstRequest = new ArrayList<>();
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     Request request = childSnapshot.getValue(Request.class);
-                    lstRequest.add(request);
-                    itemsAdapter.setData(lstRequest);
-                    recyclerRequest.setAdapter(itemsAdapter);
+                    if(!request.isResolve()){
+                        lstRequest.add(0, request); // Thêm dữ liệu vào đầu danh sách
+                        itemsAdapter.setData(lstRequest);
+                        recyclerRequest.setAdapter(itemsAdapter);
+                    }
                 }
             }
 
@@ -77,13 +79,6 @@ public class AlertRequest extends Fragment {
 
             }
         });
-
-//        itemsAdapter.setData(products);
-//        recyclerRequest.setAdapter(itemsAdapter);
-
-
-
-
     }
 
     @Override

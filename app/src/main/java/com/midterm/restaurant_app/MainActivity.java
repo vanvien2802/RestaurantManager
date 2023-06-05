@@ -25,6 +25,8 @@ import com.midterm.restaurant_app.databinding.ActivityMainBinding;
 import com.midterm.restaurant_app.model.Account;
 import com.midterm.restaurant_app.view.ChatMain;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
     public static String GMAIL;
     public static Account accountSignIn;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout linearMenu;
     private LinearLayout linearAction;
     private ImageView ivSideMenu;
-    private LinearLayout navChat, navMenu;
+    private LinearLayout navChat, navMenu; 
     private LinearLayout navSer;
     private LinearLayout navHome;
     private LinearLayout navHis;
@@ -72,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
                             linearAction.removeView(linearRequest);
                         }
                         if(accountSignIn.getUrlAvatar()!= null){
-                            ImageView imageView = mainBinding.myImageView;
-                            ImageView imageView1 = mainBinding.myAvatar;
+                            CircleImageView imageView = mainBinding.myImageView;
+                            CircleImageView imageView1 = mainBinding.myAvatar;
                             mainBinding.tvName.setText(accountSignIn.getNameUser());
                             mainBinding.tvGmail.setText(accountSignIn.getEmail());
                             setImageAvatar(imageView);
@@ -104,16 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 navController = Navigation.findNavController(MainActivity.this, R.id.fragmentContainerView);
                 navController.navigate(R.id.alertRequest);
-            }
-        });
-
-        navChat = findViewById(R.id.linear_chat);
-        navChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-                Intent intent = new Intent(MainActivity.this, ChatMain.class);
-                startActivity(intent);
             }
         });
 

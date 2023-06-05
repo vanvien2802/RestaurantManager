@@ -241,6 +241,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                         else {
                             handleAddProductForCustomer(product);
                         }
+                        dialog.dismiss();
                     }
 
                     private void setStatusTable() {

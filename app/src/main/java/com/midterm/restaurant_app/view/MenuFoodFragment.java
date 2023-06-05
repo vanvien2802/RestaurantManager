@@ -181,6 +181,13 @@ public class MenuFoodFragment extends Fragment {
             }
         });
 
+        bindingMenu.imbClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         bindingMenu.btnCancel.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -194,6 +201,7 @@ public class MenuFoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AddProduct();
+                dialog.dismiss();
             }
         });
         dialog.show();
