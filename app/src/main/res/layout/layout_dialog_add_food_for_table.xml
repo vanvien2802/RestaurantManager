@@ -24,7 +24,7 @@
             android:gravity="center"
             android:padding="12dp"
             android:hint="Black Burger"
-            android:text="@{product.getNameProduct()}"
+            android:text="@{product.getNameProduct().substring(0, 1).toUpperCase() + product.getNameProduct().substring(1);}"
             android:textColor="@color/black"
             android:textSize="30sp" />
 

@@ -161,15 +161,15 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                             Table table = childSnapshot.getValue(Table.class);
                             lstTable.add(table);
                             if (account.getIdRole() == 0) {
-                                    if (bindingDialog.btnAdd.getText().equals("ADD TO YOUR ORDER")) {
-                                        if (table.getIdTable().equals(idTable)) {
-                                            setAdapterSpiner(table);
-                                            break;
-                                        }
-                                    } else {
-                                        if (!checkTableIsUse(table))
-                                            setAdapterSpiner(table);
+                                if (bindingDialog.btnAdd.getText().equals("ADD TO YOUR ORDER")) {
+                                    if (table.getIdTable().equals(idTable)) {
+                                        setAdapterSpiner(table);
+                                        break;
                                     }
+                                } else {
+                                    if (!checkTableIsUse(table))
+                                        setAdapterSpiner(table);
+                                }
                             } else setAdapterSpiner(table);
 
                         }
@@ -268,7 +268,7 @@ public class itemsProductAdapter extends RecyclerView.Adapter<itemsProductAdapte
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             double price = dataSnapshot.child("pricesProduct").getValue(Double.class);
-                                totalBill[0] += (price * quantity);
+                            totalBill[0] += (price * quantity);
 
                             orderRef.child("totalBill").setValue(totalBill[0]);
                         }
